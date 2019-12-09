@@ -7,7 +7,7 @@
 <!--[![codecov](https://codecov.io/gh/VladimirZhdanov/job4j/branch/master/graph/badge.svg)](https://codecov.io/gh/VladimirZhdanov/job4j)-->
 
 # Репозиторий Александра Пименова.
-Репозиторий Александра Пименова java-lessons.
+Репозиторий Александра Пименова javalessons.
 
 Разбираем примеры и уроки по Java. Некоторые из книг, некоторые из видеоуроков.
 
