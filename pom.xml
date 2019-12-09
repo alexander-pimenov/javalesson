@@ -7,6 +7,22 @@
     <groupId>ru.pimalex1978</groupId>
     <artifactId>java-lessons</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>chapter_enum</module>
+        <module>chapter_basepatterns</module>
+        <module>chapter_algorithms</module>
+        <module>chapter_exceptions</module>
+        <module>chapter_lambda</module>
+        <module>chapter_oop</module>
+        <module>chapter_stream</module>
+        <module>chapter_string</module>
+        <module>chapter_files</module>
+        <module>chapter_dropbox</module>
+        <module>chapter_interface</module>
+        <module>chapter_swing</module>
+        <module>chapter_base_of_java</module>
+        <module>chapter_samples_code</module>
+    </modules>
     <packaging>pom</packaging>
 
 
