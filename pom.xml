@@ -22,6 +22,9 @@
         <module>chapter_swing</module>
         <module>chapter_base_of_java</module>
         <module>chapter_samples_code</module>
+        <module>chapter_xml</module>
+        <module>chapter_multithreading</module>
+        <module>chapter_reflection</module>
     </modules>
     <packaging>pom</packaging>
 
