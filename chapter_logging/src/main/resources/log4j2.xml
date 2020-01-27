@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Чтобы изменить поведение логгера по умолчанию, нам нужно сконфигурировать свой файловый аппендер-->
+<Configuration status="info">
+    <Appenders>
+        <File name="MyFileAppender" fileName="C:\test\testlog.txt" immediateFlush="false" append="true">
+            <PatternLayout pattern="%d{yyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </File>
+    </Appenders>
+    <category name="ru.pimalex1978.example1">
+        <!--all, trace, debug, info, warn, error, fatal-->
+        <!--        <priority value="info"/>-->
+        <!--        <appender-ref ref="MyFileAppender"/>-->
+    </category>
+
+    <!-- Здесь мы указываем уровень логгирования (root level).
+    <Loggers>...</Loggers>
+    У нас установлен уровень INFO <Root level="INFO">:
+    то есть, все сообщения уровней выше INFO (trace, debug, info, warn, error)
+    в лог не попадут. Можно поэксперементировать. -->
+    <Loggers>
+        <Root level="info">
+            <AppenderRef ref="MyFileAppender"/>
+        </Root>
+    </Loggers>
+</Configuration>
+

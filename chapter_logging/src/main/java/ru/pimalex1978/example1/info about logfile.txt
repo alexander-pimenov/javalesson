@@ -1,0 +1,103 @@
+Объяснения нашего конфигурационного лог-файла.
+https://javarush.ru/groups/posts/2293-zachem-nuzhno-logirovanie
+================================================================
+
+ОБЯЗАТЕЛЬНО ФАЙЛ НАЗЫВАЕМ log4j2.xml !!! Не log4j.xml, а log4j2.xml !!!
+иначе не работает (((((
+================================================================
+
+<Configuration status="INFO">
+Это так называемый status-logger. Он не имеет отношения к нашему логгеру и используется во внутренних процессах log4j.
+Можно установить status=”TRACE” вместо status=”INFO”, и в КОНСОЛЬ будет выводиться вся информация о внутренней
+работе log4j (status-logger выводит данные именно  в консоль, даже если наш аппендер для программы будет файловым) !!!
+Так и есть, проверял. В файл записываются только наши 3 сообщения, а в консоль ВЕСЬ стектрейс!!!
+=================================================================
+
+Тут мы создаем наш аппендер.
+<Appenders>...</Appenders>
+
+Тег <File> указывает что он будет файловым.
+
+name="MyFileAppender" — имя нашего аппендера.
+
+fileName="C:\test\testlog.txt" — путь к лог-файлу, куда будут записываться все данные.
+
+append="true" — нужно ли дозаписывать ли данные в конец файла. В нашем случае так и будет.
+Если установить значение false, при каждом новом запуске программы старое содержимое лога будет удаляться.
+
+<PatternLayout pattern="%d{yyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/> — это настройки
+форматирования. Здесь мы с помощью регулярных выражений можем настраивать формат текста в нашем логе.
+=================================================================
+
+Здесь мы указываем уровень логгирования (root level).
+<Loggers>...</Loggers>
+
+У нас установлен уровень INFO <Root level="INFO">:
+то есть, все сообщения уровней выше INFO (trace, debug, info, warn, error)
+в лог не попадут.
+
+
+У нас в программе будет 3 сообщения: одно INFO, одно WARN и одно ERROR:
+которые обрабатываются логгером:
+LOGGER.info("Начало работы программы!!!");
+LOGGER.warn("Внимание! программа пытается разделить одно число на другое");
+LOGGER.error("Ошибка! Произошло деление на ноль!", x);
+
+С текущей конфигурацией все 3 сообщения будут записаны в лог.
+*****
+2020-01-27 20:29:30.240 [main] INFO  ru.pimalex1978.example1.MyTestClass - Начало работы программы!!!
+2020-01-27 20:29:30.246 [main] WARN  ru.pimalex1978.example1.MyTestClass - Внимание! программа пытается разделить одно число на другое
+2020-01-27 20:29:30.247 [main] ERROR ru.pimalex1978.example1.MyTestClass - Ошибка! Произошло деление на ноль!
+java.lang.ArithmeticException: / by zero
+	at ru.pimalex1978.example1.MyTestClass.main(MyTestClass.java:20) [classes/:?]
+*****
+
+Если ты поменяешь значение root level на ERROR, в лог попадет только последнее сообщение из LOGGER.error().
+Имеем такое сообщение:
+*****
+2020-01-27 20:25:16.799 [main] ERROR ru.pimalex1978.example1.MyTestClass - Ошибка! Произошло деление на ноль!
+java.lang.ArithmeticException: / by zero
+	at ru.pimalex1978.example1.MyTestClass.main(MyTestClass.java:20) [classes/:?]
+*****
+
+Если ты поменяешь значение root level на WARN, в лог попадет и LOGGER.warn() и последнее сообщение из LOGGER.error().
+*****
+2020-01-27 20:27:14.221 [main] WARN  ru.pimalex1978.example1.MyTestClass - Внимание! программа пытается разделить одно число на другое
+2020-01-27 20:27:14.233 [main] ERROR ru.pimalex1978.example1.MyTestClass - Ошибка! Произошло деление на ноль!
+java.lang.ArithmeticException: / by zero
+	at ru.pimalex1978.example1.MyTestClass.main(MyTestClass.java:20) [classes/:?]
+*****
+
+Кроме того, сюда же помещается ссылка на аппендер. Чтобы создать такую ссылку, нужно внутри тега <Root>
+создать тег <ApprenderRef> и добавить ему параметр ref=”имя твоего аппендера”.
+
+Имя аппендера мы создали вот тут:
+
+<File name="MyFileAppender"
+
+В теге <category>...</category> указан пакет, в котором нужно искать класс файл где прописан логгер.
+У нас это <category name="ru.pimalex1978.example1">
+
+#################################################################
+Теперь сам код конфигурационного лог-файла:
+#################################################################
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Чтобы изменить поведение логгера по умолчанию, нам нужно сконфигурировать свой файловый аппендер-->
+<Configuration status="INFO">
+    <Appenders>
+        <File name="MyFileAppender" fileName="C:\test\testlog.txt" immediateFlush="false" append="true">
+            <PatternLayout pattern="%d{yyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </File>
+    </Appenders>
+    <category name="ru.pimalex1978.example1">
+        <!--all, trace, debug, info, warn, error, fatal - уровни логгирования !!!-->
+<!--        <priority value="info"/>-->
+<!--        <appender-ref ref="MyFileAppender"/>-->
+    </category>
+
+    <Loggers>
+        <Root level="INFO">
+            <AppenderRef ref="MyFileAppender"/>
+        </Root>
+    </Loggers>
+</Configuration>
