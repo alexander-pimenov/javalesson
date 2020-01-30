@@ -1,0 +1,140 @@
+Конфигурационные файлы называются log4j.properties и log4j.xml.
+При инициализации Log4J они ищутся в classpath, сначала xml-файл, потом properties-файл.
+Так что при наличии обоих рабочим будет именно xml.
+
+Итак, простейшая конфигурация в XML, лог будет выводиться в консоль:
+
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration debug="false" xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+    <appender name="ConsoleAppender" class="org.apache.log4j.ConsoleAppender">
+        <param name="Encoding" value="Cp866"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{ISO8601} [%-5p][%-16.16t][%32.32c] - %m%n" />
+        </layout>
+    </appender>
+
+    <root>
+        <priority value="ERROR"/>
+        <appender-ref ref="ConsoleAppender" />
+    </root>
+
+</log4j:configuration>
+
+Что тут сделано:
+
+Создан аппендер с именем ConsoleAppender и кодировкой Cp866.
+Лог выводится в консоль, т.к. установлен класс аппендера class="org.apache.log4j.ConsoleAppender">.
+Имя аппендера может быть различным name="ConsoleAppender"
+У созданного аппендера установлен компоновщик PatternLayout с шаблоном %d{ISO8601} [%-5p][%-16.16t][%32.32c] - %m%n
+Сконфигурирован корневой логгер, использующий созданный аппендер и имеющий уровень ERROR.
+
+Комментарии:
+
+- В случае XML-конфигурации порядок важен – он диктуется DTD.
+- В данном примере в явном виде указано, что внутренний лог Log4J отключен – свойство log4j.debug и атрибут debug
+у корневого элемента в XML имеют значение false. Иногда необходимо посмотреть на работу самого Log4J, в этом случае
+данное свойство просто выставляется в true.
+- XML естественнен – он изначально имеет древесную структуру и вложенность свойств в нем видна с первого взгляда.
+- Как уже упоминалось, логгеры с аппендерами связаны отношением "многие ко многим", соответственно, у логгера может
+быть указано несколько аппендеров. В XML просто повторяется тег appender-ref с соответствующим именем аппендера
+(добавляем FileAppender):
+
+<root>
+    <priority value="ERROR"/>
+    <appender-ref ref="ConsoleAppender" />
+    <appender-ref ref="FileAppender" />
+</root>
+
+В данном примере установлена кодировка консоли – Cp866. Эта кодировка является стандартной только для Windows.
+В *NIX необходимо устанавливать кодировку, которая поддерживается системой.
+Чаще всего это KOI8-R или UTF-8. Последняя, на мой взгляд, предпочтительнее.
+
+Теперь сконфигурируем что-нибудь посложнее.
+Консоль уберем, добавим вывод в несколько файлов, для разных категорий и с разными уровнями.
+
+В XML:
+
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration debug="false" xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+    <appender name="bulk" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="bulk.log"/>
+        <param name="Append" value="true"/>
+        <param name="DatePattern" value="'.'yyyy-MM-dd'.log'"/>
+        <param name="Encoding" value="UTF-8"/>
+        <layout class="org.apache.log4j.EnhancedPatternLayout">
+            <param name="ConversionPattern" value="%d{ISO8601} [%-5p][%-16.16t][%30c] - %m%n"/>
+        </layout>
+    </appender>
+
+    <appender name="application" class="org.apache.log4j.RollingFileAppender">
+        <param name="File" value="application.log"/>
+        <param name="MaxFileSize" value="100MB"/>
+        <param name="MaxBackupIndex" value="10"/>
+        <param name="Encoding" value="UTF-8"/>
+        <layout class="org.apache.log4j.EnhancedPatternLayout">
+            <param name="ConversionPattern" value="%d{ISO8601} [%-5p][%-16.16t][%30c{-2}] - %m%n"/>
+        </layout>
+    </appender>
+
+    <appender name="orm" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="orm.log"/>
+        <param name="DatePattern" value="'.'yyyy-MM-dd'.log'"/>
+        <param name="Encoding" value="UTF-8"/>
+        <layout class="org.apache.log4j.TTCCLayout">
+            <param name="DateFormat" value="ABSOLUTE"/>
+            <param name="ContextPrinting" value="false"/>
+        </layout>
+    </appender>
+
+    <logger name="ru.skipy">
+        <level value="INFO"/>
+        <appender-ref ref="application"/>
+    </logger>
+
+    <logger name="org.hibernate" additivity="false">
+        <level value="WARN"/>
+        <appender-ref ref="orm"/>
+    </logger>
+
+    <root>
+        <priority value="WARN"/>
+        <appender-ref ref="bulk"/>
+    </root>
+
+</log4j:configuration>
+
+Что тут сделано:
+
+Создано три аппендера – bulk, application и orm. Они выводят сообщения в разные файлы, в разных форматах.
+Например, у application при выводе обрезаются два начальных элемента имени категории.
+Сконфигурированы логгеры – ru.skipy выводится в application, org.hibernate – в orm. У org.hibernate флаг additivity
+установлен в false.
+Сконфигурирован корневой логгер, использующий аппендер bulk и имеющий уровень WARN.
+Комментарии:
+
+Обратите внимание, как выставляется флаг additivity в случае файла свойств и в XML.
+Это как раз пример той неочевидности, из-за которой я предпочитаю XML – там принадлежность этого свойства
+не вызывает сомнений.
+
+Перевожу данную конфигурацию на русский язык.
+
+Все сообщения из своего приложения – имя категории начинается на ru.skipy – я хочу выводить в файл application.log.
+Именно поэтому в аппендере я могу обрезать первые две части имени категории – они всегда будут ru.skipy,
+и мне незачем загромождать лог ненужной информацией.
+Раз в сутки я хочу создавать новый файл, для удобства анализа и архивации.
+Все сообщения от всего исполняемого кода я хочу выводить в bulk.log. Этот файл я буду обрезать по размеру.
+Сюда же будут попадать и сообщения от моего кода, т.к. аппендер унаследован от корня.
+Это, в общем-то, логично – помимо анализа работы собственно моего кода мне необходимо смотреть на все приложение
+в целом. Уровень всех сообщений я выставляю в WARN при конфигурации корневого логгера, он будет действовать на все
+сообщения, кроме моих (у них используется сконфигурированный для ru.skipy уровень INFO).
+Временами мне необходимо смотреть, что происходит при работе с базой – какие запросы генерируются, какие результаты
+возвращаются. При этом будет использоваться уровень DEBUG, т.е. информации будет очень много. Чтобы она не
+загромождала основной лог, я выставляю флаг additivity в false. По умолчанию уровень выставлен в WARN,
+что минимизирует временные потери на лог.
+

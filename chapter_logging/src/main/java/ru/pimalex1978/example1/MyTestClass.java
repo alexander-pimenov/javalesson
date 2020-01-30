@@ -8,6 +8,7 @@ package ru.pimalex1978.example1;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 
+
 public class MyTestClass {
     public static final Logger LOGGER = LoggerFactory.getLogger(MyTestClass.class.getName());
 
@@ -25,5 +26,6 @@ public class MyTestClass {
             //Смотри файл C:\test\testlog.txt
             LOGGER.error("Ошибка! Произошло деление на ноль!", x);
         }
+
     }
 }
