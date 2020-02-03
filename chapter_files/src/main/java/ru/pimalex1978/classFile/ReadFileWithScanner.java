@@ -44,8 +44,21 @@ public class ReadFileWithScanner {
 
         //запишем данные в этот же файл но на другой строке
         FileWriter fw = new FileWriter(file.getAbsoluteFile(), true);
+
         BufferedWriter bw = new BufferedWriter(fw);
         bw.write("\n" + sum);
+
+        //А также запищем ответ в другой файл
+        File fileWrite = new File("c:\\test\\test_sum_new.txt");
+        // Если файл не существует, то создадим его
+        if (!fileWrite.exists())
+            fileWrite.createNewFile();
+        FileWriter fw2 = new FileWriter(fileWrite.getAbsoluteFile(), true);
+        BufferedWriter bw2 = new BufferedWriter(fw2);
+        bw2.write(sum + "\n");
+
+
         bw.close();
+        bw2.close();
     }
 }
