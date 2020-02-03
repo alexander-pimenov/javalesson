@@ -9,6 +9,8 @@ import java.util.Scanner;
 
 /**
  * Для считывания данных из CSV файла мы можем использовать Java класс Scanner.
+ * Если вам нужно считывать с файла, опираясь на разделитель, то желательно использовать класс Scanner.
+ * У нас в файле .csv есть разделитель ';'
  */
 
 public class ReadCSVWithScanner {
@@ -25,8 +27,11 @@ public class ReadCSVWithScanner {
 
         while ((line = reader.readLine()) != null) {
             Employee emp = new Employee();
+            //считаем строку
             scanner = new Scanner(line);
+            //укажем разделитель в строке
             scanner.useDelimiter(";");
+            //переберем все эелементы строки разделенные разделителем
             while (scanner.hasNext()) {
                 String data = scanner.next();
                 if (index == 0)
