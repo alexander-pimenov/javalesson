@@ -27,6 +27,7 @@
         <module>chapter_reflection</module>
         <module>chapter_logging</module>
         <module>chapter_array</module>
+        <module>chapter_date</module>
     </modules>
     <packaging>pom</packaging>
 

@@ -29,6 +29,9 @@ public class JoinArray2 {
 
     }
 
+    /*
+    * Обобщенный метод для соединения нескольких массивов в один
+    */
     private static <T> T[] joinArrayGeneric(T[]... arrays) {
         int length = 0;
         for (T[] array : arrays) {
@@ -36,7 +39,7 @@ public class JoinArray2 {
         }
 
         //T[] result = new T[length];
-        //Используем Рефлексию
+        //Используем Рефлексию, чтобы создать новый массив
         @SuppressWarnings("unchecked")
         final T[] result = (T[]) Array.newInstance(arrays[0].getClass().getComponentType(), length);
 
@@ -45,10 +48,12 @@ public class JoinArray2 {
             System.arraycopy(array, 0, result, offset, array.length);
             offset += array.length;
         }
-
         return result;
     }
 
+    /*
+     * Метод для соединения нескольких int[] массивов в один
+     */
     private static int[] joinArray(int[]... arrays) {
         int length = 0;
         for (int[] array : arrays) {
