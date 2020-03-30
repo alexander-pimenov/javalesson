@@ -6,6 +6,12 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Random;
+/**
+ * Быстрый старт с Java: «лопни шарик»
+ * https://geekbrains.ru/posts/bystryj-start-s-java-lopni-sharik?utm_campaign=bystryj-start-s-java-lopni-sharik&utm_source=vk.com&utm_medium=internal
+ *
+ */
+
 
 public class RandomBalls extends JFrame {
     private final String TITLE_OF_PROGRAM = "Random balls";

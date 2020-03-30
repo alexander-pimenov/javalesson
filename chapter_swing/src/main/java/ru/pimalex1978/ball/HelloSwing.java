@@ -22,7 +22,7 @@ public class HelloSwing extends JFrame {
         new HelloSwing(); //Создаем объект-окно
     }
 
-    HelloSwing() {
+    private HelloSwing() {
         setTitle("Hello, Swing!!!"); // Заголовок окна
         setDefaultCloseOperation(EXIT_ON_CLOSE); // При закрытии
         setSize(500, 300); // размеры окна
