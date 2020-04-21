@@ -31,15 +31,18 @@ class CommonObject {
 }
 
 class CounterThread implements Runnable {
-    CommonObject res;
+    private final CommonObject res;
 
     CounterThread(CommonObject res) {
         this.res = res;
     }
 
+    /*
+     * Попробуйте работу программы с раскомментированным блоком кода.
+     */
     @Override
     public void run() {
-        //synchronized (res) {
+        //synchronized (res) { //--место для закомментирования блока
         res.counter = 1;
         for (int i = 1; i < 5; i++) {
             System.out.printf("'%s' - %d\n",
@@ -51,7 +54,7 @@ class CounterThread implements Runnable {
             } catch (InterruptedException e) {
             }
         }
-        //}
+        //} //--место для закомментирования блока
     }
 }
 
@@ -73,7 +76,7 @@ class CounterThread implements Runnable {
 public class SynchronizedThread {
     public static void main(String[] args) {
         CommonObject commonObject = new CommonObject();
-        for (int i = 1; i < 6; i++) {
+        for (int i = 10; i < 60; i = i + 10) {
             Thread t;
             t = new Thread(new CounterThread(commonObject));
             t.setName("Поток " + i);
@@ -81,4 +84,3 @@ public class SynchronizedThread {
         }
     }
 }
-

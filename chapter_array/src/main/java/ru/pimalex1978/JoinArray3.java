@@ -31,7 +31,8 @@ public class JoinArray3 {
         //join 3 primitive type array, any better idea?
         int[] result3 = IntStream.concat(Arrays.stream(int1),
                 IntStream.concat(Arrays.stream(int2),
-                        Arrays.stream(int3))).toArray();
+                        Arrays.stream(int3)))
+                .toArray();
 
         System.out.println(Arrays.toString(result2));
 
