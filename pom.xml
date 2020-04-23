@@ -30,6 +30,7 @@
         <module>chapter_date</module>
         <module>chapter_collection</module>
         <module>chapter_json</module>
+        <module>chapter_jsoup</module>
     </modules>
     <packaging>pom</packaging>
 
