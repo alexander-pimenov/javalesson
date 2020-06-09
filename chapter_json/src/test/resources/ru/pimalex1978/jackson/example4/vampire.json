@@ -1,0 +1,5 @@
+{
+  "@class": "ru.pimalex1978.jackson.example4.Vampire",
+  "health":50,
+  "bloodCollected":999
+}

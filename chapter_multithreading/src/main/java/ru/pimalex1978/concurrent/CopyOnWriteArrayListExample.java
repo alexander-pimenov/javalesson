@@ -23,7 +23,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
  */
 
 public class CopyOnWriteArrayListExample {
-    List<String> list;
+    private List<String> list;
 
     public CopyOnWriteArrayListExample() {
         List<String> lst = new ArrayList<String>();

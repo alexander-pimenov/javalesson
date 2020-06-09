@@ -1,0 +1,5 @@
+{
+  "@class": "ru.pimalex1978.jackson.example4.Skeleton",
+  "health":100,
+  "bones":99
+}

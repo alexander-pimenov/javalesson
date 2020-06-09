@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<channel>
+    <topic>
+        <name>Object Oriented Design Patterns</name>
+        <tutorial>Abstract Factory</tutorial>
+        <tutorial>Sinleton</tutorial>
+        <tutorial>Bridge</tutorial>
+    </topic>
+    <topic>
+        <name>Java Message Service</name>
+        <tutorial>Point to Point</tutorial>
+    </topic>
+</channel>

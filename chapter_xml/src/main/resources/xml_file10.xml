@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<market>
+    <department id="1">
+        <product id="1">
+            <title>Продукт 1</title>
+            <price>30</price>
+            <amount type="шт">10</amount>
+        </product>
+        <product id="2">
+            <title>Продукт 2</title>
+            <price>30</price>
+            <amount type="шт">10</amount>
+        </product>
+        <product id="3">
+            <title>Продукт 3</title>
+            <price>30</price>
+            <amount type="шт">10</amount>
+        </product>
+
+
+    </department>
+</market>
+
+
+        <!--
+                <Item id="1"/>
+                <Item color="red" id="2"/>
+                <Box id="3">
+                    <Item id="3" color="red"/>
+                    <Item id="4" color="black"/>
+                </Box>
+                <Box id="6"/>
+                <Item id="5"/>
+
+        -->

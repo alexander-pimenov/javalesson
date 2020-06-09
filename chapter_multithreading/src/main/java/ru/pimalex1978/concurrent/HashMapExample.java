@@ -37,6 +37,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * следующему объекту, если набор изменился.
  * <p>
  * Конечно, данную проблему с классом HashMap можно решить, дополнив код прерыванием цикла
+ * <p>
  * if (!concurrent)
  * break;
  */
@@ -74,10 +75,11 @@ public class HashMapExample {
     }
 
     private void createMap(boolean concurrent) {
-        if (concurrent)
+        if (concurrent) {
             map = new ConcurrentHashMap<>();
-        else
+        } else {
             map = new HashMap<>();
+        }
         map.put("1", "1");
         map.put("2", "1");
         map.put("3", "1");
