@@ -4,25 +4,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Bag {
-    private int weight;
-    private int value;
-    List<String> contents = new ArrayList<>();
+    private int maxW;
+    private int bestPrice;
+    private List<String> contents = new ArrayList<>();
 
-    public Bag(int weight, int value) {
-        this.weight = weight;
-        this.value = value;
+    public Bag(int maxW, int bestPrice) {
+        this.maxW = maxW;
+        this.bestPrice = bestPrice;
     }
 
     boolean alreadyHas(Item item) {
         return contents.contains(item.getName());
     }
 
-    public int getWeight() {
-        return weight;
+    public int getMaxW() {
+        return maxW;
     }
 
-    public int getValue() {
-        return value;
+    public int getBestPrice() {
+        return bestPrice;
     }
 
     public List<String> getContents() {
@@ -31,15 +31,10 @@ public class Bag {
 
     @Override
     public String toString() {
-        return "weight=" + weight +
-                ", value=" + value + "\n"+
+        return "weight=" + maxW +
+                ", value=" + bestPrice + "\n"+
                 "contents=" + contents;
     }
-
-    //    @Override
-//    public String toString() {
-//        return "weight " + weight + " , value " + value + "\n" + contents.toString();
-//    }
 
     void add(List<String> name) {
         contents.addAll(name);

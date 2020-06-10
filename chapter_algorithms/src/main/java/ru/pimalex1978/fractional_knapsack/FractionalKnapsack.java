@@ -6,24 +6,25 @@ import java.util.Comparator;
 import java.util.List;
 
 public class FractionalKnapsack {
-    private static final List<Item> ITEMS = new ArrayList<>();
 
     public static void main(String[] args) {
+
         //эти Item у нас константы, в ходе программы мы их менять не будем
-        final Item item1 = new Item("Guitar", 1500, 1);
-        final Item item2 = new Item("Type Recorder", 3000, 4);
-        final Item item3 = new Item("Laptop", 2000, 3);
-        final Item item4 = new Item("iPhone", 2000, 1);
-        final Item item5 = new Item("MP3 player", 1000, 1);
+        final Item item1 = (new Item("Исаакиевский собор", 10, 5));
+        final Item item2 = (new Item("Эрмитаж", 11, 8));
+        final Item item3 = (new Item("Кунсткамера", 4, 3));
+        final Item item4 = (new Item("Петропавловская крепость", 7, 10));
+        final Item item5 = (new Item("Ленинградский зоопарк", 15, 9));
+        final Item item6 = (new Item("Медный всадник", 17, 1));
+        final Item item7 = (new Item("Казанский собор", 3, 4));
+        final Item item8 = (new Item("Спас на Крови", 9, 2));
+        final Item item9 = (new Item("Зимний дворец Петра I", 12, 7));
+        final Item item10 = (new Item("Зоологический музей", 6, 5));
+        final Item item11 = (new Item("Музей обороны и блокады Ленинград", 19, 2));
+        final Item item12 = (new Item("Русский музей", 8, 5));
 
         //массив из наших предметов, т.е. набор объектов которые у нас есть
-        final Item[] items = {item1, item2, item3, item4, item5};
-
-        ITEMS.add(item1);
-        ITEMS.add(item2);
-        ITEMS.add(item3);
-        ITEMS.add(item4);
-        ITEMS.add(item5);
+        final Item[] items = {item1, item2, item3, item4, item5, item6, item7, item8, item9, item10, item11, item12};
 
         /*по нашему жадному алгоритму, если мы хотим взять в наш рюкзак наилучший
          * набор, но сначала нужно отсортировать наши предметы по удельному весу
@@ -33,16 +34,14 @@ public class FractionalKnapsack {
          * т.е. сортируем от большего к меньшему.*/
         Arrays.sort(items, Comparator.comparingDouble(Item::valuePerUnitOfWeight).reversed());
 
-        ITEMS.sort(Comparator.comparingDouble(Item::valuePerUnitOfWeight).reversed());
 
         //выведем отсортированный массив.
         //сортировка имеет сложность O(N*log(N))
         System.out.println(Arrays.toString(items));
         System.out.println("====================");
-        System.out.println(ITEMS);
 
-        //вместимость нашего рюкзака
-        final int W = 4;
+        //максимальное предоставленное время (вместимость нашего рюкзака)
+        final int W = 32;
 
         //аккумулируем текущий вес
         int weightSoFar = 0;
@@ -51,7 +50,7 @@ public class FractionalKnapsack {
         //индекс текущего предмета
         int currentItem = 0;
         //наилучший набор
-        Item[] bestBag = new Item[5];
+        Item[] bestBag = new Item[items.length];
 
         //currentItem<items.length - пока есть предметы для перебора
         //и weightSoFar != W т.е. пока не вышли за пределы рюкзака
@@ -77,9 +76,10 @@ public class FractionalKnapsack {
             currentItem++;
         }
 
-        //смотрим что у нас лежит в рюкзаке
+        //смотрим что у нас лежит в наборе (рюкзаке)
         System.out.println("Ценность наилучшего набора: " + valueSoFar);
 
+        //согласно жадного алгоритма
         System.out.println("Наилучший набор: " + Arrays.toString(bestBag));
 
     }
@@ -124,9 +124,9 @@ class Item {
     @Override
     public String toString() {
         return "{" +
-                "name=" + name +
-                ", value=" + value +
-                ", weight=" + weight +
+                "'" + name + "\'" +
+                ", v: " + value +
+                ", w: " + weight +
                 "}";
     }
 }

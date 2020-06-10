@@ -1,11 +1,11 @@
 package ru.pimalex1978.backpack_task;
 
 public class Item {
-    //название предмета
+    //название достопримечательности (как название предмета)
     private String name;
-    //ценность предмета
+    //важность достопримечательности (как ценность предмета)
     private int value;
-    //вес предмета
+    //время затрачиваемое на осмотр достопримечательности (как вес предмета)
     private int weight;
 
     public Item(String name, int value, int weight ) {
@@ -25,5 +25,14 @@ public class Item {
 
     public String getName() {
         return name;
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+                "'" + name + '\'' +
+                ", v: " + value +
+                ", w: " + weight +
+                '}';
     }
 }

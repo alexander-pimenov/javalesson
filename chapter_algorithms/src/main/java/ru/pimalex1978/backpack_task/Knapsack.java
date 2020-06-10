@@ -12,17 +12,6 @@ public class Knapsack {
     private static final boolean FINITE_ITEMS = true; //whether an item can be added more than once
 
     public static void main(String[] args) {
-//        ITEMS.add(new Item("GREEN", 4, 12));
-//        ITEMS.add(new Item("CYAN", 2, 2));
-//        ITEMS.add(new Item("GREY", 2, 1));
-//        ITEMS.add(new Item("ORANGE", 1, 1));
-//        ITEMS.add(new Item("YELLOW", 10, 4));
-
-//        ITEMS.add(new Item("Guitar", 1500, 1));
-//        ITEMS.add(new Item("Type Recorder", 3000, 4));
-//        ITEMS.add(new Item("Laptop", 2000, 3));
-//        ITEMS.add(new Item("iPhone", 2000, 1));
-//        ITEMS.add(new Item("MP3 player", 1000, 1));
 
         ITEMS.add(new Item("Исаакиевский собор", 10, 5));
         ITEMS.add(new Item("Эрмитаж", 11, 8));
@@ -58,12 +47,12 @@ public class Knapsack {
         int currentValue = -1;
         String newItem = null;
         List<String> previousItems = null;
-        for (Item p : ITEMS) {
-            Bag previous = bestBagForCapacity(capacity - p.getWeight());
+        for (Item item : ITEMS) {
+            Bag previous = bestBagForCapacity(capacity - item.getWeight());
             if (previous == null) continue;
 
-            int weightSoFar = previous.getWeight();
-            int valueSoFar = previous.getValue();
+            int weightSoFar = previous.getMaxW(); //аккумулируем текущие времязатарты
+            int valueSoFar = previous.getBestPrice(); //аккумулируем ценность, которую мы уже набрали в набор
             int nextBestValue = 0;
             Item candidateItem = null;
             for (Item candidate : ITEMS) {
