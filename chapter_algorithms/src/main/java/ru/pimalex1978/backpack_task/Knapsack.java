@@ -9,7 +9,7 @@ import java.util.Map;
 public class Knapsack {
     private static final List<Item> ITEMS = new ArrayList<>();
     private static final Map<Integer, Bag> CACHE = new HashMap<>();
-    private static final boolean FINITE_ITEMS = true; //whether an item can be added more than once
+    private static final boolean FINITE_ITEMS = true; //добавлять элемент более одного раза нельзя
 
     public static void main(String[] args) {
 
