@@ -3,6 +3,11 @@ package ru.pimalex1978.split;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * В этом классе продемонстировано удаление лишних пробелов при считывании,
+ * например, аргументов командной строки. Или просто удалении лишних
+ * пробелов в элементах массива типа String.
+ */
 public class RemovingSpaces {
     public static void main(String[] args) {
         String[] str = new String[]{"java", "  -jar", "pack.jar  ",
