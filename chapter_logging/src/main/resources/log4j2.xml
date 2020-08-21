@@ -3,7 +3,7 @@
 <Configuration status="info">
     <Appenders>
         <File name="MyFileAppender" fileName="C:\test\testlog.txt" immediateFlush="false" append="true">
-            <PatternLayout pattern="%d{yyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+            <PatternLayout pattern="%d{yyy-MM-dd HH:mm:ss.SSS} [%t] [%-5level] %logger{36} - %msg%n"/>
         </File>
     </Appenders>
     <category name="ru.pimalex1978.example1">
@@ -15,8 +15,15 @@
     <!-- Здесь мы указываем уровень логгирования (root level).
     <Loggers>...</Loggers>
     У нас установлен уровень INFO <Root level="INFO">:
-    то есть, все сообщения уровней выше INFO (trace, debug, info, warn, error)
-    в лог не попадут. Можно поэксперементировать. -->
+    то есть, все сообщения уровней выше INFO (trace и debug)
+    в лог не попадут. Остальные (info, warn, error) будут записаны.
+    Можно поэксперементировать устанавливая разный уровень:
+    <Root level="trace">
+    <Root level="debug">
+    <Root level="info">
+    <Root level="warn">
+    <Root level="error">
+    -->
     <Loggers>
         <Root level="info">
             <AppenderRef ref="MyFileAppender"/>

@@ -2,6 +2,7 @@ package ru.pimalex1978.example1;
 
 /**
  * Хорошее обучающее видео о логгировании https://www.youtube.com/watch?v=N4fmELeXw5I
+ * В нем рассказывется для чего логгирование и, кратко, об его уровнях: TRACE, INFO, DEBUG, WARN, ERROR.
  * Здесь взят пример из https://javarush.ru/groups/posts/2293-zachem-nuzhno-logirovanie
  */
 
@@ -25,6 +26,7 @@ public class MyTestClass {
             //по нему удобно искать ошибки в программе.
             //Смотри файл C:\test\testlog.txt
             LOGGER.error("Ошибка! Произошло деление на ноль!", x);
+//            LOGGER.error(x.getMessage(), x); //удобно искать ошибку в логе
         }
 
     }
