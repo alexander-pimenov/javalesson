@@ -5,6 +5,30 @@ https://javarush.ru/groups/posts/2293-zachem-nuzhno-logirovanie
 ОБЯЗАТЕЛЬНО ФАЙЛ НАЗЫВАЕМ log4j2.xml !!! Не log4j.xml, а log4j2.xml !!!
 иначе не работает (((((
 ================================================================
+#################################################################
+Код конфигурационного лог-файла:
+#################################################################
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Чтобы изменить поведение логгера по умолчанию, нам нужно сконфигурировать свой файловый аппендер-->
+<Configuration status="INFO">
+    <Appenders>
+        <File name="MyFileAppender" fileName="C:\test\testlog.txt" immediateFlush="false" append="true">
+            <PatternLayout pattern="%d{yyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </File>
+    </Appenders>
+    <category name="ru.pimalex1978.example1">
+        <!--all, trace, debug, info, warn, error, fatal - уровни логгирования !!!-->
+<!--        <priority value="info"/>-->
+<!--        <appender-ref ref="MyFileAppender"/>-->
+    </category>
+
+    <Loggers>
+        <Root level="INFO">
+            <AppenderRef ref="MyFileAppender"/>
+        </Root>
+    </Loggers>
+</Configuration>
+=================================================================
 
 <Configuration status="INFO">
 Это так называемый status-logger. Он не имеет отношения к нашему логгеру и используется во внутренних процессах log4j.

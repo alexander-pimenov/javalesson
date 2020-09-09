@@ -17,7 +17,7 @@ import java.util.Calendar;
 public class SQLDate {
     public static void main(String[] args) {
 
-        System.out.println("====Перобразование даты java.util.Date в java.sql.Date====");
+        System.out.println("====Преобразование даты java.util.Date в java.sql.Date====");
         java.util.Date utilDate = new java.util.Date();
         java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
 //        java.sql.Date sqlDateYear = new java.sql.Date(utilDate.getYear()); //не использовать! не верно работает!
@@ -28,7 +28,7 @@ public class SQLDate {
 //        System.out.println("sqlDateMonth: " + sqlDateMonth);
 
 
-        System.out.println("====Перобразование даты java.util.Date в java.sql.Date через Calendar====");
+        System.out.println("====Преобразование даты java.util.Date в java.sql.Date через Calendar====");
         java.util.Calendar cal = Calendar.getInstance();
         java.util.Date utilDate2 = new java.util.Date(); // your util date
         cal.setTime(utilDate2);
@@ -41,7 +41,7 @@ public class SQLDate {
         System.out.println("sqlDate2:" + sqlDate2); // вывод your sql date
 
 
-        System.out.println("====Перобразование даты java.util.Date по паттерну yyyy-MM-dd в java.sql.Date====");
+        System.out.println("====Преобразование даты java.util.Date по паттерну yyyy-MM-dd в java.sql.Date====");
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         try {

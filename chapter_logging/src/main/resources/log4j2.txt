@@ -1,11 +1,10 @@
-        <!-- Этот файл почему то у меня не прикрепился к программе, возможно много лишних -->
-        <!-- зависимостей в pom.xml внес. У него можно поменять расширение с -->
-        <!-- .txt на .xml и он снова будет конфигурационным лог-файлом-->
-
-
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
 <log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+<!-- Этот файл почему то у меня не прикрепился к программе, возможно много лишних -->
+        <!-- зависимостей в pom.xml внес. У него можно поменять расширение с -->
+        <!-- .txt на .xml и он снова будет конфигурационным лог-файлом-->
 
     <appender name="fileAppender" class="org.apache.log4j.RollingFileAppender">
         <param name="maxFileSize" value="10MB"/>

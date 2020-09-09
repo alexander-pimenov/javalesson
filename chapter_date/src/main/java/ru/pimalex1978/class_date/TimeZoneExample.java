@@ -63,7 +63,9 @@ public class TimeZoneExample {
 
         try {
             dt_msk = df_msk.parse(date_msk);
-        } catch (ParseException e) {}
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
         System.out.println ("UTC\n" + date);
         System.out.println (date_utc);
