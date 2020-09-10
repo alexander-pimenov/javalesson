@@ -44,31 +44,37 @@ public class TestSimpleDateFormat {
         Date date = new Date();
         System.out.println(date);
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+
         //Задаем 1-й шаблон представления даты
         SimpleDateFormat sdf1;
         sdf1 = new SimpleDateFormat("dd.MM.yyyy hh:mm");
         System.out.println(sdf1.format(date));  // 04.02.2020 02:47
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+
         //Задаем 2-й шаблон представления даты
         SimpleDateFormat sdf2;
         sdf2 = new SimpleDateFormat("День dd Месяц MM Год yyyy Время hh:mm");
         System.out.println(sdf2.format(date)); // День 04 Месяц 02 Год 2020 Время 02:47
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+
         //Задаем 3-й шаблон представления даты
         SimpleDateFormat sdf3;
         sdf3 = new SimpleDateFormat("День dd Месяц MM Год yyyy");
         System.out.println(sdf3.format(date)); // День 04 Месяц 02 Год 2020
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+
         //Задаем 4-й шаблон представления даты
         SimpleDateFormat sdf4;
         sdf4 = new SimpleDateFormat("Время hh:mm");
         System.out.println(sdf4.format(date)); // Время 02:47
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+
         //Задаем 5-й шаблон представления даты
         SimpleDateFormat sdf5;
         sdf5 = new SimpleDateFormat("День dd Месяц MM Год yyyy Неделя W Часовой пояс z");
         System.out.println(sdf5.format(date)); // День 04 Месяц 02 Год 2020 Неделя 1 Часовой пояс MSK
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+
         //Задаем 6-й шаблон представления даты
         SimpleDateFormat sdf6;
         sdf6 = new SimpleDateFormat("dd/MM/yyyy");
@@ -113,14 +119,16 @@ public class TestSimpleDateFormat {
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 
         //Получить дату и время по шаблону, используя Calendar
-        SimpleDateFormat sdf9 = new SimpleDateFormat("yyyy MM dd HH:mm");
+        //Если Locale.ENGLISH удалить из параметра то будет использоваться местная Locale, т.е. русские названия
+        SimpleDateFormat sdf9 = new SimpleDateFormat("yyyy MMM dd HH:mm", Locale.ENGLISH);
         Calendar calendar1 = new GregorianCalendar(1998, Calendar.SEPTEMBER, 25);
-        System.out.println(sdf9.format(calendar1.getTime())); //1998 09 25 00:00
+        System.out.println(sdf9.format(calendar1.getTime())); //1998 Sep 25 00:00
         System.out.println(calendar1.getTime()); //Fri Sep 25 00:00:00 MSD 1998
         System.out.println(date); //текущее время+дата Wed Sep 09 17:04:55 MSK 2020
         //Текущая дата+время через Calendar
         final Calendar instance = Calendar.getInstance();
-        System.out.println(instance.getTime());
+        System.out.println(instance.getTime()); //текущее время+дата Wed Sep 09 17:04:55 MSK 2020
+        System.out.println(sdf9.format(instance.getTime())); //2020 Sep 09 19:55
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 
         //Пример простого календаря
