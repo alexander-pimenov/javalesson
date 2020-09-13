@@ -1,0 +1,13 @@
+Вводный урок курса "Шаблоны проектирования на языке Java"
+==============================================================================================================
+http://proselyte.net/
+==============================================================================================================
+
+Введение в курс
+https://www.youtube.com/watch?v=k6oh9C_71mE&list=PLlsMRoVt5sTPgGbinwOVnaF1mxNeLAD7P
+
+Введение в ООП
+https://www.youtube.com/watch?v=Xg_DTzM6o6U&list=PLlsMRoVt5sTPgGbinwOVnaF1mxNeLAD7P&index=2
+
+Введение в шаблоны проектирования
+https://www.youtube.com/watch?v=CBPQNwSCiuM&list=PLlsMRoVt5sTPgGbinwOVnaF1mxNeLAD7P&index=3

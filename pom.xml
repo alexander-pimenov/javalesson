@@ -33,6 +33,7 @@
         <module>chapter_jsoup</module>
         <module>chapter_big_integer_decimal</module>
         <module>chapter_io</module>
+        <module>chapter_solid</module>
     </modules>
     <packaging>pom</packaging>
 
