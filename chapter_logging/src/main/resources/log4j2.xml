@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--Чтобы изменить поведение логгера по умолчанию, нам нужно сконфигурировать свой файловый аппендер-->
 <Configuration status="info">
+    <!-- appender - это инструмент, с помощью которого записываются логи и layout — форматирование логов.-->
+    <!--Это позволяет записывать только то, что нужно и как нужно.-->
+    <!--fileName="C:\test\testlog.txt" - будет сформирован файл там где укажем-->
+    <!--fileName="log/testLOG.txt" - будет сформирован файл в корне проекта-->
     <Appenders>
-        <File name="MyFileAppender" fileName="C:\test\testlog.txt" immediateFlush="false" append="true">
+        <File name="MyFileAppender" fileName="logs/testLOG.txt" immediateFlush="false" append="true">
+            <!--            <PatternLayout pattern="%d{ABSOLUTE} [%t] [%-5level] %logger{36} - %msg%n"/>-->
+            <!--            <PatternLayout pattern="%d{DATE} [%t] [%-5level] %logger{36} - %msg%n"/>-->
+            <!--            <PatternLayout pattern="%d [%t] [%-5p] [%c{1.}] - %m%n"/>-->
+            <!--            <PatternLayout pattern="%d [%t] [%-5p] [%c{36}] - %m%n"/>-->
             <PatternLayout pattern="%d{yyy-MM-dd HH:mm:ss.SSS} [%t] [%-5level] %logger{36} - %msg%n"/>
         </File>
     </Appenders>
@@ -12,19 +20,22 @@
         <!--        <appender-ref ref="MyFileAppender"/>-->
     </category>
 
-    <!-- Здесь мы указываем уровень логгирования (root level).
+    <Loggers>
+        <!-- Здесь мы указываем уровень логгирования (root level).
     <Loggers>...</Loggers>
     У нас установлен уровень INFO <Root level="INFO">:
     то есть, все сообщения уровней выше INFO (trace и debug)
     в лог не попадут. Остальные (info, warn, error) будут записаны.
     Можно поэксперементировать устанавливая разный уровень:
+    <Root level="all">
     <Root level="trace">
     <Root level="debug">
     <Root level="info">
     <Root level="warn">
     <Root level="error">
+    <Root level="fatal">
+    <Root level="off">
     -->
-    <Loggers>
         <Root level="info">
             <AppenderRef ref="MyFileAppender"/>
         </Root>

@@ -3,7 +3,7 @@ https://javarush.ru/groups/posts/2293-zachem-nuzhno-logirovanie
 ================================================================
 
 ОБЯЗАТЕЛЬНО ФАЙЛ НАЗЫВАЕМ log4j2.xml !!! Не log4j.xml, а log4j2.xml !!!
-иначе не работает (((((
+иначе не работает ((((( Т.к. у Log4j версия 1 и 2 не совместимы.
 ================================================================
 #################################################################
 Код конфигурационного лог-файла:
@@ -31,12 +31,53 @@ https://javarush.ru/groups/posts/2293-zachem-nuzhno-logirovanie
 =================================================================
 
 <Configuration status="INFO">
-Это так называемый status-logger. Он не имеет отношения к нашему логгеру и используется во внутренних процессах log4j.
+Это так называемый status-logger. Он НЕ имеет отношения к нашему логгеру и используется во внутренних процессах log4j.
 Можно установить status=”TRACE” вместо status=”INFO”, и в КОНСОЛЬ будет выводиться вся информация о внутренней
 работе log4j (status-logger выводит данные именно  в консоль, даже если наш аппендер для программы будет файловым) !!!
 Так и есть, проверял. В файл записываются только наши 3 сообщения, а в консоль ВЕСЬ стектрейс!!!
 =================================================================
 
+Как же нам сделать так, чтобы ход работы программы куда-то записывался?
+
+Для этого нам нужны две вещи — логгер и аппендер.
+
+Начнем с первого.
+Логгер — это объект, который полностью управляет ведением записей.
+
+Уровни логгирования:
+all, trace, debug, info, warn, error, fatal, off
+error - значит, в этом месте программы произошла ошибка
+info - значит это просто текущая информация о нормальной работе программы
+warn - выводятся все предупреждения
+
+Рассмотрим уровни на примере log4j.
+Остальные решения, кроме JUL, используют такие же уровни.
+Вот они в порядке уменьшения:
+    OFF:    никакие логи не записываются, все будут проигнорированы;
+    FATAL:  ошибка, после которой приложение уже не сможет работать и будет остановлено, например, JVM out of memory
+            error;
+    ERROR:  уровень ошибок, когда есть проблемы, которые нужно решить. Ошибка не останавливает работу приложения в
+            целом. Остальные запросы могут работать корректно;
+    WARN:   обозначаются логи, которые содержат предостережение. Произошло неожиданное действие, несмотря на это
+            система устояла и выполнила запрос;
+    INFO:   лог, который записывает важные действия в приложении. Это не ошибки, это не предостережение, это ожидаемые
+            действия системы;
+    DEBUG:  логи, необходимые для отладки приложения. Для уверенности в том, что система делает именно то, что от нее
+            ожидают, или описания действия системы: “method1 начал работу”;
+    TRACE:  менее приоритетные логи для отладки, с наименьшим уровнем логирования;
+    ALL:    уровень, при котором будут записаны все логи из системы.
+
+
+Аппендер — это место, куда приходят твои данные.
+Можно сказать, противоположность источнику данных — «точка B».
+
+Чтобы изменить поведение логгера по умолчанию, нам нужно сконфигурировать свой файловый аппендер.
+
+<Appenders>
+   <File name="MyFileAppender" fileName="C:\Users\Евгений\Desktop\testlog.txt" append="true">
+       <PatternLayout pattern="%d{yyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+   </File>
+</Appenders>
 Тут мы создаем наш аппендер.
 <Appenders>...</Appenders>
 
@@ -53,6 +94,11 @@ append="true" — нужно ли дозаписывать ли данные в 
 форматирования. Здесь мы с помощью регулярных выражений можем настраивать формат текста в нашем логе.
 =================================================================
 
+<Loggers>
+       <Root level="INFO">
+           <AppenderRef ref="MyFileAppender"/>
+       </Root>
+</Loggers>
 Здесь мы указываем уровень логгирования (root level).
 <Loggers>...</Loggers>
 
@@ -125,3 +171,108 @@ java.lang.ArithmeticException: / by zero
         </Root>
     </Loggers>
 </Configuration>
+#################################################################
+
+Никогда не следует пытаться использовать адаптер SLF4J (log4j-to-slf4j-2.x.jar) вместе
+с мостом SLF4J (log4j-slf4j-impl-2.x.jar), так как это приведет к бесконечной маршрутизации
+событий между SLF4J и Log4j 2.
+
+Источники библиотеки для slf4j отсюда:
+http://www.slf4j.org/download.html
+и библиотеки log4j отсюда:
+https://logging.apache.org/log4j/2.x/download.html
+
+Далее архив нужно распаковать,и добавить нужные нам jar-файлы в classpath через Intellij IDEA.
+Пункты меню: File - Project Structure - Libraries
+
+#################################################################
+Пример шаблона, от которого я обычно отталкиваюсь в работе:
+%d{ISO8601} [%-5p][%-16.16t][%32.32c] - %m%n
+
+Расшифровка:
+
+1. Дата в формате ISO8601. Когда логи большие, только времени будет недостаточно, нужна и дата.
+    У формата DATE используется символьное имя месяца, потому ширина получается переменной.
+2. Приоритет – минимально 5 символов (а больше и не бывает в Log4J), выравнивание влево.
+3. Имя потока – 16 символов, выравнивание влево.
+4. Категория – 32 символа, выравнивание вправо. В принципе, можно обрезать начальные части имени,
+    но тогда надо быть уверенным, что в конкретный аппендер будут идти логи только от собственного кода,
+    иначе есть риск не увидеть разницы между ru.skipy.SQL и org.hibernate.SQL.
+5. Сообщение, после которого идет символ окончания строки.
+
+#################################################################
+
+Пример конфигурирования log4j2.xml:
+
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration debug="false" >
+
+<!--ВЫВОД В КОНСОЛЬ-->
+    <appender name="ConsoleAppender" class="org.apache.log4j.ConsoleAppender">
+        <param name="Encoding" value="UTF-8"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{yyy-MM-dd HH:mm:ss.SSS} [%t] %-5p %c %x - %m%n" />
+        </layout>
+    </appender>
+
+<!--ВЫВОД В ФАЙЛ-->
+    <appender name="file" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="D:\\bulk.log"/>
+        <param name="Append" value="false"/>
+        <param name="Encoding" value="UTF-8"/>
+        <layout class="org.apache.log4j.EnhancedPatternLayout">
+            <param name="ConversionPattern" value="%d{yyy-MM-dd HH:mm:ss.SSS} [%t] %-5p %c %x - %m%n"/>
+        </layout>
+    </appender>
+
+    <root>
+        <priority value="INFO"/>
+        <appender-ref ref="file" />
+        <appender-ref ref="ConsoleAppender" />
+
+    </root>
+
+</log4j:configuration>
+
+#################################################################
+
+Итак, простейшие конфигурации. В XML:
+
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration debug="false" xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+    <appender name="ConsoleAppender" class="org.apache.log4j.ConsoleAppender">
+        <param name="Encoding" value="Cp866"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{ISO8601} [%-5p][%-16.16t][%32.32c] - %m%n" />
+        </layout>
+    </appender>
+
+    <root>
+        <priority value="ERROR"/>
+        <appender-ref ref="ConsoleAppender" />
+    </root>
+
+</log4j:configuration>
+
+И в виде свойств:
+
+log4j.debug = false
+
+log4j.rootLogger = ERROR, ConsoleAppender
+
+log4j.appender.ConsoleAppender = org.apache.log4j.ConsoleAppender
+log4j.appender.ConsoleAppender.encoding = Cp866
+log4j.appender.ConsoleAppender.layout = org.apache.log4j.PatternLayout
+log4j.appender.ConsoleAppender.layout.ConversionPattern = %d{ISO8601} [%-5p][%-16.16t][%32.32c] - %m%n
+
+Что тут сделано:
+
+Создан аппендер с именем ConsoleAppender и кодировкой Cp866
+У созданного аппендера установлен компоновщик PatternLayout с шаблоном %d{ISO8601} [%-5p][%-16.16t][%32.32c] - %m%n
+Сконфигурирован корневой логгер, использующий созданный аппендер и имеющий уровень ERROR.
+
