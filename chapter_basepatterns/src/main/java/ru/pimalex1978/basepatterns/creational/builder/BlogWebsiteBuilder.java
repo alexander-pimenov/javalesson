@@ -2,21 +2,21 @@ package ru.pimalex1978.basepatterns.creational.builder;
 
 /**
  * Реализация абстрактного класса WebsiteBuilder.
- * Для создания корпоративных сайтов.
+ * Для создания сайтов-блогов.
  */
-public class EnterpriseWebsiteBuilder extends WebsiteBuilder {
+public class BlogWebsiteBuilder extends WebsiteBuilder {
     @Override
     void buildName() {
-        website.setName("Enterprise web site");
+        website.setName("Blog web site");
     }
 
     @Override
     void buildCms() {
-        website.setCms(Cms.ALIFRESCO);
+        website.setCms(Cms.MAGENTO);
     }
 
     @Override
     void buildPrice() {
-        website.setPrice(10000);
+        website.setPrice(400);
     }
 }

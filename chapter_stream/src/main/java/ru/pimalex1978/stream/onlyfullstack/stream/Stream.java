@@ -2,8 +2,8 @@ package ru.pimalex1978.stream.onlyfullstack.stream;
 
 //https://github.com/onlyfullstack/java-8-features/blob/master/java-8-features/src/main/java/com/onlyfullstack/stream/Stream.java
 
-import stream.onlyfullstack.bean.Student;
-import stream.onlyfullstack.util.JavaInputFixture;
+import ru.pimalex1978.stream.onlyfullstack.bean.Student;
+import ru.pimalex1978.stream.onlyfullstack.util.JavaInputFixture;
 
 import java.util.Arrays;
 import java.util.List;

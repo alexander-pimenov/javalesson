@@ -1,5 +1,14 @@
 package ru.pimalex1978.basepatterns.creational.builder;
 
+/**
+ * Класс отвечающий за сайт:
+ * имеет имя name,
+ * систему управления контентом cms,
+ * цену создания price.
+ * <p>
+ * Понадобятся только сеттеры.
+ * И toString() для вывода информации.
+ */
 public class Website {
     private String name;
     private Cms cms;

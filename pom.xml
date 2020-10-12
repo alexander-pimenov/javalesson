@@ -34,6 +34,7 @@
         <module>chapter_big_integer_decimal</module>
         <module>chapter_io</module>
         <module>chapter_solid</module>
+        <module>chapter_console_menu</module>
     </modules>
     <packaging>pom</packaging>
 

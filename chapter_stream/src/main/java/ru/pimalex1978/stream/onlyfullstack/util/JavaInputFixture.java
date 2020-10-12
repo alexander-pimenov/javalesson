@@ -1,6 +1,6 @@
 package ru.pimalex1978.stream.onlyfullstack.util;
 
-import stream.onlyfullstack.bean.Student;
+import ru.pimalex1978.stream.onlyfullstack.bean.Student;
 
 import java.util.Arrays;
 import java.util.List;

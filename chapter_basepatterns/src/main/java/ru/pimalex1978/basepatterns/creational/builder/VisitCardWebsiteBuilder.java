@@ -1,5 +1,9 @@
 package ru.pimalex1978.basepatterns.creational.builder;
 
+/**
+ * Реализация абстрактного класса WebsiteBuilder.
+ * Для создания простых сайтов.
+ */
 public class VisitCardWebsiteBuilder extends WebsiteBuilder{
     @Override
     void buildName() {
