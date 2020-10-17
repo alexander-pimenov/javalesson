@@ -35,6 +35,8 @@
         <module>chapter_io</module>
         <module>chapter_solid</module>
         <module>chapter_console_menu</module>
+        <module>chapter_write_with_TDD</module>
+        <module>chapter_TicTacToe</module>
     </modules>
     <packaging>pom</packaging>
 
