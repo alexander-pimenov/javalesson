@@ -6,13 +6,12 @@ import java.util.Scanner;
 /**
  * https://www.youtube.com/watch?v=3KM6Q0TFC28
  * https://github.com/Taylor-McNeil/YouTubeTutorials-
- *
  */
 public class TicTacToe {
 
-    static int playerScore = 0;
-    static int computerScore = 0;
-    static Scanner input = new Scanner(System.in);
+    private static int playerScore = 0;
+    private static int computerScore = 0;
+    private static Scanner input = new Scanner(System.in);
     /*
      *        Сетка:
      *      _ | _ | _
@@ -35,15 +34,18 @@ public class TicTacToe {
      */
 
     public static void main(String[] args) {
+
         char[][] gameBoard = {
                 {'_', '|', '_', '|', '_'},
                 {'_', '|', '_', '|', '_'},
                 {' ', '|', ' ', '|', ' '}
         };
+        System.out.println("Welcome to the game TicTacToe!");
+        System.out.println("Вы играете против Computer.");
+
         printBoard(gameBoard);
         boolean gameOver = false;
         boolean playAgain = true;
-
 
         while (playAgain) {
             while (!gameOver) {
@@ -81,15 +83,7 @@ public class TicTacToe {
                 default:
                     break;
             }
-
         }
-
-//        playerMove(gameBoard);
-//        computerMove(gameBoard);
-//        playerMove(gameBoard);
-//        computerMove(gameBoard);
-//        playerMove(gameBoard);
-//        computerMove(gameBoard);
     }
 
     public static void printBoard(char[][] gameBoard) {
@@ -108,7 +102,6 @@ public class TicTacToe {
         } else {
             character = 'O';
         }
-
         switch (position) {
             case 1:
                 gameBoard[0][0] = character;
@@ -152,9 +145,9 @@ public class TicTacToe {
     }
 
     public static void playerMove(char[][] gameBoard) {
+        int move;
         System.out.println("Please make a move. (1-9)");
-
-        int move = input.nextInt();
+        move = checkDigitInputAndReturnInt();
 
         boolean result = isValidMove(move, gameBoard);
         while (!result) {
@@ -190,8 +183,6 @@ public class TicTacToe {
                 return gameBoard[2][4] == ' ';
             default:
                 return false;
-
-
         }
     }
 
@@ -215,42 +206,42 @@ public class TicTacToe {
         if (gameBoard[0][0] == 'X'
                 && gameBoard[0][2] == 'X'
                 && gameBoard[0][4] == 'X') {
-            System.out.println("Player wins");
+            System.out.println("Player won!");
             playerScore++;
             return true;
         }
         if (gameBoard[0][0] == 'O'
                 && gameBoard[0][2] == 'O'
                 && gameBoard[0][4] == 'O') {
-            System.out.println("Computer wins");
+            System.out.println("Computer won!");
             computerScore++;
             return true;
         }
         if (gameBoard[1][0] == 'X'
                 && gameBoard[1][2] == 'X'
                 && gameBoard[1][4] == 'X') {
-            System.out.println("Player wins");
+            System.out.println("Player won!");
             playerScore++;
             return true;
         }
         if (gameBoard[1][0] == 'O'
                 && gameBoard[1][2] == 'O'
                 && gameBoard[1][4] == 'O') {
-            System.out.println("Computer wins");
+            System.out.println("Computer won!");
             computerScore++;
             return true;
         }
         if (gameBoard[2][0] == 'X'
                 && gameBoard[2][2] == 'X'
                 && gameBoard[2][4] == 'X') {
-            System.out.println("Player wins");
+            System.out.println("Player won!");
             playerScore++;
             return true;
         }
         if (gameBoard[2][0] == 'O'
                 && gameBoard[2][2] == 'O'
                 && gameBoard[2][4] == 'O') {
-            System.out.println("Computer wins");
+            System.out.println("Computer won!");
             computerScore++;
             return true;
         }
@@ -259,42 +250,42 @@ public class TicTacToe {
         if (gameBoard[0][0] == 'X'
                 && gameBoard[1][0] == 'X'
                 && gameBoard[2][0] == 'X') {
-            System.out.println("Player wins");
+            System.out.println("Player won!");
             playerScore++;
             return true;
         }
         if (gameBoard[0][0] == 'O'
                 && gameBoard[1][0] == 'O'
                 && gameBoard[2][0] == 'O') {
-            System.out.println("Computer wins");
+            System.out.println("Computer won!");
             computerScore++;
             return true;
         }
         if (gameBoard[0][2] == 'X'
                 && gameBoard[1][2] == 'X'
                 && gameBoard[2][2] == 'X') {
-            System.out.println("Player wins");
+            System.out.println("Player won!");
             playerScore++;
             return true;
         }
         if (gameBoard[0][2] == 'O'
                 && gameBoard[1][2] == 'O'
                 && gameBoard[2][2] == 'O') {
-            System.out.println("Computer wins");
+            System.out.println("Computer won!");
             computerScore++;
             return true;
         }
         if (gameBoard[0][4] == 'X'
                 && gameBoard[1][4] == 'X'
                 && gameBoard[2][4] == 'X') {
-            System.out.println("Player wins");
+            System.out.println("Player won!");
             playerScore++;
             return true;
         }
         if (gameBoard[0][4] == 'O'
                 && gameBoard[1][4] == 'O'
                 && gameBoard[2][4] == 'O') {
-            System.out.println("Computer wins");
+            System.out.println("Computer won!");
             computerScore++;
             return true;
         }
@@ -303,28 +294,28 @@ public class TicTacToe {
         if (gameBoard[0][0] == 'X'
                 && gameBoard[1][2] == 'X'
                 && gameBoard[2][4] == 'X') {
-            System.out.println("Player wins");
+            System.out.println("Player won!");
             playerScore++;
             return true;
         }
         if (gameBoard[0][0] == 'O'
                 && gameBoard[1][2] == 'O'
                 && gameBoard[2][4] == 'O') {
-            System.out.println("Computer wins");
+            System.out.println("Computer won!");
             computerScore++;
             return true;
         }
         if (gameBoard[0][4] == 'X'
                 && gameBoard[1][2] == 'X'
                 && gameBoard[2][0] == 'X') {
-            System.out.println("Player wins");
+            System.out.println("Player won!");
             playerScore++;
             return true;
         }
         if (gameBoard[0][4] == 'O'
                 && gameBoard[1][2] == 'O'
                 && gameBoard[2][0] == 'O') {
-            System.out.println("Computer wins");
+            System.out.println("Computer won!");
             computerScore++;
             return true;
         }
@@ -339,7 +330,7 @@ public class TicTacToe {
                 && gameBoard[2][0] != ' '
                 && gameBoard[2][2] != ' '
                 && gameBoard[2][4] != ' ') {
-            System.out.println("Its a tie");
+            System.out.println("Board is full!");
             return true;
         }
         return false;
@@ -355,5 +346,15 @@ public class TicTacToe {
         gameBoard[2][0] = ' ';
         gameBoard[2][2] = ' ';
         gameBoard[2][4] = ' ';
+    }
+
+    public static int checkDigitInputAndReturnInt() {
+        int move;
+        while (!input.hasNextInt()) {
+            System.out.println("That not a number! Try again.");
+            input.next(); //this is important! - продвигаем Scanner до тех пор, пока не будет hasNextInt()
+        }
+        move = input.nextInt();
+        return move;
     }
 }

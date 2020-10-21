@@ -128,11 +128,11 @@ public class TicTacToe {
         winning.add(cross1);
         winning.add(cross2);
 
-        for (List l : winning) {
-            if (playerPositions.containsAll(l)) {
+        for (List lineList : winning) {
+            if (playerPositions.containsAll(lineList)) {
                 return "Congrtulations you won!";
 
-            } else if (cpuPositions.containsAll(l)) {
+            } else if (cpuPositions.containsAll(lineList)) {
                 return "CPU wins! Sorry :(";
             } else if (playerPositions.size() + cpuPositions.size() == 9) {
                 return "CAT!";
