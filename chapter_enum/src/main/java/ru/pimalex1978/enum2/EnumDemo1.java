@@ -22,7 +22,7 @@ public class EnumDemo1 {
         if (ap == Apple1.GoldenDel)
             System.out.println("Переменная ap содержит GoldenDel.\n");
 
-        //применить перечмсления для управления оператором switch
+        //применить перечисления для управления оператором switch
         switch (ap) {
             case Jonatan:
                 System.out.println("Сорт Jonatan красный.");

@@ -42,8 +42,8 @@ public enum ThreadStatesEnum implements Closeable {
     public abstract String getDetail();
 
     // Enum конструкторы должны всегда быть private.
-    private ThreadStatesEnum(int i) {
-        priority = i;
+    private ThreadStatesEnum(int priority) {
+        this.priority = priority;
     }
 
     // У Enum могут быть методы
@@ -51,8 +51,8 @@ public enum ThreadStatesEnum implements Closeable {
         return this.priority;
     }
 
-    public void setPriority(int p) {
-        this.priority = p;
+    public void setPriority(int priority) {
+        this.priority = priority;
     }
 
     // Enum может переопределять методы

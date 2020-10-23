@@ -7,8 +7,8 @@ enum Apple3 {
     private int price;//ПОЛЕ - цена яблока каждого сорта
 
     //конструктор
-    Apple3(int p) {
-        price = p;
+    Apple3(int price) {
+        this.price = price;
     }
 
     //перегружаемый конструктор

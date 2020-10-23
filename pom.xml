@@ -37,6 +37,7 @@
         <module>chapter_console_menu</module>
         <module>chapter_write_with_TDD</module>
         <module>chapter_TicTacToe</module>
+        <module>chapter_utils</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -447,6 +448,19 @@
             <groupId>org.jdom</groupId>
             <artifactId>jdom2</artifactId>
             <version>2.0.6</version>
+        </dependency>
+
+        <!-- Connection pool -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-dbcp2</artifactId>
+            <version>2.4.0</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/jstl/jstl -->
+        <dependency>
+            <groupId>jstl</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.2</version>
         </dependency>
     </dependencies>
 </project>

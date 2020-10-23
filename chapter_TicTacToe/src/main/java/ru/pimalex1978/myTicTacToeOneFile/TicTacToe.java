@@ -1,9 +1,13 @@
-package ru.pimalex1978.my;
+package ru.pimalex1978.myTicTacToeOneFile;
 
 import java.util.Random;
 import java.util.Scanner;
 
 /**
+ * Игра "Крестики-Нолики".
+ * С возможностью задания размера поля.
+ * Игра может продолжаться пока вы не пожелаете
+ * выйти.
  * https://geekbrains.ru/posts/java_ticktacktoe_game
  * аналогичный код здесь:
  * https://www.youtube.com/watch?v=Ty6yhlxon_g
@@ -52,9 +56,9 @@ public class TicTacToe {
     private Scanner scanner;
 
     public static void main(String[] args) {
-        new TicTacToe(5).game();
+//        new TicTacToe(5).game();
 //        new TicTacToe(4).game();
-//        new TicTacToe().game();
+        new TicTacToe().game();
     }
 
     TicTacToe() {
@@ -88,6 +92,7 @@ public class TicTacToe {
      */
     void game() {
         System.out.println("Welcome to the game TicTacToe!");
+
         initBoard();
         printBoard();
 
@@ -177,19 +182,36 @@ public class TicTacToe {
 
     /**
      * Метод, отображающий текущее состояние игровой таблицы.
+     * Можно это сделать с помощью StringBuilder или
+     * System.out.print(string).
      */
     private void printBoard() {
-        System.out.print(" ");
+        StringBuilder sb = new StringBuilder();
+        sb.append(" ");
         for (int header = 0; header < sizeBoard; header++) {
-            System.out.print(" " + (header + 1));
+            sb.append(" ").append(header + 1);
         }
-        System.out.println();
+        sb.append(System.lineSeparator());
         for (int row = 0; row < sizeBoard; row++) {
-            System.out.print((row + 1) + " ");
-            for (int col = 0; col < sizeBoard; col++)
-                System.out.print(gameBoard[row][col] + " ");
-            System.out.println();
+            sb.append(row + 1).append(" ");
+            for (int col = 0; col < sizeBoard; col++) {
+                sb.append(gameBoard[row][col]).append(" ");
+            }
+            sb.append(System.lineSeparator());
         }
+        System.out.println(sb.toString());
+
+//        System.out.print(" ");
+//        for (int header = 0; header < sizeBoard; header++) {
+//            System.out.print(" " + (header + 1));
+//        }
+//        System.out.println();
+//        for (int row = 0; row < sizeBoard; row++) {
+//            System.out.print((row + 1) + " ");
+//            for (int col = 0; col < sizeBoard; col++)
+//                System.out.print(gameBoard[row][col] + " ");
+//            System.out.println();
+//        }
     }
 
     /**
@@ -321,17 +343,38 @@ public class TicTacToe {
     /**
      * Метод проверяющий, что вводится имено целое число,
      * а не что то другое. Возвращает целое введеное число.
+     * (1-й метод)
      *
      * @return целое число.
      */
-    public int checkDigitInputAndReturnInt() {
+    private int checkDigitInputAndReturnInt() {
         int move;
         while (!scanner.hasNextInt()) {
-            System.out.println("That not a number! Try again.");
+            System.out.println("Invalid input. That not a number! Try again.");
             scanner.next(); //this is important! - продвигаем Scanner до тех пор, пока не будет hasNextInt()
         }
         move = scanner.nextInt();
         return move;
+    }
+
+    /**
+     * Метод читает из консоли данные и возвращает число,
+     * если только это есть целое число.
+     * Иначе крутимся в бесконечном цикле.
+     * (2-й метод)
+     *
+     * @return целое число.
+     */
+    public int inInt() {
+        //Крутимся в бесконечном цикле пока не будет введено
+        //целое число.
+        while (true) {
+            try {
+                return Integer.parseInt(scanner.nextLine().trim());
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Not an integer! Try again.");
+            }
+        }
     }
 
     /**
@@ -364,7 +407,11 @@ public class TicTacToe {
     }
 
 
-    public void selectSizeBoard() {
-
+    public int selectSizeBoard() {
+        System.out.println("Select gameboard size: 3x3, 5x5 or else.");
+        System.out.println("Input one number, e.g.: 3");
+        System.out.println("And it will be the size 3x3");
+        return inInt();
     }
+
 }
