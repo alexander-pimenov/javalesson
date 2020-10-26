@@ -48,6 +48,13 @@ public class Logic {
         return result;
     }
 
+    /**
+     * Метод проходит по всем ячейкам игровой таблицы и,
+     * если они все заняты, возвращает true. Если хотя
+     * бы одна ячейка ещё свободна, возвращается false.
+     *
+     * @return boolean result
+     */
     public boolean isTableFull() {
         for (int row = 0; row < board.size(); row++) {
             for (int col = 0; col < board.size(); col++) {
@@ -59,18 +66,34 @@ public class Logic {
         return true;
     }
 
-    public boolean isCellValid(int x, int y) {
+    /**
+     * Метод, определяющий валидность ячейки.
+     *
+     * @param x координата ячейки по X
+     * @param y координата ячейки по Y
+     * @return boolean result.
+     */
+    public boolean isCellValidForHuman(int x, int y) {
         if (x < 0 || y < 0 || x >= board.size() || y >= board.size()) {
             System.out.println("Вы вышли за рамки игрового поля. Try again.");
             return false;
         }
         if (board.getBoard()[x][y] != board.getCell().getSIGN_EMPTY()) {
-            System.out.println("Ячейка занята. Try again.");
+            System.out.println("Ячейка занята. Введите другие координаты.");
             return false;
         }
         return true;
     }
 
+    /**
+     * Метод, определяющий валидность ячейки для хода
+     * компьютера. Немного отчличается от метода для
+     * хода человека.
+     *
+     * @param x координата ячейки по X
+     * @param y координата ячейки по Y
+     * @return boolean result.
+     */
     public boolean isCellValidForRobot(int x, int y) {
 //        if (x < 0 || y < 0 || x >= board.size() || y >= board.size()) {
 //            System.out.println("Вы вышли за рамки игрового поля. Try again.");

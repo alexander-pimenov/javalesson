@@ -16,6 +16,12 @@ public class PlayerAI implements Player {
         this.logic = logic;
     }
 
+    /**
+     * Метод, реализующий ход компьютера.
+     *
+     * @param symbol символ, которым играет пользователь.
+     *               Или X или O.
+     */
     @Override
     public void go(char symbol) {
         int x, y;

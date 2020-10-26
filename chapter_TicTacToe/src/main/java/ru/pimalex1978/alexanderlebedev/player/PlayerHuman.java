@@ -17,13 +17,19 @@ public class PlayerHuman implements Player {
         this.logic = logic;
     }
 
+    /**
+     * Метод, реализующий ход пользователя.
+     *
+     * @param symbol символ, которым играет пользователь.
+     *               Или X или O.
+     */
     @Override
     public void go(char symbol) {
         int x, y;
         do {
             x = input.ask("Введите координату X: ") - 1;
             y = input.ask("Введите координату Y: ") - 1;
-        } while (!logic.isCellValid(x, y));
+        } while (!logic.isCellValidForHuman(x, y));
         System.out.println(Character.toUpperCase(symbol) + " сделал ход в клетку: " + (x + 1) + "-" + (y + 1));
         board.getBoard()[x][y] = symbol;
     }
