@@ -1,11 +1,15 @@
 package ru.pimalex1978.function_interface;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
+ * https://www.javabrahman.com/java-8/java-8-java-util-function-predicate-tutorial-with-examples/
+ * <p>
  * Predicate встроенный функциональный интерфейс, добавленный в Java SE 8 в пакет java.util.function.
  * Принимает на вход значение, проверяет состояние и возвращает boolean значение в качестве результата.
  * Predicate подтверждает какое-то значение как true или false.
@@ -63,6 +67,45 @@ public class PredicateDemo1 {
                 .collect(Collectors.toList());
         System.out.println(evenNumbers); //[2, 4, 6, 8]
 
+        //СОЗДАЕМ объект Predicate с указанием, что мы хотим там делать
+        //проверям что число больше 0
+        Predicate<Integer> positive = i -> i > 0;
+        Predicate<Integer> negate = positive.negate(); //отрицание positive
+
+        //создаем список чисел
+        List<Integer> integerList = Arrays.asList(1, 11, 200, 101, -10, 0, 15);
+
+        //РЕАЛИЗУЕМ Predicate вызвав метод get() в методе filterList
+        final List<Integer> positiveList = filterList(integerList, positive);
+        positiveList.forEach(System.out::println);
+
+        final List<Integer> negativeList = filterList(integerList, negative);
+        negativeList.forEach(System.out::println);
+
+        final List<Integer> eventList = filterList(integerList, isEventNumber);
+        eventList.forEach(System.out::println);
+
+        final List<Integer> negatePositiveList = filterList(integerList, negate);
+        negatePositiveList.forEach(System.out::println);
+    }
+
+    /**
+     * Метод, использующий в проверке Predicate.
+     * Собирает в список числа соответствующие предикату.
+     * Предикат пишем на лету , т.е. в методе main.
+     *
+     * @param listOfIntegers список чисел.
+     * @param predicate      условие предикат.
+     * @return список чисел удовлетворяющий условию.
+     */
+    public static List<Integer> filterList(List<Integer> listOfIntegers, Predicate<Integer> predicate) {
+        List<Integer> filteredList = new ArrayList<>();
+        for (Integer integer : listOfIntegers) {
+            if (predicate.test(integer)) { //вызываем Predicate
+                filteredList.add(integer);
+            }
+        }
+        return filteredList;
     }
 }
 
