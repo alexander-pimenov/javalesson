@@ -63,13 +63,13 @@ public class SupplierDemo1 {
          * Здесь мы использовали метод limit(5), чтобы задать ограничение
          * методу generate, иначе программа выводила бы рандомные имена
          * в консоль бесконечно.*/
-        Stream.generate(() -> { //производим что то по этому алгоритму
+        Stream.generate(() -> { //ПРОИЗВОДИМ что то по этому алгоритму
             int value = (int) (Math.random() * nameList.size());
             return nameList.get(value);
         }).limit(5).forEach(System.out::println);
 
 
-        //Еще пример:
+        //Еще пример С ПРОИЗВОДСТВОМ чего то:
         getValue(() -> "Output1");
         getValue(() -> "OutPut2");
 
