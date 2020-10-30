@@ -38,6 +38,7 @@
         <module>chapter_write_with_TDD</module>
         <module>chapter_TicTacToe</module>
         <module>chapter_utils</module>
+        <module>chapter_refactoring</module>
     </modules>
     <packaging>pom</packaging>
 

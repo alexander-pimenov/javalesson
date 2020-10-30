@@ -1,0 +1,32 @@
+switch vs if-else vs enum vs HashMap [Шаблон "Команда"]
+https://www.youtube.com/watch?v=9hD2rh3PXvM&feature=youtu.be
+
+https://github.com/NastassiaBor/mjc/tree/master/RefactoringProject
+
+В этом примере показано, что растущую простыня и if-else или
+switch-case нужно рефакторить с помощью enum.
+=========================================================================
+Пример с использование enum:
+
+1. создаем интерфейс MailTemplate с методом возвращающим шаблон.
+2. затем несколько имплиментаций этого интерфейса: личные письма, бизнес письма
+    - PersonalMailTemplate, BusinessMailTemplate. Т.обр. разносим наш контент
+    из класса MessageSender, который был описан в методах getBusinessTemplateMessage()
+    и getPersonalTemplateMessage()
+3. создадим enum и вынисем в него типы писем.
+    Идея состоит в том, что когда мы будем обращаться к item в enum то мы будем
+    получать имплиментацию (PersonalMailTemplate, BusinessMailTemplate)
+    и вызывать уже метод getTemplateByCode() на этой имплиментации.
+4. Из утилитного класса получаем код типа письма
+        int emailTemplateCode = MessageSenderUtil.getTemplateTypeCodeFromDB();
+   берем MessageType enum, получим код по id с помощью .getTemplateByCode(emailTemplateCode),
+   обратимся к имплиментации .getPersonalMailTemplate() и заберем у неё темплейт .getTemplate()
+        String template = MessageType.getTemplateByCode(emailTemplateCode).getPersonalMailTemplate().getTemplate();
+   и передадим наш теплейт в утилитный класс для дальней отправки письма
+        MessageSenderUtil.sendMessage(template);
+=========================================================================
+Пример с использование мапы:
+
+1. здесь всё просто, мы мапируем код и значение, как в enum но через мапу.
+2. когда нужна какая то имплиментация, мы обращаемся к мапе, и получаем нужную нам имплиментацию.
+
