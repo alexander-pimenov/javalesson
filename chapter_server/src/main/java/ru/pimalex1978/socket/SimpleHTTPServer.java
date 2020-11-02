@@ -30,6 +30,7 @@ public class SimpleHTTPServer {
                  BufferedReader reader = new BufferedReader(
                          new InputStreamReader(socket.getInputStream())
                  )) {
+                System.out.println("Server started");
 
                 String line = reader.readLine();
                 while (!line.isEmpty()) {

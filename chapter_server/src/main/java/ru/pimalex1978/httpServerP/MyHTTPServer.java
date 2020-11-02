@@ -1,13 +1,13 @@
-package ru.pimalex1978.socket;
+package ru.pimalex1978.httpServerP;
 
 import java.io.*;
-import java.net.InetAddress;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.net.URLDecoder;
-import java.util.StringTokenizer;
+import java.net.*;
+import java.util.*;
 
 /*
+ * MyHTTPServer.java
+ * Author: S.Prasanna
+ * @version 1.00
  * Тем не менее, я бы предложил вам использовать многопоточность и, по сути,
  * создавать новый поток для обработки каждого нового запроса.
  * Вы можете создать класс, который реализует runnable и принимает clientSocket
@@ -15,33 +15,39 @@ import java.util.StringTokenizer;
  * веб-сервер способным принимать более одного запроса одновременно.
  * Вам также понадобится цикл while, если вы хотите обработать более
  * одного общего количества запросов.
- * https://web.archive.org/web/20130525092305/http://www.prasannatech.net/2008/10/simple-http-server-java.html
+ *
+ *
  */
 public class MyHTTPServer extends Thread {
-    private static final String HTML_START =
+
+    static final String HTML_START =
             "<html>" +
                     "<title>HTTP Server in java</title>" +
                     "<body>";
-    private static final String HTML_END =
+
+    static final String HTML_END =
             "</body>" +
                     "</html>";
 
-    private Socket connectedClient = null;
-    private BufferedReader inFromClient = null;
-    private DataOutputStream outToClient = null;
+    Socket connectedClient = null;
+    BufferedReader inFromClient = null;
+    DataOutputStream outToClient = null;
+
 
     public MyHTTPServer(Socket client) {
-        this.connectedClient = client;
+        connectedClient = client;
     }
 
     public void run() {
+
         try {
-            System.out.println("The Client" +
+
+            System.out.println("The Client " +
                     connectedClient.getInetAddress() + ":" + connectedClient.getPort() + " is connected");
-            inFromClient = new BufferedReader(
-                    new InputStreamReader(
-                            connectedClient.getInputStream()));
+
+            inFromClient = new BufferedReader(new InputStreamReader(connectedClient.getInputStream()));
             outToClient = new DataOutputStream(connectedClient.getOutputStream());
+
             String requestString = inFromClient.readLine();
             String headerLine = requestString;
 
@@ -55,8 +61,7 @@ public class MyHTTPServer extends Thread {
 
             System.out.println("The HTTP request string is ....");
             while (inFromClient.ready()) {
-                //Read the HTTP complete HTTP Query
-                //Прочитайте HTTP полный HTTP-запрос
+                // Read the HTTP complete HTTP Query
                 responseBuffer.append(requestString + "<BR>");
                 System.out.println(requestString);
                 requestString = inFromClient.readLine();
@@ -64,12 +69,10 @@ public class MyHTTPServer extends Thread {
 
             if (httpMethod.equals("GET")) {
                 if (httpQueryString.equals("/")) {
-                    //The default home page
-                    //Домашняя страница по умолчанию
+                    // The default home page
                     sendResponse(200, responseBuffer.toString(), false);
                 } else {
-                    //This is interpreted as a file name
-                    //Это интерпретируется как имя файла
+//This is interpreted as a file name
                     String fileName = httpQueryString.replaceFirst("/", "");
                     fileName = URLDecoder.decode(fileName);
                     if (new File(fileName).isFile()) {
@@ -79,16 +82,17 @@ public class MyHTTPServer extends Thread {
                                 "Usage: http://127.0.0.1:5000 or http://127.0.0.1:5000/</b>", false);
                     }
                 }
-            } else sendResponse(404, "<b>The Requested resource not found ...."
-                    + "Usage: http://127.0.0.1:5000 or http://127.0.0.1:5000/</b>", false);
+            } else sendResponse(404, "<b>The Requested resource not found ...." +
+                    "Usage: http://127.0.0.1:5000 or http://127.0.0.1:5000/</b>", false);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     public void sendResponse(int statusCode, String responseString, boolean isFile) throws Exception {
+
         String statusLine = null;
-        String serverDetails = "Server: Java HTTPServer";
+        String serverdetails = "Server: Java HTTPServer";
         String contentLengthLine = null;
         String fileName = null;
         String contentTypeLine = "Content-Type: text/html" + "\r\n";
@@ -103,7 +107,7 @@ public class MyHTTPServer extends Thread {
             fileName = responseString;
             fin = new FileInputStream(fileName);
             contentLengthLine = "Content-Length: " + Integer.toString(fin.available()) + "\r\n";
-            if (!fileName.endsWith(".html") && !fileName.endsWith("htm"))
+            if (!fileName.endsWith(".htm") && !fileName.endsWith(".html"))
                 contentTypeLine = "Content-Type: \r\n";
         } else {
             responseString = MyHTTPServer.HTML_START + responseString + MyHTTPServer.HTML_END;
@@ -111,7 +115,7 @@ public class MyHTTPServer extends Thread {
         }
 
         outToClient.writeBytes(statusLine);
-        outToClient.writeBytes(serverDetails);
+        outToClient.writeBytes(serverdetails);
         outToClient.writeBytes(contentTypeLine);
         outToClient.writeBytes(contentLengthLine);
         outToClient.writeBytes("Connection: close\r\n");
@@ -133,12 +137,13 @@ public class MyHTTPServer extends Thread {
         fin.close();
     }
 
-    public static void main(String[] args) throws Exception {
-        ServerSocket server = new ServerSocket(5000, 10, InetAddress.getByName("127.0.0.1"));
+    public static void main(String args[]) throws Exception {
+
+        ServerSocket Server = new ServerSocket(5000, 10, InetAddress.getByName("127.0.0.1"));
         System.out.println("TCPServer Waiting for client on port 5000");
 
         while (true) {
-            Socket connected = server.accept();
+            Socket connected = Server.accept();
             (new MyHTTPServer(connected)).start();
         }
     }
