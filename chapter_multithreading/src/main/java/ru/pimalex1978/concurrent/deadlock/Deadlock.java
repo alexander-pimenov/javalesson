@@ -1,5 +1,16 @@
 package ru.pimalex1978.concurrent.deadlock;
 
+/**
+ * Взаимная блокировка
+ * С использованием блокировок необходимо быть очень внимательным,
+ * чтобы не создать «взаимоблокировку», которая хорошо известна
+ * разработчикам. Этот термин означает, что один из потоков ждет
+ * от другого освобождения заблокированного им ресурса, в то время
+ * как сам также заблокировал один из ресурсов, доступа к которому
+ * ждёт второй поток.
+ * В данном процессе могут участвовать два и более потоков.
+ * Взаимная блокировка по другому называется - deadlock.
+ */
 public class Deadlock {
     static class Friend {
         private final String name;
@@ -32,7 +43,7 @@ public class Deadlock {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                 System.out.println("Thread 1"); //
+                System.out.println("Thread 1"); //
                 alphonse.bow(gaston);
 //                 System.out.println("Thread 1: gaston bowed to alphonse"); //
             }
@@ -41,9 +52,9 @@ public class Deadlock {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                  System.out.println("Thread 2"); //
+                System.out.println("Thread 2"); //
                 gaston.bow(alphonse);
-                  System.out.println("Thread 2: gaston waiting alphonse bowed"); //
+                System.out.println("Thread 2: gaston waiting alphonse bowed"); //
             }
         }).start();
     }
