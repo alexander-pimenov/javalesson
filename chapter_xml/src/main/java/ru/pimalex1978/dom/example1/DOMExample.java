@@ -39,13 +39,13 @@ public class DOMExample {
     private static List<Employee> employees = new ArrayList<>();
 
     public static void main(String[] args) throws ParserConfigurationException, IOException, SAXException, URISyntaxException {
-        //Получение фабрики, чтобы полсе получить билдер документов.
+        //Получение фабрики, чтобы послс получить билдер документов.
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 
         //Получили из фабрики билдер документов, который парсит XML, создает структуру Document в виде иерархического дерева.
         DocumentBuilder builder = factory.newDocumentBuilder();
 
-       //Получим путь к нашему xml файлу.(вариант 1) ОБЯЗАТЕЛЬНО ставить - "/"
+        //Получим путь к нашему xml файлу.(вариант 1) ОБЯЗАТЕЛЬНО ставить - "/"
         File xml_file1 = new File(DOMExample.class.getResource("/xml_file1.xml").toURI().getPath());
 
         //Получим путь к нашему xml файлу.(вариант 2)
@@ -59,9 +59,8 @@ public class DOMExample {
         //Получим путь к нашему xml файлу.(вариант 4) ОБЯЗАТЕЛЬНО ставить - "/"
         //File xml_file1 = new File(DOMExample.class.getResource("/xml_file1.xml").getFile());
 
-
         //Запарсили XML, создав структуру Document. Теперь у нас есть доступ ко всем элементам, каким нам нужно.
-        //Так прописывать путь к файлу не верно. На других машинах будет ошибка.
+        //Так прописывать путь к файлу не верно. На других машинах будет ошибка:
         //Document document = builder.parse(new File("C:\\projects\\lessons-job4j\\chapter_xml\\src\\main\\resources\\xml_file1.xml"));
         //1-й вариант найденного пути к файлу
         Document document = builder.parse(xml_file1);
@@ -75,7 +74,6 @@ public class DOMExample {
         //4-й вариант найденного пути к файлу
         //Document document = builder.parse(xml_file1);
 
-
         // Получение списка всех элементов employee внутри корневого элемента (getDocumentElement возвращает ROOT элемент XML файла).
         NodeList employeeElements = document.getDocumentElement().getElementsByTagName("employee");
 
@@ -88,7 +86,8 @@ public class DOMExample {
 
             //Добавление сотрудника.
             //Атрибут - тоже Node, потому нам нужно получить значение атрибута с помощью метода getNodeValue().
-            employees.add(new Employee(attributes.getNamedItem("name").getNodeValue(), attributes.getNamedItem("job").getNodeValue()));
+            employees.add(new Employee(attributes.getNamedItem("name").getNodeValue(),
+                    attributes.getNamedItem("job").getNodeValue()));
         }
 
         //Вывод информации о каждом сотруднике.

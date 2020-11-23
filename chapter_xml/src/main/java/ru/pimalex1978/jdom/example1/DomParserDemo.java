@@ -26,10 +26,7 @@ import java.net.URISyntaxException;
 public class DomParserDemo {
     public static void main(String[] args) throws URISyntaxException {
 
-
-
         try {
-
             //Можно так задавать путь к нашему файлу
             // String path = DomParserDemo.class.getResource("/xml_file5.xml").toURI().getPath();
             //File inputFile = new File(path);
@@ -50,7 +47,8 @@ public class DomParserDemo {
 
             //Этот метод normalize() убирает из xml файла не нужные для информации
             // отступы, пробелы.
-            //read this - http://stackoverflow.com/questions/13786607/normalization-in-dom-parsing-with-java-how-does-it-work
+            //read this
+            // - http://stackoverflow.com/questions/13786607/normalization-in-dom-parsing-with-java-how-does-it-work
             doc.getDocumentElement().normalize();
 
             System.out.println("Root element :" + doc.getDocumentElement().getNodeName());

@@ -27,10 +27,11 @@ import java.util.Random;
 public class TestInterrupt {
     public static void main(String[] args) throws InterruptedException {
         /*Создаем поток в котором будем вычислять sin
-        случайного занчения очень много раз 1_000_000_000.*/
+        случайного значения очень много раз 1_000_000_000.*/
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
+                Thread.currentThread().setName("GOOD_THREAD"); //Установим новое имя нашему потоку
                 Random random = new Random();
                 for (int i = 0; i < 1_000_000_000; i++) {
 
@@ -38,19 +39,18 @@ public class TestInterrupt {
                      * сообщение, что текущий поток currentThread
                      * желают прервать из другого потока.*/
                     if (Thread.currentThread().isInterrupted()) {
-                        System.out.println("Thread was interrupted.");
-                        break; //выйдем из цикла
+                        System.out.println(ColorScheme.RED + Thread.currentThread().getName() + " Thread was interrupted.");
+                        break; //выйдем из цикла или
+//                        return; //или выйдем из метода, что говорит о завершении работы потока.
                     }
-
                     /*Конструкция прерывающая поток с помощью метода sleep(),
-                    * который выбрасывает исключение InterruptedException*/
+                     * который выбрасывает исключение InterruptedException*/
 //                    try {
 //                        Thread.sleep(1000);
 //                    } catch (InterruptedException e) {
 //                        System.out.println("Thread was interrupted!!");
 //                        break;
 //                    }
-
                     Math.sin(random.nextDouble());
                 }
             }
@@ -69,6 +69,6 @@ public class TestInterrupt {
         //останавливаемся в потоке main и ждем выполнение потока thread
         thread.join();
 
-        System.out.println("Thread has finished.");
+        System.out.println(ColorScheme.RESET + "Thread has finished.");
     }
 }

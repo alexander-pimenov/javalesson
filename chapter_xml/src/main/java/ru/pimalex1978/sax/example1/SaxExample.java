@@ -32,7 +32,8 @@ public class SaxExample {
         XMLHandler handler = new XMLHandler();
 
         // Передаем путь к xml файлу и обработчик, который мы создали: class XMLHandler
-        parser.parse(new File("C:\\projects\\lessons-job4j\\chapter_xml\\src\\main\\resources\\xml_file1.xml"), handler);
+        parser.parse(new File(SaxExample.class.getResource("/xml_file1.xml").getFile()), handler);
+//        parser.parse(new File("C:\\projects\\lessons-job4j\\chapter_xml\\src\\main\\resources\\xml_file1.xml"), handler);
 
         //Выводим информацию о сотруднике
         for (Employee employee : employees) {

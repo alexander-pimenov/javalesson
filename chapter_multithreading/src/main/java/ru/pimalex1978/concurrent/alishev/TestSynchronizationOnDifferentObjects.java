@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * Пример где мы синхронизируемся на отдельном объекте
+ * Пример, где мы синхронизируемся на отдельном объекте, а не на this,
  * т.обр. увеличиваем производительность программы.
  */
 public class TestSynchronizationOnDifferentObjects {
@@ -15,12 +15,15 @@ public class TestSynchronizationOnDifferentObjects {
 }
 
 class Worker {
-    Random random = new Random();
+    private Random random = new Random();
 
     //Будем синхронизоваться на этих объектах lock1 lи ock2 и это хороший тон,
     //хотя можем синхроизоваться на листах.
-    Object lock1 = new Object();
-    Object lock2 = new Object();
+    //Объекты lock1 и lock2 должны быть final.
+    //Эти объекты будем использовать только для синхронизации и больше ни
+    //для чего.
+    final Object lock1 = new Object();
+    final Object lock2 = new Object();
 
     //Посмотрим состояние гонки на примере листов, их заполнения
     // случайными числами.
@@ -41,6 +44,10 @@ class Worker {
     //У этих объектов разные мониторы. И поэтому один поток может забрать метод
     //addToList1, а второй поток может забрать addToList2 а не ждать выполнения
     //этих двух методов первым потоком.
+
+    /**
+     * Добавление случайного элемента в список.
+     */
     public void addToList1() {
         //синхронизируемся на lock1
         synchronized (lock1) {
@@ -53,6 +60,9 @@ class Worker {
         }
     }
 
+    /**
+     * Добавление случайного элемента в список.
+     */
     public void addToList2() {
         //синхронизируемся на lock2
         synchronized (lock2) {
@@ -65,7 +75,7 @@ class Worker {
         }
     }
 
-    /*В методе вызываем два процесса*/
+    /*В методе вызываем два процесса addToList1 и addToList2*/
     public void work() {
         for (int i = 0; i < 1000; i++) {
             addToList1();
@@ -76,6 +86,7 @@ class Worker {
     /**
      * В методе создаим два потока, чтобы каждый поток мог наполнять элементами
      * списки, т.обр. за определенное время увеличим производительность.
+     * Как изменилась производительность увидим используя временные метки.
      */
     public void main() {
         long before = System.currentTimeMillis();
@@ -93,7 +104,7 @@ class Worker {
             }
         });
 
-//        work();
+//        work(); //Здесь работает только один поток main
 
         //Стартуем потоки
         thread1.start();
