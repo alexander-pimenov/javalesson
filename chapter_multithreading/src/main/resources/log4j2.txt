@@ -1,0 +1,88 @@
+### Файл настройки вывода лога.
+# Эти настройки ОБЯЗАТЕЛЬНЫ, и мы их делаем или в файле lof4j.properties
+# или log4j.xml
+### Уровень логирования.
+# Чем критичнее сообщение, тем выше должен быть уровень сообщения.
+# ERROR - критические ошибки.
+# DEBUG - отладочная информация.
+
+### Запись в консоль, файла или базу данных. ###
+#Далее строка говорит, что мы регистрируем аппендер CONSOLE, который
+#использует реализацию org.apache.log4j.ConsoleAppender. Этот аппендер
+# записывает данные в консоль.
+#log4j.appender.console=org.apache.log4j.ConsoleAppender
+
+## Далее зарегистрируем еще один аппендер, который будет записывать в файл:
+#log4j.appender.FILE=org.apache.log4j.RollingFileAppender
+
+# Когда у нас уже есть зарегистрированные аппендеры, мы можем определить,
+# какой будет уровень логирования в узлах и какие аппендеры будут при этом
+# использоваться.
+log4j.rootLogger=DEBUG, CONSOLE, FILE
+#log4j.rootLogger означает, что будем настраивать главный узел, в котором
+# находятся все логи;
+#после знака равно первое слово говорит о том, с каким уровнем и выше будут
+# записываться логи (в нашем случае это DEBUG);
+#далее после запятой указываются все аппендеры, которые будут использоваться.
+
+
+### Формат записи.
+# В логах удобно получать информацию о времени выполнении,
+# классе и строчке кода, где была сделана запись.
+# %d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n
+# %d{ISO8601} - дата в формате ISO8601.
+# %d{yyyy-MM-dd HH:mm:ss} - выводит дату в формате 2014-01-14 23:55:57
+# %-5p - уровень сообщения, приоритет. 5 символов. Выравнивание влево.
+# %-t - имя потока. Выравнивание влево.
+# %c - категория. Класс.
+# %c{1} – категория, в скобках указывается сколько уровней выдавать. Так как у нас 1 уровень то писаться будет только имя класса.
+# %L – номер строки в которой произошёл вызов записи в лог.
+# %c:%M:%L - класс, метод, строчка.
+# %m – сообщение, которое передали в лог.
+# %n – переход на новую строку.
+# %m%n - текс сообщения с переходом.
+# [ ] - квадратные скобки улучшают читабельность.
+#log4j.appender.console.layout=org.apache.log4j.PatternLayout
+#log4j.appender.console.layout.ConversionPattern=%d{ISO8601} [%-5p] [%c:%M:%L] - %m%n
+#log4j.appender.console.layout.ConversionPattern=%d{ISO8601} [%-5p] [%-t] [%32.32c] %c:%M:%L - %m%n
+
+# CONSOLE appender customisation (Апендер для вывода в консоль)
+log4j.appender.CONSOLE=org.apache.log4j.ConsoleAppender
+log4j.appender.CONSOLE.threshold=DEBUG
+log4j.appender.CONSOLE.layout=org.apache.log4j.PatternLayout
+log4j.appender.CONSOLE.layout.ConversionPattern=[%-5p] : [%c:%M:%L] : %m%n
+
+# File appender customisation (Апендер для работы с файлами)
+log4j.appender.FILE=org.apache.log4j.RollingFileAppender
+# Путь где будет создаваться лог файл
+#log4j.appender.FILE.File=./logging/logging.log
+log4j.appender.FILE.File="logs/testLoggingDownload.txt"
+# Указываем максимальный размер файла с логами
+log4j.appender.FILE.MaxFileSize=1MB
+log4j.appender.FILE.threshold=DEBUG
+log4j.appender.FILE.MaxBackupIndex=2
+# Конфигурируем шаблон вывода логов в файл
+log4j.appender.FILE.layout=org.apache.log4j.PatternLayout
+log4j.appender.FILE.layout.ConversionPattern=%d{yyyy-MM-dd HH:mm:ss} [ %-5p] - %c:%L - %m%n
+
+##=##=##=##=##  Рассмотри и нижний пример  ##=##=##=##=##
+## Root logger option
+#log4j.rootLogger=INFO, file, stdout
+
+## Direct log messages to a log file
+## Направление сообщений журнала в файл журнала
+#log4j.appender.file=org.apache.log4j.RollingFileAppender
+#log4j.appender.file.File=C:\\loging.log
+#log4j.appender.file.MaxFileSize=1MB
+#log4j.appender.file.MaxBackupIndex=1
+#log4j.appender.file.layout=org.apache.log4j.PatternLayout
+#log4j.appender.file.layout.ConversionPattern=%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n
+
+## Direct log messages to stdout
+## Направление сообщений журнала на стандартный вывод
+#log4j.appender.stdout=org.apache.log4j.ConsoleAppender
+#log4j.appender.stdout.Target=System.out
+#log4j.appender.stdout.layout=org.apache.log4j.PatternLayout
+#log4j.appender.stdout.layout.ConversionPattern=%d{yyyy-MM-dd HH:mm:ss} %-5p %c{1}:%L - %m%n
+
+##=##=##=##=##==##=##=##=##=##==##=##=##=##=##==##=##=##=##=##

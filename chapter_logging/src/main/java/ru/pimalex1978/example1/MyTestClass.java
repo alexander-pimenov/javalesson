@@ -5,13 +5,16 @@ import org.slf4j.Logger;
 
 /**
  * Хорошее обучающее видео о логгировании https://www.youtube.com/watch?v=N4fmELeXw5I
+ * Выпуск 72. Логирование - важный инструмент для разработчика.
+ * Здесь использована связка slf4j и log4j (в pom.xml есть три соответствующие зависимости)
  * В нем рассказывется для чего логгирование и, кратко, об его уровнях: TRACE, INFO, DEBUG, WARN, ERROR.
  * Здесь взят пример из https://javarush.ru/groups/posts/2293-zachem-nuzhno-logirovanie
  * И некоторая информация от сюда https://javarush.ru/groups/posts/2388-logirovanie-chto-kak-gde-i-chem
  * И от сюда http://skipy.ru/useful/logging.html#uls_slf
  * и от сюда https://logging.apache.org/log4j/2.x/manual/appenders.html
  * и от сюда https://github.com/romankh3/logger-lecture
- *  * и https://github.com/zenonwch/spring-mvc-beginner/blob/master/src/main/resources/log4j2.properties
+ * и от сюда https://github.com/zenonwch/spring-mvc-beginner/blob/master/src/main/resources/log4j2.properties
+ * и https://urvanov.ru/2019/07/08/%D0%BB%D0%BE%D0%B3%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5-%D1%81-slf4j-%D0%B8-logback/
  */
 
 public class MyTestClass {

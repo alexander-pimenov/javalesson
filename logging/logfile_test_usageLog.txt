@@ -1,0 +1,16 @@
+2020-11-28 20:21:55 [main] [TRACE] ru.pimalex1978.example2.UsageLog4j:main:50 - trace message
+2020-11-28 20:21:55 [main] [DEBUG] ru.pimalex1978.example2.UsageLog4j:main:51 - debug message. Message for debug level.
+2020-11-28 20:21:55 [main] [INFO ] ru.pimalex1978.example2.UsageLog4j:main:52 - info message. Application works. Just a log message.
+2020-11-28 20:21:55 [main] [WARN ] ru.pimalex1978.example2.UsageLog4j:main:53 - warn message. Something to warn
+2020-11-28 20:21:55 [main] [ERROR] ru.pimalex1978.example2.UsageLog4j:main:54 - error message. Something failed.
+2020-11-28 20:21:55 [main] [TRACE] ru.pimalex1978.example2.UsageLog4j:main:56 - trace message. Зашли в блок try-catch
+2020-11-28 20:21:55 [main] [ERROR] ru.pimalex1978.example2.UsageLog4j:main:61 - Error message from catch-block. Failed to read file /file/does/not/exist.
+java.nio.file.NoSuchFileException: \file\does\not\exist
+	at java.base/sun.nio.fs.WindowsException.translateToIOException(WindowsException.java:85)
+	at java.base/sun.nio.fs.WindowsException.rethrowAsIOException(WindowsException.java:103)
+	at java.base/sun.nio.fs.WindowsException.rethrowAsIOException(WindowsException.java:108)
+	at java.base/sun.nio.fs.WindowsFileSystemProvider.newByteChannel(WindowsFileSystemProvider.java:235)
+	at java.base/java.nio.file.Files.newByteChannel(Files.java:373)
+	at java.base/java.nio.file.Files.newByteChannel(Files.java:424)
+	at java.base/java.nio.file.Files.readAllBytes(Files.java:3280)
+	at ru.pimalex1978.example2.UsageLog4j.main(UsageLog4j.java:58)

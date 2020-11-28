@@ -1,6 +1,0 @@
-2020-09-21 15:05:02.948 [main] [INFO ] ru.pimalex1978.example2.UsageLog4j - info message
-2020-09-21 15:05:02.955 [main] [WARN ] ru.pimalex1978.example2.UsageLog4j - warn message
-2020-09-21 15:05:02.955 [main] [ERROR] ru.pimalex1978.example2.UsageLog4j - error message
-2020-09-21 16:18:24.882 [main] [INFO ] ru.pimalex1978.example2.UsageLog4j - info message
-2020-09-21 16:18:24.890 [main] [WARN ] ru.pimalex1978.example2.UsageLog4j - warn message
-2020-09-21 16:18:24.890 [main] [ERROR] ru.pimalex1978.example2.UsageLog4j - error message
