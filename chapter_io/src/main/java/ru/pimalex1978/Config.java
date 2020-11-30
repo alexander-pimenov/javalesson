@@ -8,13 +8,17 @@ import java.util.StringJoiner;
 
 public class Config {
     private final String path;
-    private final Map<String, String> values = new HashMap<String, String>();
+    private final Map<String, String> values = new HashMap<>();
 
-    public Config(final String path) {
+    Config(final String path) {
         this.path = path;
     }
-    /*Метод читает из файла все ключи и значения разделенные знаком "=" в карту values.
-     * Не читает пустые строки и строки начинающиеся с ##*/
+
+    /**
+     * Метод читает из файла все ключи и значения разделенные знаком "="
+     * в карту values.
+     * Не читает пустые строки и строки начинающиеся с ##
+     */
     public void load() {
         try (BufferedReader read = new BufferedReader(new FileReader(this.path))) {
             read.lines()
@@ -26,7 +30,13 @@ public class Config {
             e.printStackTrace();
         }
     }
-    /*Метод читает из файла значение из карты values по ключу.*/
+
+    /**
+     * Метод читает из файла значение из карты values по ключу.
+     *
+     * @param key значение ключа из строки.
+     * @return значение строки.
+     */
     public String value(String key) {
         return values.get(key);
     }

@@ -14,63 +14,18 @@
     <appender name="fileAppender" class="org.apache.log4j.RollingFileAppender">
         <param name="maxFileSize" value="10MB"/>
         <param name="maxBackupIndex" value="2"/>
-        <param name="file" value="logging/logfile_FileDownload.txt"/>
+        <param name="file" value="logging/logfile_read_write.txt"/>
         <param name="immediateFlush" value="true"/>
         <!--        <param name="threshold" value="trace"/>-->
         <param name="append" value="true"/>
         <layout class="org.apache.log4j.PatternLayout">
             <param name="ConversionPattern"
-                   value="%d{yyyy-MM-dd HH:mm:ss} [%-5p] %c{1} - %m%n"/>
+                   value="%d{yyyy-MM-dd HH:mm:ss} [%-5p] [%-5p] %c:%M:%L - %m%n"/>
         </layout>
     </appender>
-    <appender name="fileAppender2" class="org.apache.log4j.RollingFileAppender">
-        <param name="maxFileSize" value="10MB"/>
-        <param name="maxBackupIndex" value="2"/>
-        <param name="file" value="logging/logfile_test_usageLog.txt"/>
-        <param name="immediateFlush" value="true"/>
-        <!--        <param name="threshold" value="trace"/>-->
-        <param name="append" value="true"/>
-        <layout class="org.apache.log4j.PatternLayout">
-            <param name="ConversionPattern"
-                   value="%d{yyyy-MM-dd HH:mm:ss} [%t] [%-5p] %c:%M:%L - %m%n"/>
-        </layout>
-    </appender>
-    <appender name="fileAppender3" class="org.apache.log4j.RollingFileAppender">
-        <param name="maxFileSize" value="5MB"/>
-        <param name="maxBackupIndex" value="2"/>
-        <param name="file" value="logging/logfile_test_Logging.txt"/>
-        <param name="immediateFlush" value="true"/>
-        <!--        <param name="threshold" value="trace"/>-->
-        <param name="append" value="true"/>
-        <layout class="org.apache.log4j.PatternLayout">
-            <param name="ConversionPattern"
-                   value="%d{yyyy-MM-dd HH:mm:ss} [%-5p] %c{1} - %m%n"/>
-        </layout>
-    </appender>
-
-    <!-- Можно использовать или <category> или <logger> -->
-    <!--    <category name="ru.job4j.log4j.FileDownloadApp" additivity="false">-->
-    <!--         приоритетность: all, trace, debug, info, warn, error, fatal-->
-    <!--        <priority value="info"/>-->
-    <!--        <appender-ref ref="fileAppender"/>-->
-    <!--    </category>-->
-    <!--    <category name="ru.job4j.log4j.UsageLog4j" additivity="false">-->
-    <!--         приоритетность: all, trace, debug, info, warn, error, fatal-->
-    <!--        <priority value="info"/>-->
-    <!--        <appender-ref ref="fileAppender2"/>-->
-    <!--    </category>-->
-
-    <logger name="ru.pimalex1978.concurrent.downloader" additivity="false">
-        <!-- уровень: all, trace, debug, info, warn, error, fatal-->
+    <logger name="ru.pimalex1978" additivity="false">
         <level value="info"/>
         <appender-ref ref="fileAppender"/>
-        <appender-ref ref="console"/>
-    </logger>
-
-    <logger name="ru.pimalex1978" additivity="false">
-        <!-- уровень: all, trace, debug, info, warn, error, fatal-->
-        <level value="trace"/>
-        <appender-ref ref="fileAppender3"/>
         <appender-ref ref="console"/>
     </logger>
     <root>
@@ -96,6 +51,7 @@
         log4j.appender.console.layout.ConversionPattern=%d{ISO8601} [%-5p] [%c:%M:%L] - %m%n
         #log4j.appender.console.layout.ConversionPattern=%d{ISO8601} [%-5p] [%-t] [%32.32c] %c:%M:%L - %m%n
         # Приоритетность: all, trace, debug, info, warn, error, fatal
+        # Уровень: all, trace, debug, info, warn, error, fatal
 
         # У logger атрибут additivity=»false» означает, что все сообщения
          обрабатываются только этим логгером, иначе сообщения будут обрабатываться
@@ -108,7 +64,7 @@
          «(param*,level?,appender-ref*)».
 
          <category name="ru.pimalex1978.concurrent.downloader" additivity="false">
-additivity="false" говорит что дальше по иерархии логеров ничего печатать не надо.
-Логер имеет древовидную структуру.
+            additivity="false" говорит что дальше по иерархии логеров ничего печатать не надо.
+            Логер имеет древовидную структуру.
 
         -->

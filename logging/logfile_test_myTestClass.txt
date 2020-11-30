@@ -1,5 +1,0 @@
-2020-11-28 20:22:46 [INFO ] MyTestClass - Начало работы программы!!!
-2020-11-28 20:22:46 [WARN ] MyTestClass - Внимание! программа пытается разделить одно число на другое
-2020-11-28 20:22:46 [ERROR] MyTestClass - Ошибка! Произошло деление на ноль!
-java.lang.ArithmeticException: / by zero
-	at ru.pimalex1978.example1.MyTestClass.main(MyTestClass.java:30)

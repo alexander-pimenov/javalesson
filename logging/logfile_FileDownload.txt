@@ -1,0 +1,5 @@
+2020-11-29 17:06:33 [INFO ] FileDownload - Вошли в метод.
+2020-11-29 17:06:51 [INFO ] FileDownload - Файл https://raw.githubusercontent.com/peterarsentev/course_test/master/pom.xml загружен
+2020-11-29 17:06:51 [INFO ] FileDownload - Размер https://raw.githubusercontent.com/peterarsentev/course_test/master/pom.xml файла 2712 байт
+2020-11-29 17:06:51 [INFO ] FileDownload - Прошло 18154 милли секунд
+2020-11-29 17:06:51 [INFO ] FileDownload - Метод завершен.
