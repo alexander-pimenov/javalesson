@@ -5,8 +5,9 @@ import static ru.pimalex1978.concurrent.ColorScheme.*;
 /**
  * Распространенный способ завершения потока представляет опрос
  * из основного (или другого) потока логической переменной.
- * Например isActive. Сброс в положение false делаем в методе
- * disable().
+ * Например isActive. isActive указывает на активность потока.
+ * С помощью метода disable() мы можем сбросить состояние этой
+ * переменной.
  */
 public class MyThread implements Runnable {
 

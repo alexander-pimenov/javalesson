@@ -106,5 +106,4 @@ class ProducerConsumer {
             Thread.sleep(1000);
         }
     }
-
 }
