@@ -1,11 +1,11 @@
-package ru.pimalex1978.concurrent.synchronize;
+package ru.pimalex1978.concurrent.synch;
 
 /**
- * В эотом присере смотрим каким будет выполнение программы.
+ * В эотом примере смотрим каким будет выполнение программы.
  */
 
 public class Example implements Runnable {
-    int x, y;
+    private int x, y;
 
     @Override
     public void run() {
@@ -19,8 +19,8 @@ public class Example implements Runnable {
                 x = 12;
                 y = 12;
             }
-            System.out.print(" i = " + i + "\t");
-            System.out.println(x + " " + y + " ");
+            System.out.print(Thread.currentThread().getName()
+                    + " i = " + i + "\t" + x + " " + y + " \r\n");
         }
     }
 

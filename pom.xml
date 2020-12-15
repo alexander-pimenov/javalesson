@@ -41,6 +41,7 @@
         <module>chapter_refactoring</module>
         <module>chapter_server</module>
         <module>chapter_read_write_data</module>
+        <module>chapter_encoding</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -423,5 +424,40 @@
             <artifactId>jstl</artifactId>
             <version>1.2</version>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.codehaus.guessencoding/guessencoding -->
+        <!-- Библиотека для получения кодировки данных. Угадай кодировку. -->
+        <dependency>
+            <groupId>org.codehaus.guessencoding</groupId>
+            <artifactId>guessencoding</artifactId>
+            <version>1.4</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.ibm.icu/icu4j -->
+        <!-- Международный компонент Unicode для Java (ICU4J) - это зрелая, широко используемая
+        библиотека Java, обеспечивающая поддержку Unicode и глобализации.
+        http://icu-project.org/-->
+        <dependency>
+            <groupId>com.ibm.icu</groupId>
+            <artifactId>icu4j</artifactId>
+            <version>68.1</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.googlecode.juniversalchardet/juniversalchardet -->
+        <!-- Еще одна библиотека для определения кодировки файла. -->
+        <dependency>
+            <groupId>com.googlecode.juniversalchardet</groupId>
+            <artifactId>juniversalchardet</artifactId>
+            <version>1.0.3</version>
+        </dependency>
+
+        <!-- TikaEncodingDetector -->
+        <!-- Еще одна библиотека для определения кодировки файла. -->
+        <dependency>
+            <groupId>org.apache.any23</groupId>
+            <artifactId>apache-any23-encoding</artifactId>
+            <version>1.1</version>
+        </dependency>
+
     </dependencies>
 </project>

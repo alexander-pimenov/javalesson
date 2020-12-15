@@ -1,4 +1,4 @@
-package ru.pimalex1978.concurrent.synchronize;
+package ru.pimalex1978.concurrent.synch;
 
 /**
  * Синхронизация потоков, synchronized.
@@ -14,7 +14,7 @@ package ru.pimalex1978.concurrent.synchronize;
  * После завершения работы потока значение res.counter должно быть равно 4.
  * <p>
  * Две строчки кода класса CounterThread закомментированы. Посмотри, как работает
- * программа без гих, потом убери комментарии и посмотри, какой теперь будет результат.
+ * программа без них, потом убери комментарии и посмотри, какой теперь будет результат.
  * <p>
  * Блокировка на уровне объекта.
  * Блокировать общий ресурс можно на уровне объекта, но нельзя использовать для
@@ -38,11 +38,14 @@ class CounterThread implements Runnable {
     }
 
     /*
-     * Попробуйте работу программы с раскомментированным блоком кода.
+     * Попробуйте работу программы с закомментированным
+     * и раскомментированным блоком кода.
+     *
+     * Здесь синхронизируемся по объекту CommonObject res.
      */
     @Override
     public void run() {
-        //synchronized (res) { //--место для закомментирования блока
+//        synchronized (res) { //--место для закомментирования блока
         res.counter = 1;
         for (int i = 1; i < 5; i++) {
             System.out.printf("'%s' - %d\n",
@@ -54,7 +57,7 @@ class CounterThread implements Runnable {
             } catch (InterruptedException e) {
             }
         }
-        //} //--место для закомментирования блока
+//        } //--место для закомментирования блока
     }
 }
 
@@ -77,9 +80,8 @@ public class SynchronizedThread {
     public static void main(String[] args) {
         CommonObject commonObject = new CommonObject();
         for (int i = 10; i < 60; i = i + 10) {
-            Thread t;
-            t = new Thread(new CounterThread(commonObject));
-            t.setName("Поток " + i);
+            Thread t = new Thread(new CounterThread(commonObject));
+            t.setName("Поток " + i); //Устанавливаем имя потоку.
             t.start();
         }
     }

@@ -35,7 +35,6 @@ public class FibonacciConcurrent {
      * Т.е. сперва один поток будет фибоначить числа, а потом
      * другой продолжит это действие. Но не одновременно.
      * intrinsic lock - внутренняя блокировка этому помагает.
-     *
      */
     private static synchronized void calcNext() {
         int next = previous + current;
@@ -62,5 +61,4 @@ public class FibonacciConcurrent {
             }
         }
     }
-
 }
