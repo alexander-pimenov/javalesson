@@ -6,10 +6,7 @@ import com.ibm.icu.text.CharsetMatch;
 import org.apache.any23.encoding.TikaEncodingDetector;
 import org.mozilla.universalchardet.UniversalDetector;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
@@ -137,6 +134,39 @@ public class FileEncoding {
     // * GuessEncoding
     public static Charset guessCharset2(File file) throws IOException {
         return CharsetToolkit.guessEncoding(file, 4096, StandardCharsets.UTF_8);
+    }
+
+    // * Universal Detector
+    /*Как его использовать.
+     * 1) Создайте экземпляр org.mozilla.universalchardet.UniversalDetector.
+     * 2) Передайте некоторые данные (обычно несколько тысяч байтов) в детектор,
+     * вызвав UniversalDetector.handleData ().
+     * 3) Сообщите детектору об окончании данных, вызвав UniversalDetector.dataEnd ().
+     * 4) Получите обнаруженное имя кодировки, вызвав UniversalDetector.getDetectedCharset ().
+     * 5) Не забудьте вызвать UniversalDetector.reset() перед повторным использованием
+     * экземпляра детектора.*/
+    public static String guessCharset3(File file) throws IOException {
+        FileInputStream fis = new FileInputStream(file);
+        byte[] buf = new byte[4096];
+        //(1)
+        UniversalDetector detector = new UniversalDetector(null);
+        //(2)
+        int nread;
+        while ((nread = fis.read(buf)) > 0 && !detector.isDone()) {
+            detector.handleData(buf, 0, nread);
+        }
+        //(3)
+        detector.dataEnd();
+        //(4)
+        String encoding = detector.getDetectedCharset();
+        if (encoding != null) {
+            System.out.println("Detected encoding = " + encoding); //Обнаруженная кодировка
+        } else {
+            System.out.println("No encoding detected."); //Кодировка не обнаружена
+        }
+        //(5)
+        detector.reset();
+        return encoding;
     }
 
 }

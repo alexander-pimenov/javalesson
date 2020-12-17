@@ -14,16 +14,14 @@ public class TestWaitAndNotify {
 
         //создадим два потока
         //Поток в котором выполняется метод produce()
-        Thread thread1 = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    wn.produce();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
+        Thread thread1 = new Thread(
+                () -> {
+                    try {
+                        wn.produce();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                });
 
         //Поток в котором выполняется метод consume()
         Thread thread2 = new Thread(new Runnable() {
@@ -67,7 +65,7 @@ class WaitAndNotify {
             //вне этого блока он не имеет смысла.
             //Метод wait() вызывается на том объекте на котором определен
             //синхронизованный блок.
-            this.wait(); //1 - отдаем intrinsic lock, 2 - ждем пока будет вызван notify()
+            this.wait(); // 1 - отдаем intrinsic lock, 2 - ждем пока будет вызван notify()
             System.out.println("Producer thread resumed..."); //поток продолжил работу
         }
     }
@@ -86,7 +84,7 @@ class WaitAndNotify {
             //своё выполнение, продолжит свою работу.
             this.notify();
             //Но должны помнить что notify не освобождает монитор
-            //Моинтор объекта освободится, как только выйдем из синхронизованного блока.
+            //Монитор объекта освободится, как только выйдем из синхронизованного блока.
             Thread.sleep(5000);
         }
     }

@@ -2,6 +2,7 @@ package ru.pimalex1978.encoding;
 
 import com.glaforge.i18n.io.CharsetToolkit;
 import org.apache.any23.encoding.TikaEncodingDetector;
+import org.mozilla.universalchardet.UniversalDetector;
 
 import java.io.*;
 import java.nio.charset.Charset;
@@ -51,13 +52,14 @@ public class FileUtils {
             int length = bufferedReader.read(buffer);
 
             if (length >= 2) {
-                if ((buffer[0] == (char) 0xff && buffer[1] == (char) 0xfe) /* UTF-16, little endian */ ||
-                        (buffer[0] == (char) 0xfe && buffer[1] == (char) 0xff) /* UTF-16, big endian */) {
+                if ((buffer[0] == (char) 0xff && buffer[1] == (char) 0xfe) /* UTF-16, little endian */
+                        || (buffer[0] == (char) 0xfe && buffer[1] == (char) 0xff) /* UTF-16, big endian */) {
                     encoding = "UTF16";
                 }
             }
             if (length >= 3) {
-                if (buffer[0] == (char) 0xef && buffer[1] == (char) 0xbb && buffer[2] == (char) 0xbf) /* UTF-8 */ {
+                if (buffer[0] == (char) 0xef && buffer[1] == (char) 0xbb
+                        && buffer[2] == (char) 0xbf) /* UTF-8 */ {
                     encoding = "UTF8";
                 }
             }
@@ -90,6 +92,9 @@ public class FileUtils {
      */
     public static String readFile(String filePath) throws IOException {
         String encoding = getEncoding(filePath);
+        //Выведем информацию о кодировке в консоль.
+        //можно закомментировать эту строчку.
+        System.out.printf("Encoding this \'%s\' file is: %s \r\n", filePath, encoding);
 
         BufferedReader bufferedReader = null;
 
@@ -121,4 +126,39 @@ public class FileUtils {
     public static Charset guessCharset2(File file) throws IOException {
         return CharsetToolkit.guessEncoding(file, 4096, StandardCharsets.UTF_8);
     }
+
+    // * Universal Detector
+    /*Как его использовать.
+     * 1) Создайте экземпляр org.mozilla.universalchardet.UniversalDetector.
+     * 2) Передайте некоторые данные (обычно несколько тысяч байтов) в детектор,
+     * вызвав UniversalDetector.handleData ().
+     * 3) Сообщите детектору об окончании данных, вызвав UniversalDetector.dataEnd ().
+     * 4) Получите обнаруженное имя кодировки, вызвав UniversalDetector.getDetectedCharset ().
+     * 5) Не забудьте вызвать UniversalDetector.reset() перед повторным использованием
+     * экземпляра детектора.*/
+    public static String guessCharset3(File file) throws IOException {
+        FileInputStream fis = new FileInputStream(file);
+        byte[] buf = new byte[4096];
+        //(1)
+        UniversalDetector detector = new UniversalDetector(null);
+        //(2)
+        int nread;
+        while ((nread = fis.read(buf)) > 0 && !detector.isDone()) {
+            detector.handleData(buf, 0, nread);
+        }
+        //(3)
+        detector.dataEnd();
+        //(4)
+        String encoding = detector.getDetectedCharset();
+        if (encoding != null) {
+            System.out.println("Detected encoding = " + encoding); //Обнаруженная кодировка
+        } else {
+            System.out.println("No encoding detected."); //Кодировка не обнаружена
+        }
+        //(5)
+        detector.reset();
+        return encoding;
+    }
+
+
 }

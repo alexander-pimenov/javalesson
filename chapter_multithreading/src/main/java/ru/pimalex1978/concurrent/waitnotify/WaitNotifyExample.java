@@ -111,7 +111,9 @@ public class WaitNotifyExample {
                     System.out.println(RED + "Consuming message: " + message.getMessage());
                     //проверка на продолжение работы
                     if (!"DONE".equals(message.getMessage())) {
+                        //скажем что лок свободен
                         message.notify();
+                        //остановим работу Консюмера, чтоб отработал Продюсер
                         message.wait();
                     } else {
                         return;

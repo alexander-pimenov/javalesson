@@ -1,4 +1,4 @@
-package ru.pimalex1978.classFile;
+package ru.pimalex1978.encoding;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -9,7 +9,7 @@ import java.nio.charset.StandardCharsets;
  * параметром приходит имя файла, в который необходимо записать
  * содержимое первого файла в кодировке UTF-8.
  */
-public class ReadWrite {
+public class ReadAndWrite {
     private final static int BUFFER_SIZE = 1000;
 
     public static void main(String[] args) {
