@@ -17,16 +17,22 @@ public class RunnerEncodingApp {
             String encoding = System.getProperty("file.encoding");
             System.out.println("1: System encoding = " + encoding);
             String data = FileUtils.readFile(path);
-//            System.out.println("2: " + data);
 
             Charset charset = FileUtils.guessCharset2(new File(path));
-            System.out.println("3: " + charset);
+            System.out.println("2: " + charset);
 
             Charset charset1 = FileUtils.guessCharset(new FileInputStream(new File(path)));
-            System.out.println("4: " + charset1);
+            System.out.println("3: " + charset1);
 
             String stringCharset = FileUtils.guessCharset3(new File(path));
-            System.out.println("4: " + stringCharset);
+            System.out.println("4 " + stringCharset);
+
+            String charset5 = FileUtils.guessCharset4(new File(path));
+            System.out.println("5: " + charset5);
+
+            String charset6 = FileUtils.guessCharset5(new File(path));
+            System.out.println("6: " + charset6);
+
         } catch (IOException e) {
             e.printStackTrace();
         }

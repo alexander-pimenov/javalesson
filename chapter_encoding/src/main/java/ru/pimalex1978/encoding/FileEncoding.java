@@ -169,6 +169,47 @@ public class FileEncoding {
         return encoding;
     }
 
+    // * ICU4j
+    public static String guessCharset4(File file) throws IOException {
+        String charset = "ISO-8859-1"; //Default charset, put whatever you want
+        byte[] fileContent = null;
+        FileInputStream fin = null;
+        //create FileInputStream object
+        fin = new FileInputStream(file.getPath());
+
+        /*
+         * Create byte array large enough to hold the content of the file.
+         * Use File.length to determine size of the file in bytes.
+         */
+        fileContent = new byte[(int) file.length()];
+
+        /*
+         * To read content of the file in byte array, use
+         * int read(byte[] byteArray) method of java FileInputStream class.
+         *
+         */
+        fin.read(fileContent);
+
+        byte[] data = fileContent;
+
+
+        CharsetDetector detector = new CharsetDetector();
+        detector.setText(data);
+
+        CharsetMatch cm = detector.detect();
+
+        if (cm != null) {
+            int confidence = cm.getConfidence();
+            System.out.println("Encoding: " + cm.getName() + " - Confidence: " + confidence + "%");
+            charset = cm.getName();
+            //Here you have the encode name and the confidence
+            //In my case if the confidence is > 50 I return the encode, else I return the default value
+            if (confidence > 50) {
+                charset = cm.getName();
+            }
+        }
+        return charset;
+    }
 }
 
 // * ICU4j

@@ -1,12 +1,17 @@
 package ru.pimalex1978.encoding;
 
 import com.glaforge.i18n.io.CharsetToolkit;
+import com.ibm.icu.text.CharsetDetector;
+import com.ibm.icu.text.CharsetMatch;
 import org.apache.any23.encoding.TikaEncodingDetector;
 import org.mozilla.universalchardet.UniversalDetector;
 
 import java.io.*;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.List;
 
 /**
  * https://ericbt.com/Blog/60
@@ -22,6 +27,7 @@ import java.nio.charset.StandardCharsets;
  * Это может быть бесполезно, потому что только очень немногие файлы имеют спецификацию.
  * И UTF-8 с BOM не рекомендуется.
  * Лучше использовать библиотеку вроде GuessEncoding или juniversalchardet.
+ * https://askdev.ru/q/java-kak-opredelit-pravilnuyu-kodirovku-kodirovki-potoka-18612/
  */
 public class FileUtils {
     /***
@@ -158,6 +164,75 @@ public class FileUtils {
         //(5)
         detector.reset();
         return encoding;
+    }
+
+    // * ICU4j
+    public static String guessCharset4(File file) throws IOException {
+
+        byte[] fileContent = null;
+        FileInputStream fin = null;
+        //create FileInputStream object
+        fin = new FileInputStream(file.getPath());
+
+        /*
+         * Create byte array large enough to hold the content of the file.
+         * Use File.length to determine size of the file in bytes.
+         */
+        fileContent = new byte[(int) file.length()];
+
+        /*
+         * To read content of the file in byte array, use
+         * int read(byte[] byteArray) method of java FileInputStream class.
+         *
+         */
+        fin.read(fileContent);
+
+        byte[] data = fileContent;
+
+        String charset = null;
+
+        CharsetDetector detector = new CharsetDetector();
+        detector.setText(data);
+
+        CharsetMatch cm = detector.detect();
+
+        if (cm != null) {
+            int confidence = cm.getConfidence();
+            System.out.println("Encoding: " + cm.getName() + " - Confidence: " + confidence + "%");
+            charset = cm.getName();
+            //Here you have the encode name and the confidence
+            //In my case if the confidence is > 50 I return the encode, else I return the default value
+            if (confidence > 50) {
+                charset = cm.getName();
+            }
+        }
+        return charset;
+    }
+
+    // * in simple Java (просто подставляем разные кодировки, но определить можно
+    // только дефолтную кодировку для виртуальной машины.)
+    public static String guessCharset5(File file) throws IOException {
+        final String[] encodings = {"US-ASCII", "ISO-8859-1", "UTF-8", "UTF-16BE", "UTF-16LE", "UTF-16"};
+
+        List<String> lines;
+        Charset charset = null;
+
+        for (String encoding : encodings) {
+            try {
+                //defaultCharset() - Возвращает кодировку по умолчанию для этой виртуальной машины Java.
+                charset = Charset.defaultCharset();
+                System.out.println("Default Charset encoding: " + charset);
+                lines = Files.readAllLines(Paths.get(file.getAbsolutePath()), Charset.forName(encoding));
+                for (String line : lines) {
+                    // do something...
+//                    System.out.println(line);
+                }
+                break;
+            } catch (IOException ioe) {
+                System.out.println(encoding + " failed, trying next.");
+            }
+        }
+        return charset.toString();
     }
 
 
