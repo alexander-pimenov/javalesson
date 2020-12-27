@@ -15,7 +15,7 @@ import static ru.pimalex1978.concurrent.ColorScheme.*;
  * new Thread() выполняется большое количество работы и вовлекается
  * не только JVM, но и ядро операционной системы и выделяется часть памяти.
  * Т.е. под каждый new Thread() выделяется кусок памяти, т.обр.
- * происходит фрагментаия памяти.
+ * происходит фрагментация памяти.
  * Эту проблему помагают решить экзекьюторы (executors).
  * ExecutorService.
  * Он помогает создать потоки заранее, отделяет код, который создает
@@ -54,8 +54,8 @@ public class Launcher {
         GCDRunnable r = new GCDRunnable(isDaemon); //инстанс нашего Runnable
 //        runInOneThread(r, isDaemon);
 //        runOneThreadWithBooleanVariable(isDaemon);
-//        runWithExecutors(r, isDaemon);
-        runWithExecutorsAndSingleThread(r,true);
+        runWithExecutors(r, isDaemon);
+//        runWithExecutorsAndSingleThread(r,true);
         System.out.println(RED + "Leaving the main thread");
     }
 

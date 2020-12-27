@@ -36,15 +36,19 @@ public class EchoServer3 {
                 Socket socket = server.accept();
                 //Сделаем небольшую задержку.
                 Thread.sleep(100);
-                try (BufferedWriter out =
-                             new BufferedWriter(
-                                     new OutputStreamWriter(
-                                             socket.getOutputStream()));
-                     //В программе читается весь входной поток.
-                     BufferedReader in =
-                             new BufferedReader(
-                                     new InputStreamReader(
-                                             socket.getInputStream()))) {
+                try (
+                        //Чтобы сокет мог отправлять сообщения:
+                        BufferedWriter out =
+                                new BufferedWriter(
+                                        new OutputStreamWriter(
+                                                socket.getOutputStream()));
+                        //В программе читается весь входной поток.
+                        //Чтобы сокет мог принимать сообщения и читать их:
+                        BufferedReader in =
+                                new BufferedReader(
+                                        new InputStreamReader(
+                                                socket.getInputStream())))
+                {
                     //**************************************
                     //Читаем первую строку сообщения от Клиента
                     String str = in.readLine();
@@ -114,7 +118,8 @@ public class EchoServer3 {
                 }
             }
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            Thread.currentThread().interrupt();
+//            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }

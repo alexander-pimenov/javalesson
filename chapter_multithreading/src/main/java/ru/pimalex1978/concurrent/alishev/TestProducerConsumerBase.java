@@ -5,7 +5,7 @@ import java.util.Queue;
 
 /**
  * Пример реализации паттерна Производитель-Потребитель (Producer-
- * Consumer) с исрользованием только базовых методов подходящих
+ * Consumer) с использованием только базовых методов подходящих
  * для многопоточности (wait((), notify())
  * https://www.udemy.com/course/javarussia/learn/lecture/8982272#questions
  * Методы класса ProducerConsumer produce() и consume() вызываются разными
