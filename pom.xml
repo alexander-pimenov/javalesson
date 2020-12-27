@@ -42,6 +42,7 @@
         <module>chapter_server</module>
         <module>chapter_read_write_data</module>
         <module>chapter_encoding</module>
+        <module>chapter_core_java_jvm</module>
     </modules>
     <packaging>pom</packaging>
 
