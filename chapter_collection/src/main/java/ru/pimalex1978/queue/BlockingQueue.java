@@ -10,7 +10,8 @@ import java.util.ArrayList;
  * Наша очередь параметризована Generic.
  */
 public class BlockingQueue<T> {
-    /*Контейнер для элементов, хранящихся в очереди.*/
+    /*Контейнер для элементов, хранящихся в очереди.
+    * Т.е. реализуем очередь на ArrayList*/
     private ArrayList<T> tasks = new ArrayList<>();
 
     /**

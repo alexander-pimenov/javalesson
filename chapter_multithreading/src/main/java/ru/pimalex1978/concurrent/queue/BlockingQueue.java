@@ -20,7 +20,7 @@ import java.util.ArrayList;
  */
 public class BlockingQueue {
 
-    /*контейнер для задач, ожидающих выполнение.*/
+    /*контейнер для задач, ожидающих выполнение. Т.е. реализуем очередь на ArrayList*/
     private ArrayList<Runnable> tasks = new ArrayList<>();
 
     /**
