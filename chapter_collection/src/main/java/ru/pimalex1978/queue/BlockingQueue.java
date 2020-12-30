@@ -10,6 +10,7 @@ import java.util.ArrayList;
  * Наша очередь параметризована Generic.
  */
 public class BlockingQueue<T> {
+    /*Контейнер для элементов, хранящихся в очереди.*/
     private ArrayList<T> tasks = new ArrayList<>();
 
     /**
@@ -27,17 +28,15 @@ public class BlockingQueue<T> {
      * Если очередь будет пуста, то поток пытающийся взять элемент из пустой
      * очереди остановится в ожидании. Пока другой поток не положит в
      * эту очередь элементы.
-     *
-     * @return возвращаем полученный объект, хранящийся в очереди.
+     * <p>
+     * Пробрасываем InterruptedException в сигнатуре метода,
+     * чтобы правильно обрабатывать его в клиентском коде, т.е.
+     * в той программе, которая будет использовать очередь.
      */
-    synchronized T get() {
+    synchronized T get() throws InterruptedException {
         /*Пока в очереди ничего нет - ждать.*/
         while (tasks.isEmpty()) {
-            try {
-                wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            wait();
         }
         /*Берем первый элемент из очереди.*/
         T task = tasks.get(0);
