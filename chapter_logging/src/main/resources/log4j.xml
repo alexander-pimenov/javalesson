@@ -3,6 +3,8 @@
 <!--Очередность в "log4j:configuration" должна быть такой
 "(renderer*,throwableRenderer?,appender*,plugin*,(category|logger)*,root?,(categoryFactory|loggerFactory)?"-->
 <log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+    <!--1 блок: appender-->
     <appender name="console" class="org.apache.log4j.ConsoleAppender">
         <param name="Target" value="System.out"/>
         <!--        <param name="threshold" value="debug"/>-->
@@ -60,6 +62,7 @@
     <!--        <appender-ref ref="fileAppender2"/>-->
     <!--    </category>-->
 
+    <!--2 блок: logger-->
     <logger name="ru.pimalex1978.example1.MyTestClass" additivity="false">
         <!-- уровень: all, trace, debug, info, warn, error, fatal-->
         <level value="info"/>
@@ -78,6 +81,8 @@
         <appender-ref ref="fileAppender3"/>
         <appender-ref ref="console"/>
     </logger>
+
+    <!--3 блок: root-->
     <root>
         <priority value="trace"/>
         <appender-ref ref="console"/>
@@ -115,5 +120,61 @@
          <category name="ru.pimalex1978.concurrent.downloader" additivity="false">
 additivity="false" говорит что дальше по иерархии логеров ничего печатать не надо.
 Логер имеет древовидную структуру.
+
+Пример в log4j2.xml:
+<configuration>
+    <property name="LOG_FILE" value="log/testtask-app"/>​
+    <property name="CONSOLE_LOG_PATTERN"
+              value="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+    <property name="FILE_LOG_PATTERN"
+              value="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n" />
+
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${LOG_FILE}.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>${LOG_FILE}.%d{yyyy-MM-dd}.log</FileNamePattern>
+            <MaxHistory>7</MaxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="JSON" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_FILE}.json</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_FILE}.%d{yyyy-MM-dd}.json</fileNamePattern>
+            <maxHistory>7</maxHistory>
+        </rollingPolicy>
+        <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+            <providers>
+                <pattern>
+                    <pattern>
+                        {
+                        "timestamp": "%d{yyyy-MM-dd HH:mm:ss.SSS}",
+                        "severity": "%level",
+                        "thread": "%thread",
+                        "class": "%logger{40}",
+                        "rest": "%message"
+                        }
+                    </pattern>
+                </pattern>
+            </providers>
+        </encoder>
+    </appender>
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="FILE"/>
+        <appender-ref ref="JSON"/>
+        <appender-ref ref="CONSOLE"/>
+    </root>
+
+</configuration>
 
         -->

@@ -56,8 +56,6 @@ public class Test {
             Object object = clazz.newInstance();
             System.out.println(object);
             new BufferedReader(new InputStreamReader(System.in)).readLine();
-
-
         }
     }
 }
