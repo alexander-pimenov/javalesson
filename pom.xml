@@ -43,6 +43,7 @@
         <module>chapter_read_write_data</module>
         <module>chapter_encoding</module>
         <module>chapter_core_java_jvm</module>
+        <module>chapter_weather</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -311,6 +312,19 @@
             <artifactId>gson</artifactId>
             <version>2.8.5</version>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.json/json -->
+        <!-- JSON - это легкий, не зависящий от языка формат обмена данными. -->
+        <!-- http://www.JSON.org/
+         Файлы в этом пакете реализуют кодировщиков / декодеры JSON на Java.
+         Он также включает возможность преобразования между JSON и XML, заголовками
+         HTTP, файлами cookie и CDL. Это эталонная реализация. -->
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20201115</version>
+        </dependency>
+
 
         <!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
         <dependency>
