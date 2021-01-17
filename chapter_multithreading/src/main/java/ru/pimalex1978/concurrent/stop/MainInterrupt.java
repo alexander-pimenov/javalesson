@@ -1,6 +1,7 @@
 package ru.pimalex1978.concurrent.stop;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /*
  * При разработке приложения, очень часто бывает нужно выполнить код в отдельном
@@ -107,7 +108,7 @@ public class MainInterrupt {
          * до worker.interrupt() основного потока main - это правильное
          * завершение работы потоков.
          * */
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < 5; i++) {
             queue.put(getTask());
         }
 
@@ -128,10 +129,14 @@ public class MainInterrupt {
      * показываем задачу, в которой выводится начало работы в задаче,
      * ждем 1 сек, и выводим время окончания выполнения задачи.*/
     private static Runnable getTask() {
+
         return new Runnable() {
+            String name;
+            Random random = new Random();
 
             @Override
             public void run() {
+                name = String.valueOf(random.nextInt(100));
                 System.out.println("Task started: " + this);
                 try {
                     Thread.sleep(1000); //иммитируем какую то деятельность.
@@ -144,6 +149,11 @@ public class MainInterrupt {
                     Thread.currentThread().interrupt();
                 }
                 System.out.println("Task finished: " + this);
+            }
+
+            @Override
+            public String toString() {
+                return name + "[" + super.toString() + "]";
             }
         };
     }

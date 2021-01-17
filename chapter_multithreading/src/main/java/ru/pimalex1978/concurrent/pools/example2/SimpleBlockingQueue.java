@@ -1,0 +1,48 @@
+package ru.pimalex1978.concurrent.pools.example2;
+
+import net.jcip.annotations.GuardedBy;
+import net.jcip.annotations.ThreadSafe;
+
+import java.util.LinkedList;
+import java.util.Queue;
+
+@ThreadSafe
+public class SimpleBlockingQueue<T> {
+
+    @GuardedBy("this")
+    private Queue<T> queue = new LinkedList<>();
+
+    public void offer(T value) {
+        synchronized (this) {
+            while (!queue.offer(value)) {
+                try {
+                    this.wait();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    throw new RuntimeException(e);
+                }
+            }
+            this.notify();
+        }
+    }
+
+    public T poll() {
+        synchronized (this) {
+            T result;
+            while ((result = queue.poll()) == null) {
+                try {
+                    this.wait();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    throw new RuntimeException(e);
+                }
+            }
+            this.notify();
+            return result;
+        }
+    }
+
+    public synchronized boolean isEmpty() {
+        return queue.isEmpty();
+    }
+}

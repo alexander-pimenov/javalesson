@@ -1,11 +1,11 @@
-package ru.pimalex1978.stack_queue;
+package ru.pimalex1978.concurrent.queue;
 
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
 /**
  * Пример блокирующей очереди.
- * Здесь очередь берет на себя всю работу по сонхронизации и
+ * Здесь очередь берет на себя всю работу по синхронизации и
  * взаимодествию между двумя потоками.
  * В самих потоках никакой синхронизации писать не нужно.
  * Достаточно только добавлять из потока производитель в очередь
@@ -24,9 +24,11 @@ import java.util.concurrent.TimeUnit;
  */
 
 public class BlockingQueueSample {
+
     public static void main(String[] args) {
         System.out.println(Thread.currentThread().getName() + " started.");
 
+        //Контейнер - блокирующая очередь на массиве.
         ArrayBlockingQueue<String> queue = new ArrayBlockingQueue<>(3); //размер очереди 3 элемента.
 
         //поток ПРОИЗВОДИТЕЛЬ.
@@ -39,12 +41,14 @@ public class BlockingQueueSample {
                     TimeUnit.SECONDS.sleep(3);
 //                    Thread.sleep(4000);
                     queue.put(words[i]);
-                    System.out.println("producer: записал в очередь " + "\'" + words[i] + "\'" + ", число элементов в очереди: " + queue.size());
+                    System.out.println("producer: записал в очередь " + "\'" + words[i] + "\'"
+                            + ", число элементов в очереди: " + queue.size());
                     i++;
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
+            System.out.println("Производитель закончил работу");
         });
 
         //поток ПОТРЕБИТЕЛЬ.
@@ -57,13 +61,14 @@ public class BlockingQueueSample {
                     sb.setLength(0);
                     Thread.sleep(7000);
                     sb.append(queue.take());
-                    System.out.println("consumer: обработал из очереди " + "\'" + sb.reverse() + "\'" + ", число элементов: " + queue.size());
+                    System.out.println("consumer: обработал из очереди " + "\'" + sb.reverse()
+                            + "\'" + ", число элементов: " + queue.size());
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
 
             }
-
+            System.out.println("Потребитель закончил работу");
         });
 
         producer.start();
@@ -76,13 +81,10 @@ public class BlockingQueueSample {
 
         try {
             producer.join();
-            System.out.println("Производитель закончил работу");
             consumer.join();
-            System.out.println("Потребитель закончил работу");
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
         System.out.println(Thread.currentThread().getName() + " finished.");
     }
 }

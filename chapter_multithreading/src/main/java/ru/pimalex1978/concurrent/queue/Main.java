@@ -67,7 +67,7 @@ public class Main {
             public void run() {
                 System.out.println("Task started: " + this);
                 try {
-                    Thread.sleep(1000); //иммитируем какую то деятельность.
+                    Thread.sleep(500); //иммитируем какую то деятельность.
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
