@@ -34,7 +34,8 @@ public class ThreadPoolsTesting {
                 try {
                     TimeUnit.SECONDS.sleep(1);
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    throw new IllegalStateException();
+//                    e.printStackTrace();
                 }
                 System.out.println("My task1 end..");
             }
@@ -47,7 +48,8 @@ public class ThreadPoolsTesting {
                 try {
                     TimeUnit.SECONDS.sleep(2);
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    throw new IllegalStateException();
+//                    e.printStackTrace();
                 }
                 System.out.println("My task2 end..");
             }
@@ -60,7 +62,8 @@ public class ThreadPoolsTesting {
                 try {
                     TimeUnit.SECONDS.sleep(3);
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    throw new IllegalStateException();
+//                    e.printStackTrace();
                 }
                 System.out.println("My task3 end..");
             }
@@ -73,7 +76,8 @@ public class ThreadPoolsTesting {
                 try {
                     TimeUnit.SECONDS.sleep(4);
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    throw new IllegalStateException();
+//                    e.printStackTrace();
                 }
                 System.out.println("My task4 end..");
             }
@@ -86,7 +90,8 @@ public class ThreadPoolsTesting {
                 try {
                     TimeUnit.SECONDS.sleep(5);
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    throw new IllegalStateException();
+//                    e.printStackTrace();
                 }
                 System.out.println("My task5 end..");
             }
@@ -97,13 +102,18 @@ public class ThreadPoolsTesting {
             try {
                 TimeUnit.SECONDS.sleep(3);
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                throw new IllegalStateException();
+//                e.printStackTrace();
             }
             System.out.println("My task6 end..");
         };
 
         //Создаем пул исполнителей (Executor Pool) с помощью исполнителей (Executors). (шаг 2)
         ExecutorService executorService = Executors.newFixedThreadPool(3);
+
+        // создаем пул потоков с количеством ядер процессора:
+//        ExecutorService executorService = Executors.newFixedThreadPool(
+//                Runtime.getRuntime().availableProcessors());
 
         //передаем объекты Runnable в пул для выполнения (шаг 3)
         executorService.submit(task1);
@@ -118,8 +128,9 @@ public class ThreadPoolsTesting {
         //беремся за выполнения заданий, которые были переданы с помощью
         //метода submit().
         //shutdown() чем то похож на метод start() для потока. Из него
-        //выходим мгновенно.
+        //выходим мгновенно и идем дальше по коду.
         executorService.shutdown();
+//        executorService.shutdownNow();
 
         //Метод .awaitTermination() - "ожидание окончания" - с указанием сколько
         //будем ждать выполнения работы потоками. Укажем 1 день.
@@ -127,6 +138,20 @@ public class ThreadPoolsTesting {
         //ждать либо выполнения потоками работы либо истечения срока. И только
         //потом пойдет дальше.
 //        executorService.awaitTermination(5, TimeUnit.MINUTES);
+
+        /*Этот блок нужен, чтобы посмотреть, когда потоки станут Terminated.
+         * boolean isTerminated() (Прекращено) - Возвращает {true}, если все задачи были выполнены
+         * после завершения работы.
+         * Обратите внимание, что {isTerminated} никогда не будет {true}, если сначала
+         * не было вызвано {shutdown} или {shutdownNow}.*/
+        while (!executorService.isTerminated()) {
+            try {
+                Thread.sleep(100);
+                System.out.println("I am hear!");
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
 
         System.out.println(Thread.currentThread().getName() + " finished.");
     }

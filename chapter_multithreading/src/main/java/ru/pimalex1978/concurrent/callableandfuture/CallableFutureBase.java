@@ -31,7 +31,7 @@ public class CallableFutureBase {
         ExecutorService executorService = Executors.newCachedThreadPool();
 
         /*определим задачу, которая будет выполняться в executorService
-         * нескольок раз в цикле*/
+         * несколько раз в цикле*/
         for (int i = 0; i < 30; i++) {
             Future<Double> submit = executorService.submit(() -> {
                 //Здесь имитируем работу потока.
@@ -76,7 +76,7 @@ public class CallableFutureBase {
                     //если попали в блок exception, то потом выведем значение 0
                     return 0;
                 })
-                .forEach(t -> System.out.println("Thread execution time " + t));
+                .forEach(t -> System.out.println("Thread execution time " + t)); //Время выполнения потока
     }
 }
 

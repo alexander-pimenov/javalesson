@@ -6,8 +6,6 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.time.LocalDateTime;
-import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -24,9 +22,9 @@ import java.util.Date;
  * и https://urvanov.ru/2019/07/08/%D0%BB%D0%BE%D0%B3%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5-%D1%81-slf4j-%D0%B8-logback/
  */
 
-public class TestClassLogging {
+public class TestLogging {
     /*Имя класса .getName() специально передается для того, чтобы знать, откуда идет логирование. */
-    private static final Logger LOG = LoggerFactory.getLogger(TestClassLogging.class.getName());
+    private static final Logger LOG = LoggerFactory.getLogger(TestLogging.class.getName());
     private static final String FILENAME = "/file/does/not/exist";
 
     public static void main(String[] args) {

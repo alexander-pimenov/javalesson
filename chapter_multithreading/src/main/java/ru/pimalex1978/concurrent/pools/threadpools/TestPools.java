@@ -72,6 +72,8 @@ public class TestPools {
     static final int MAX_T = 3;
 
     public static void main(String[] args) {
+        System.out.println(Thread.currentThread().getName() + " started.");
+
 
         // создает пять задач (шаг 1)
         Runnable r1 = new Task("task 1");
@@ -83,6 +85,11 @@ public class TestPools {
         // создаем пул потоков с номером MAX_T
         // потоки как фиксированный размер пула (шаг 2)
         ExecutorService pool = Executors.newFixedThreadPool(MAX_T);
+
+        // создаем пул потоков с количеством ядер процессора:
+//        ExecutorService pool = Executors.newFixedThreadPool(
+//                Runtime.getRuntime().availableProcessors());
+
 
         // передаем объекты Task в пул для выполнения (шаг 3)
         // используем метод или submit() или execute()
@@ -97,15 +104,33 @@ public class TestPools {
         //беремся за выполнения заданий, которые были переданы с помощью
         //метода submit() или execute().
         //shutdown() чем то похож на метод start() для потока. Из него
-        //выходим мгновенно.
+        //выходим мгновенно и идем дальше по коду.
         pool.shutdown();
+//        pool.shutdownNow();
 
         //Метод .awaitTermination() - "ожидание окончания" - с указанием сколько
         //будем ждать выполнения работы потоками. Укажем 1 день.
         //На этом методе поток main остановится и не пойдет дальше и будет
         //ждать либо выполнения потоками работы либо истечения срока. И только
         //потом пойдет дальше.
-//        executorService.awaitTermination(15, TimeUnit.MINUTES);
+//        pool.awaitTermination(15, TimeUnit.MINUTES);
+
+        /*Этот блок нужен, чтобы посмотреть когда потоки станут Terminated.
+         * boolean isTerminated() (Прекращено) - Возвращает {true}, если все задачи были выполнены
+         * после завершения работы.
+         * Обратите внимание, что {isTerminated} никогда не будет {true}, если сначала
+         * не было вызвано {shutdown} или {shutdownNow}.*/
+        while (!pool.isTerminated()) {
+            try {
+                Thread.sleep(100);
+                System.out.println("I am hear!");
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        System.out.println(Thread.currentThread().getName() + " finished.");
+
     }
 }
 
