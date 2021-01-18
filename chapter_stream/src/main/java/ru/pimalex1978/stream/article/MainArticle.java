@@ -10,7 +10,7 @@ public class MainArticle {
         Article article1 = new Article("Обучение Java", "Peterson", List.of("java")); //, обучение, code
         Article article2 = new Article("Лучшие учебники по Java", "Horstmann", List.of("java")); //, book
         Article article3 = new Article("Kotlin. Что лучше Java  Core или Kotlin", "Shildt", List.of("java, kotlin, best code"));
-        Article article4 = new Article("Базы SQL. Знакомимся с реляционными базами данных", "Vitas", List.of("sql, database"));
+        Article article4 = new Article("Базы SQL. Знакомимся с реляционными базами данных", "Vitas", List.of("sql, ru.job4j.vacancyparser.database"));
         Article article5 = new Article("PostgreSQL и Java", "Lafore", List.of("java, sql, postgresql"));
         Article article6 = new Article("Изучаем Java.", "Shildt", List.of("java, java core, basic code"));
         Article article7 = new Article("Java forever.", "Shildt", List.of("java, java bean, best practice"));

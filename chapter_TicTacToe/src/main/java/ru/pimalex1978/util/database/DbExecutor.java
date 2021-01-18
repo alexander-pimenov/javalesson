@@ -240,7 +240,7 @@ public class DbExecutor implements AutoCloseable {
     }
 
     /**
-     * Commits changes to database.
+     * Commits changes to ru.job4j.vacancyparser.database.
      */
     public void commit() {
         try {

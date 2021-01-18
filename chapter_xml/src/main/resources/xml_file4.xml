@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<database>
+<ru.job4j.vacancyparser.database>
     <students>
         <student name="Maksim" course="3" specialization="CE"/>
         <student name="Stephan" course="1" specialization="CS"/>
@@ -20,4 +20,4 @@
         <member name="Mike" position="janitor"/>
         <member name="Brad" position="janitor"/>
     </service>
-</database>
+</ru.job4j.vacancyparser.database>

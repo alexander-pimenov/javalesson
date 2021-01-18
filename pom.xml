@@ -44,6 +44,7 @@
         <module>chapter_encoding</module>
         <module>chapter_core_java_jvm</module>
         <module>chapter_weather</module>
+        <module>chapter_parser_vacancy</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -358,12 +359,12 @@
         <!--            <version>${slf4j.version}</version>-->
         <!--            <scope>test</scope>-->
         <!--        </dependency>-->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-jdk14</artifactId>
-            <version>${slf4j.version}</version>
-            <scope>test</scope>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.slf4j</groupId>-->
+<!--            <artifactId>slf4j-jdk14</artifactId>-->
+<!--            <version>${slf4j.version}</version>-->
+<!--            <scope>test</scope>-->
+<!--        </dependency>-->
         <!--        &lt;!&ndash; https://mvnrepository.com/artifact/org.slf4j/slf4j-simple &ndash;&gt;-->
         <!--        &lt;!&ndash; Если мы используем систему логгирования log4j, то slf4j-simple закомментируем &ndash;&gt;-->
         <!--        <dependency>-->

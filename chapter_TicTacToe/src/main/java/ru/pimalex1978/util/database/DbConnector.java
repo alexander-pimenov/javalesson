@@ -6,7 +6,7 @@ import java.sql.Connection;
 import java.util.Properties;
 
 /**
- * Connects to database using Connection pool (BasicDataSource)
+ * Connects to ru.job4j.vacancyparser.database using Connection pool (BasicDataSource)
  * Supplies optional connection object.
  *
  * @author Aleksei Sapozhnikov (vermucht@gmail.com)
@@ -47,7 +47,7 @@ public class DbConnector implements Connector {
     }
 
     /**
-     * Sets required parameters for database connection.
+     * Sets required parameters for ru.job4j.vacancyparser.database connection.
      *
      * @param properties Object holding parameters.
      * @throws RuntimeException If parameter not found.
@@ -62,7 +62,7 @@ public class DbConnector implements Connector {
     }
 
     /**
-     * Sets optional parameters for database connection.
+     * Sets optional parameters for ru.job4j.vacancyparser.database connection.
      * Takes parameters from given holder if found, or default values otherwise.
      *
      * @param properties Object holding parameters.
@@ -78,7 +78,7 @@ public class DbConnector implements Connector {
     }
 
     /**
-     * Closes all active database-connection resources.
+     * Closes all active ru.job4j.vacancyparser.database-connection resources.
      *
      * @throws Exception Possible exception.
      */

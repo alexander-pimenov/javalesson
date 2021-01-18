@@ -22,7 +22,7 @@ public class SaxExample {
     public static void main(String[] args) {
 
 
-        //SAX - parser
+        //SAX - ru.job4j.vacancyparser.parser
 
         //Подгружаем наш xml документ. Для этого делаем несколько шагов:
         //1. Создаем фабрику парсеров. Класс фабрики SAXParserFactory.
@@ -36,7 +36,7 @@ public class SaxExample {
             //3. Создаем сам парсер, вызывая его из фабрики с помощью
             // метода newSAXParser(), который возвращает объект парсера
             SAXParser saxParser = parserFactory.newSAXParser();
-            //вызовем метод parser() у объекта saxParser, который принимает аргумет класса File,
+            //вызовем метод ru.job4j.vacancyparser.parser() у объекта saxParser, который принимает аргумет класса File,
             //т.е. для подгрузки xml файла путь к файлу и handler, это т.называемый
             //слушатель событий. Событий при наступлении какого то тега в xml файле.
             saxParser.parse(new File("C:\\projects\\lessons-job4j\\chapter_xml\\src\\main\\resources\\xml_file10.xml"), handler);

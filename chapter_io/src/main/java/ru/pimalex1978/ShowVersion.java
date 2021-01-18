@@ -62,7 +62,7 @@ package ru.pimalex1978;
  * <dt>idea.version2019.2.3  <dd>"true"
  * <dt>java.class.path      <dd>"C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2019.2.3\plugins\maven\lib\maven3\boot\plexus-classworlds-2.6.0.jar"
  * <dt>java.vm.specification.version  <dd>"12"
- * <dt>sun.arch.data.model  <dd>"64"
+ * <dt>sun.arch.data.ru.job4j.vacancyparser.model  <dd>"64"
  * <dt>sun.java.command     <dd>"org.codehaus.classworlds.Launcher -Didea.version2019.2.3 test -P !test"
  * <dt>java.home            <dd>"C:\Program Files\Java\jdk-12.0.2"
  * <dt>java.specification.vendor  <dd>"Oracle Corporation"

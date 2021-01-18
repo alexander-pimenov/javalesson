@@ -74,7 +74,7 @@ public class Main {
             long time = System.currentTimeMillis();
             //обновляем все точки согласно прошедшему времени
             model.update(time - lastTime);
-//            model.update2(time - lastTime); //метод взят из пакета file_render
+//            ru.job4j.vacancyparser.model.update2(time - lastTime); //метод взят из пакета file_render
             //теперь текущее время становится прошедшим
             //сохраняем для расчета на следующем кадре
             lastTime = time;
@@ -84,9 +84,9 @@ public class Main {
                 //начали перерисовку и isFrameReadyToDraw ставим в false
                 isFrameReadyToDraw = false;
                 //вызываем render и даем ему куда рисвать - в image
-                //и что рисовать - model
+                //и что рисовать - ru.job4j.vacancyparser.model
                 render.draw(image, model);
-//                render.draw2(image, model); //метод взят из пакета file_render
+//                render.draw2(image, ru.job4j.vacancyparser.model); //метод взят из пакета file_render
                 //т.к. интерфей работате в отдельном потоке, то
                 //перерисовку окна нужно вызвать в отдельном потоке
                 //здесь как в многпоточности реализуем интерфейс Runnable

@@ -8,7 +8,7 @@ public class JuniorDeveloper implements Developer {
 
     @Override
     public void create(Database database) {
-        System.out.println("Drop database...");
+        System.out.println("Drop ru.job4j.vacancyparser.database...");
     }
 
     @Override

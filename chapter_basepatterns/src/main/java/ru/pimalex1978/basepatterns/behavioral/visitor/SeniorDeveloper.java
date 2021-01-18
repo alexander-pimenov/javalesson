@@ -8,7 +8,7 @@ public class SeniorDeveloper implements Developer {
 
     @Override
     public void create(Database database) {
-        System.out.println("Fixing database...");
+        System.out.println("Fixing ru.job4j.vacancyparser.database...");
     }
 
     @Override
