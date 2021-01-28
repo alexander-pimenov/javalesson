@@ -5,7 +5,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
- * Класс показывающий работу "Защелки Обратного Отчета"
+ * "Count Down Latch" - защелка обратного отсчета.
+ * Класс показывающий работу "Защелки Обратного Отсчета"
  * CountDownLatch(3) - 3 - это количество итераций, которые
  * нужно отсчитать назад прежде, чем защелка отопрется.
  * При создании объекта CountDownLatch в конструктор предаем такое
@@ -15,37 +16,50 @@ import java.util.concurrent.Executors;
  * не идет.
  * В нашем пример мы в основном потоке main ждем CountDownLatch,
  * а в трёх потоках отсчитываем этот CountDownLatch назад.
+ * <p>
+ * Этот пример из моих уроков:
+ * https://www.udemy.com/course/javarussia/learn/lecture/8982274#overview
  */
 public class TestCountDownLatch {
     public static void main(String[] args) throws InterruptedException {
+        //в объект CountDownLatch передадим число 3
         CountDownLatch countDownLatch = new CountDownLatch(3);
 
-        /*Создадим три потока испольуя ExecutorService*/
+        /*Создадим три потока испольуя ExecutorService,
+         * т.е. создаем пул исполнителей, в количестве 3 штук.*/
         ExecutorService executorService = Executors.newFixedThreadPool(3);
 
         /*В цикле передадим нашим трем потоках задание,
          * используя метод .submit(...)*/
         System.out.println("Threads receive jobs...");
         for (int i = 0; i < 3; i++) {
+            //передаем объекты в пул
             executorService.submit(new Processor(i, countDownLatch));
             Thread.sleep(100);
         }
         /*.shutdown() - чтобы прекратить сабмин новых заданий и чтоб потоки
-         * начали выполнять полученные задания.*/
+         * начали выполнять полученные задания, т.обр. потокам даем понять,
+         * что им пора браться за выполнение переданных им заданий,
+         * т.е. так мы закрываем пул потоков.*/
         executorService.shutdown();
 
-        /*.await() - Заставляет текущий поток (в нашем случае это поток main) ждать,
-         * пока отсчет защелки не завершится до нуля, если только поток не
-         * будет прерван.*/
+        /*Сейчас в нашей программе 4 потока: 1 main + 3 других.
+         * Другие потоки будут отсчитывать countDownLatch, а поток main будет ждать.
+         * .await() - Заставляет текущий поток (в нашем случае это поток main) ждать,
+         * пока отсчет защелки (происходящий в других потоках) не завершится до
+         * нуля, если только поток не будет прерван.*/
         countDownLatch.await();
 
         Thread.sleep(1000);
-        /*После того как защелка откроется выведем надпись:*/
+        /*После того как защелка откроется выведем надпись:
+         * "Зашелка была открыта, main поток продолжает свою работу!"*/
         System.out.println("Latch has been opened, main-thread is proceeding!");
     }
 }
 
 /**
+ * Класс Processor, реализующий интерфейс Runnable, его мы будем
+ * передавать при создании потоков.
  * Все наши потоки будут делить один объект CountDownLatch,
  * а т.к. этот класс потоко безопастный, то о синхронизации нам
  * задумываться не надо.
@@ -63,17 +77,20 @@ class Processor implements Runnable {
 
     /**
      * В методе run() логика выполняемая в потоке:
-     * будем спать 3 сек и отсчитывать countDownLatch к 0.
+     * будем спать 3 сек и затем отсчитывать countDownLatch к 0.
      */
     @Override
     public void run() {
+        System.out.println("Executing " + this.toString()
+                + " inside : " + Thread.currentThread().getName());
         try {
-            Thread.sleep(3000);
+            Thread.sleep(2000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
-        /* В этом методе мы на единицу уменьшаем наш countDownLatch.
+        /* Здесь мы отсчитываем наш countDownLatch, т.е.
+         * на единицу уменьшаем наш countDownLatch.
          * .countDown() - Уменьшает счетчик защелки, освобождая все
          * ожидающие потоки, если счетчик достигает нуля.
          * Если текущий счетчик больше нуля, он уменьшается.
@@ -81,6 +98,15 @@ class Processor implements Runnable {
          * потоки повторно включаются для целей планирования потоков.
          */
         countDownLatch.countDown();
-        System.out.println("Thread with id: " + id + " performed a decrease by 1");
+        //Поток с id #id уменьшил на 1
+        System.out.println("Thread with id: " + id + " performed a decrease by 1 and has been finished...");
+    }
+
+    @Override
+    public String toString() {
+        return "Processor{" +
+                "id=" + id +
+                ", countDownLatch=" + countDownLatch +
+                '}';
     }
 }
