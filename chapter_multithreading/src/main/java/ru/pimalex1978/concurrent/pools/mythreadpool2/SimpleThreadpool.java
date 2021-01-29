@@ -70,7 +70,6 @@ public class SimpleThreadpool {
     }
 
     /**
-     * Awaits up to <b>timeout</b> ms the termination of the threads in the threadpool
      * Ожидает таймаута timeout мс до завершения потоков в пуле потоков.
      *
      * @param timeout Timeout in milliseconds
