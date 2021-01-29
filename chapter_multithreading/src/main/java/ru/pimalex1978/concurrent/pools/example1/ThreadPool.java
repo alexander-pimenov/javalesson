@@ -35,7 +35,7 @@ public class ThreadPool {
         }
     }
 
-    private final class JobWorker extends Thread {
+    private static final class JobWorker extends Thread {
         private final SimpleBlockingQueue<Runnable> tasks;
 
         public JobWorker(SimpleBlockingQueue<Runnable> tasks) {

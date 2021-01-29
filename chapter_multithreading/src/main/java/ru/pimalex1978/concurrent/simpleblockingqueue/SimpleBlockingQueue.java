@@ -66,7 +66,7 @@ public class SimpleBlockingQueue<T> {
                 lock.notifyAll();
             }
             value = this.queue.poll();
-//            lock.notifyAll();
+            lock.notifyAll();
             return value;
         }
     }
