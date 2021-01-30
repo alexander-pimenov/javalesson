@@ -3,6 +3,9 @@ package ru.pimalex1978.concurrent.waitnotify;
 import net.jcip.annotations.GuardedBy;
 import net.jcip.annotations.ThreadSafe;
 
+/**
+ * Класс, который блокирует выполнение по условию счетчика.
+ */
 @ThreadSafe
 public class CountBarrier {
     @GuardedBy("monitor")
@@ -37,7 +40,7 @@ public class CountBarrier {
                     Thread.currentThread().interrupt();
                 }
             }
-            System.out.println(Thread.currentThread().getName() + "  finally waited for someone!");
+            System.out.println(Thread.currentThread().getName() + "  finally waited for someone!"); //наконец то дождался кого!
         }
     }
 
