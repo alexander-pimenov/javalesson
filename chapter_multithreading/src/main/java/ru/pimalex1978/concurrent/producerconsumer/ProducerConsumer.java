@@ -21,7 +21,7 @@ import static ru.pimalex1978.concurrent.ColorScheme.*;
  * в обратном направлении, если очередь пуста, то поток Консюмер будет ждать
  * пока там что то появится.
  * Т.е. для синхронизации потоков обошлись без synchronized и lock,
- * т.к. используем здесь
+ * т.к. используем здесь ArrayBlockingQueue.
  * <p>
  * В качестве массива строк использован стих
  * STOPPING BY WOODS ON A SNOWY EVENING
@@ -78,7 +78,7 @@ public class ProducerConsumer {
                 //Помещаем сообщение в очередь
                 queue.put(messages[i]);
                 System.out.println(BLUE + "Producing " + messages[i] + ". Queue size is " + queue.size());
-                Thread.sleep(r.nextInt(1000));
+                Thread.sleep(r.nextInt(900));
             }
         }
     }
@@ -102,7 +102,7 @@ public class ProducerConsumer {
                 String message = queue.take();
                 System.out.println(RED + "Consuming " + message + ". Queue size is " + queue.size());
                 if (!"DONE".equals(message)) {
-                    Thread.sleep(r.nextInt(2000));
+                    Thread.sleep(r.nextInt(2000)+500);
                 } else {
                     return;
                 }

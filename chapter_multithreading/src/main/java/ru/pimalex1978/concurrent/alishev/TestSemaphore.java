@@ -6,6 +6,11 @@ import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * Синхронизаторы – вспомогательные утилиты для синхронизации потоков,
+ * которые дают возможность разработчику регулировать и/или ограничивать
+ * работу потоков и предоставляют более высокий уровень абстракции, чем
+ * основные примитивы языка (мониторы).
+ * <p>
  * Класс Semaphore испльзуется в том случае, когда у нас есть
  * какой то ресурс и много потоков используют его. Ресурс ценный.
  * И класс Семафор будет ограничивать доступ к этому ресурсу.
@@ -80,7 +85,7 @@ public class TestSemaphore {
 class Connection {
     //переменная класса, в котором мы находимся, с созданием
     //объекта нашего класса Connection
-    private static Connection connection = new Connection();
+    private final static Connection connection = new Connection();
 
     private int connectionsCount;
 
