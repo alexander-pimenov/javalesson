@@ -37,8 +37,8 @@ public class Switcher {
                     }
                 }, "Thread B"
         );
-        second.start();
         first.start();
+        second.start();
 
         try {
             first.join();

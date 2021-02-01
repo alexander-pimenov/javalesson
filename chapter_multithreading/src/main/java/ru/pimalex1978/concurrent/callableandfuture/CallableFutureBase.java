@@ -22,6 +22,11 @@ import java.util.concurrent.Future;
  * Очевидно, что в дальнейшем мы рассчитываем получить результат действий,
  * которыев в будущем будут выполнены. Будущее по-английский — Future.
  * И интерфейс есть с точно таким же именем: java.util.concurrent.Future
+ * Интерфейс Фьючер это результат работы какой то задачи.
+ * Имеет определенные методы, которые помгут получить результат работы:
+ * get() или проверить не было ли наше задание Task отменено: isCanceled(),
+ * или еще что-нибудь: isDone(), cancel(boolean mayInterruptIfRunning)
+ *
  */
 public class CallableFutureBase {
     public static void main(String[] args) {
@@ -36,14 +41,17 @@ public class CallableFutureBase {
             Future<Double> submit = executorService.submit(() -> {
                 //Здесь имитируем работу потока.
                 Timer timer = new Timer();
+                //Будем использовать рандомные значения.
                 Random random = new Random();
 
                 //Получим текущее время и запишем в переменную start
                 timer.start = Instant.now();
 
                 //вроде поток что то делает в течение какого то времени
+                //определим его рандомно
                 int rand = random.nextInt(5000);
                 //Можно так же выбрасывать исключения по условию.
+                //Это исключение будет отловлено в случае обработки возвращаемого результата.
                 if (rand > 4000) {
                     throw new RuntimeException("Thread is running to long. Terminating...");
                 }
@@ -53,8 +61,12 @@ public class CallableFutureBase {
                 //для вычисления прошедшего времени
                 timer.end = Instant.now();
 
+                //Благодаря Callable мы может возвращать что-то из метода call(),
+                //т.е. из отработавшего потока. В данном случае это затраченное время.
                 return timer.timeInSeconds();
             });
+
+            //Полученные фьючеры добавляем в коллекцию
             futures.add(submit);
         }
 
@@ -65,11 +77,12 @@ public class CallableFutureBase {
         futures.parallelStream()
                 .map(f -> {
                     try {
+                        //если всё успешно, то получим результат
                         return f.get();
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     } catch (ExecutionException e) {
-                        //Выведем эксепшн в sout
+                        //Выведем эксепшн в sout, что вызвало наш exception
                         System.out.println(e.getCause());
 //                        e.printStackTrace();
                     }
