@@ -18,7 +18,7 @@ public class SimpleThreadpool {
     private AtomicBoolean execute;
 
     // Содержит «пул» потоков
-    private List<SimpleThreadpoolThread> threads;
+    private List<SimpleWorkerThread> threads;
 
     /**
      * Частный конструктор для управления созданием пулов потоков. Увеличивает
@@ -33,7 +33,7 @@ public class SimpleThreadpool {
         this.execute = new AtomicBoolean(true);
         this.threads = new ArrayList<>();
         for (int threadIndex = 0; threadIndex < threadCount; threadIndex++) {
-            SimpleThreadpoolThread thread = new SimpleThreadpoolThread("SimpleThreadpool-" + poolCount.get() + "-Thread-" + threadIndex, this.execute, this.runnables);
+            SimpleWorkerThread thread = new SimpleWorkerThread("SimpleThreadpool-" + poolCount.get() + "-Thread-" + threadIndex, this.execute, this.runnables);
             thread.start();
             this.threads.add(thread);
         }

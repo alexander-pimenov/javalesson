@@ -3,7 +3,7 @@ package ru.pimalex1978.concurrent.pools.threadpoolimproved;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class SimpleThreadpoolThread extends Thread {
+public class SimpleWorkerThread extends Thread {
     // Этот флаг используется для управления выполнением while цикла внутри run() метода.
     // Если execute флаг установлен false, а очередь пуста, поток останавливается.
     private AtomicBoolean execute;
@@ -11,7 +11,7 @@ public class SimpleThreadpoolThread extends Thread {
     // Это очередь, в которой хранятся исполняемые файлы.
     private ConcurrentLinkedQueue<Runnable> runnables;
 
-    public SimpleThreadpoolThread(String name, AtomicBoolean execute, ConcurrentLinkedQueue<Runnable> runnables) {
+    public SimpleWorkerThread(String name, AtomicBoolean execute, ConcurrentLinkedQueue<Runnable> runnables) {
         super(name);
         this.execute = execute;
         this.runnables = runnables;
