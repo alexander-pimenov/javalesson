@@ -24,7 +24,7 @@ public class Deadlock {
         }
 
         synchronized void bow(Friend bower) {
-            System.out.format("%s: %s" + "  has bowed to me!%n", this.name, bower.getName());
+            System.out.format("%s: %s" + "  has bowed to me!%n", this.name, bower.getName()); //bow - поклонись
             bower.bowBack(this);
         }
 
