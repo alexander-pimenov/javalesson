@@ -30,6 +30,7 @@ public class EchoClient {
 
     public String sendMessage(String msg) {
         try {
+            System.out.println("The message to Server: " + msg);
             out.println(msg);
             return in.readLine();
         } catch (Exception e) {
@@ -46,5 +47,12 @@ public class EchoClient {
             LOG.debug("error when closing", e);
         }
 
+    }
+
+    public static void main(String[] args) {
+        EchoClient echoClient = new EchoClient();
+        echoClient.startConnection("127.0.0.1", 5555);
+        echoClient.sendMessage("Всем приветик!!!!");
+        echoClient.stopConnection();
     }
 }
