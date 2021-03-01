@@ -16,8 +16,6 @@ package ru.pimalex1978;
  * экземпляр нашего класса MyClass. Приводим к типу String и присваиваем нашей переменной name.
  */
 
-import net.sf.saxon.expr.TryCatch;
-
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -28,7 +26,7 @@ public class MyClassRunner {
         MyClass myClass1 = new MyClass(10, "Bob");
         int number = myClass1.getNumber();
         String name = null; //no getter =(
-        System.out.println(number + name);//output 0null
+        System.out.println(number + name);//output 10null
         try {
             Field field = myClass1.getClass().getDeclaredField("name");
             field.setAccessible(true);
@@ -37,7 +35,7 @@ public class MyClassRunner {
         } catch (NoSuchFieldException | IllegalAccessException e) {
             e.printStackTrace();
         }
-        System.out.println(number + name);//output 0default
+        System.out.println(number + name);//output 10default
 
         try {
             Method printData = myClass1.getClass().getDeclaredMethod("printData");
@@ -46,6 +44,7 @@ public class MyClassRunner {
         } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
         }
+        System.out.println("hashCode() объекта myClass1 : " + myClass1.hashCode());
         System.out.println("==========");
 
         /**
@@ -73,10 +72,13 @@ public class MyClassRunner {
             Class<?> clazz2 = Class.forName(MyClass.class.getName());
             myClass2 = (MyClass) clazz2.newInstance();
 
+            System.out.println("clazz2 = " + clazz2); //output class ru.pimalex1978.MyClass
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
             e.printStackTrace();
         }
-        System.out.println(myClass2); //output created object ru.pimalex1978.MyClass@b81eda8
+        System.out.println("hashCode() объекта myClass2 : " + myClass2.hashCode());
+
+        System.out.println(myClass2); //output created object MyClass{number=0, name='default'}
         System.out.println("==========");
 
         /**
@@ -96,7 +98,9 @@ public class MyClassRunner {
         } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
         }
-        System.out.println(myClass3);
+        System.out.println("hashCode() объекта myClass3 : " + myClass3.hashCode());
+
+        System.out.println(myClass3); //output created object MyClass{number=1, name='default2'}
         System.out.println("==========");
 
         MyClass myClass4 = null;
@@ -106,13 +110,12 @@ public class MyClassRunner {
             for (Constructor constructor : constructors) {
                 Class[] paramTypes = constructor.getParameterTypes();
                 for (Class paramType : paramTypes) {
-                    System.out.println(paramType.getName() + " ");
+                    System.out.println(" - " + paramType.getName());
                 }
             }
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-
 
 
     }

@@ -57,6 +57,10 @@ public class ConsumerDemo1 {
         List peopleGreetings = Stream.of("Elena", "John", "Alex", "Jim", "Sara")
                 .peek(x -> System.out.println("Hello " + x + " !!!"))
                 .collect(Collectors.toList());
+        System.out.println("===============================");
+        Stream.of("Elena", "John", "Alex", "Jim", "Sara")
+                .peek(x -> System.out.println("Hello " + x + " !!!"))
+                .forEach(s -> System.out.printf("+ %s + ", s));
     }
 
 }
