@@ -1,6 +1,7 @@
 package ru.pimalex1978.function_interface;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -155,6 +156,13 @@ public class SupplierDemo1 {
         final Stream<Employee> s = Stream.generate(supplier).limit(1);
         List<Employee> empList = s.collect(Collectors.toList());
         empList.forEach(e -> System.out.println(e.getAge()));
+
+
+        //Саздадим объект сегодняшней даты и времени
+        Supplier<LocalDateTime> now = LocalDateTime::now;
+        System.out.println(now.get());
+        System.out.println(now.get());
+        System.out.println(now.get());
 
     }
 

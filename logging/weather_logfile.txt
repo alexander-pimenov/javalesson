@@ -1,5 +1,5 @@
 2021-01-02 14:28:46 [ERROR] ru.pimalex1978.Weather:main:46 - Error URL
-java.net.MalformedURLException: no protocol: api.openweathermap.org/data/2.5/weather?q=London,uk&APPID=981af7073dbe5d068e0fdefb07311c09
+java.net.MalformedURLException: no protocol: api.openweathermap.org/data/2.5/weather?binarySearchMain=London,uk&APPID=981af7073dbe5d068e0fdefb07311c09
 	at java.base/java.net.URL.<init>(URL.java:657)
 	at java.base/java.net.URL.<init>(URL.java:553)
 	at java.base/java.net.URL.<init>(URL.java:500)
