@@ -1,10 +1,8 @@
 package ru.pimalex1978.class_date;
 
-import java.time.Duration;
-import java.time.LocalDate;
-import java.time.Month;
-import java.time.Year;
+import java.time.*;
 import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalAdjusters;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -105,7 +103,42 @@ public class TestDate {
                 + ChronoUnit.DAYS.between(LocalDate.now(), LocalDate.of(Year.now().getValue(), Month.DECEMBER, 25)));
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 
+        //Как получить текущее время по местному времени с точностью до миллисекунд используя Date Time API?
+        final LocalDateTime localDateTime1 = LocalDateTime.ofInstant(new Date().toInstant(), ZoneId.systemDefault());
+        System.out.println(localDateTime1);
 
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+
+        //Как получить текущее время с точностью до миллисекунд используя Date Time API?
+        final Instant instant1 = new Date().toInstant();
+        System.out.println(instant1);
+
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+
+        //Как получить вторую субботу текущего месяца используя Date Time API?
+        final LocalDate saturday = LocalDate
+                .of(LocalDate.now().getYear(), LocalDate.now().getMonth(), 1)
+                .with(TemporalAdjusters.nextOrSame(DayOfWeek.SATURDAY))
+                .with(TemporalAdjusters.next(DayOfWeek.SATURDAY));
+        System.out.println(saturday);
+
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+
+        //Как получить следующий вторник используя Date Time API?
+
+        final LocalDate tuesday = LocalDate.now().with(TemporalAdjusters.next(DayOfWeek.TUESDAY));
+        System.out.println(tuesday);
+
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+
+        //Как добавить 1 неделю, 1 месяц, 1 год, 10 лет к текущей дате с использованием Date Time API?
+
+        LocalDate.now().plusWeeks(1);
+        LocalDate.now().plusMonths(1);
+        LocalDate.now().plusYears(1);
+        final LocalDate plus = LocalDate.now().plus(1, ChronoUnit.DECADES);
+        System.out.println(plus);
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
     }
 
 

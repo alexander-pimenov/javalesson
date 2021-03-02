@@ -45,6 +45,7 @@
         <module>chapter_core_java_jvm</module>
         <module>chapter_weather</module>
         <module>chapter_parser_vacancy</module>
+        <module>chapter_encode_decode</module>
     </modules>
     <packaging>pom</packaging>
 

@@ -49,7 +49,8 @@ public class MainStream {
         Stream<String> streamFromFiles = Files.lines(Paths.get("text.txt"));
         /*Создадим файл и запишем туда что то*/
         File file = new File("1.tmp");
-        file.deleteOnExit(); //Требует, чтобы файл или каталог, обозначенный этим абстрактным путем, были удалены при завершении работы виртуальной машины.
+        file.deleteOnExit(); //Требует, чтобы файл или каталог, обозначенный этим абстрактным путем,
+        // были удалены при завершении работы виртуальной машины.
         PrintWriter out = new PrintWriter(file);//Запишем данные в файл.
         out.println("a1");
         out.println("a2");
@@ -100,6 +101,14 @@ public class MainStream {
         //Создать пустой стрим
         Stream<String> streamEmpty = Stream.empty();
         System.out.println("streamEmpty = " + streamEmpty.collect(Collectors.toList())); //streamEmpty = []
+
+
+        // вывести на экран 10 случайных чисел, используя forEach()
+        System.out.println("10 случайных чисел: ");
+        (new Random())
+                .ints()
+                .limit(10)
+                .forEach(System.out::println);
 
         System.out.println("==========");
 
