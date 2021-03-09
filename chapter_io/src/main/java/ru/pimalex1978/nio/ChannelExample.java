@@ -16,6 +16,7 @@ public class ChannelExample {
      * Т.е. мы записываем из одного канала в другой налету.
      * Из inChannel записываем данные в outChannel с позиции 0 до
      * позиции размера файла inChannel.size()
+     * new FileOutputStream("...", true)) //true - информация будет дописываться в файл.
      */
     public static void fransferDemo() {
         try (FileInputStream fis = new FileInputStream("C:\\test\\FISHER - Losing It.mp3");
