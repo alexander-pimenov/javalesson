@@ -20,6 +20,8 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
+import static java.util.stream.Collectors.toList;
+
 public class MainStream {
     public static void main(String[] args) throws IOException {
 
@@ -29,19 +31,19 @@ public class MainStream {
         Stream<String> streamFromCollection = collection.stream();
         System.out.println("streamFromCollection = " +
                 streamFromCollection
-                        .collect(Collectors.toList())); //streamFromCollection = [a1, a2, a3]
+                        .collect(toList())); //streamFromCollection = [a1, a2, a3]
 
         //Создание стрима из значений: Stream.of(значение1,… значениеN)
         Stream<String> streamFromValues = Stream.of("a1", "a2", "a3");
         System.out.println("streamFromValues = " +
-                streamFromValues.collect(Collectors.toList())); //streamFromValues = [a1, a2, a3]
+                streamFromValues.collect(toList())); //streamFromValues = [a1, a2, a3]
 
         //Создание стрима из массива: Arrays.stream(массив)
         String[] array = {"a1", "a2", "a3"};
         Stream<String> streamFromArrays = Arrays.stream(array);
         System.out.println("streamFromArrays = " +
                 streamFromArrays
-                        .collect(Collectors.toList())); //streamFromArrays = [a1, a2, a3]
+                        .collect(toList())); //streamFromArrays = [a1, a2, a3]
 
         //Создание стрима из файла (каждая строка в файле будет отдельным элементом в стриме)
         //Files.lines(путь_к_файлу)
@@ -58,7 +60,7 @@ public class MainStream {
         out.close();
 
         Stream<String> streamFromFile = Files.lines(Paths.get(file.getAbsolutePath()));
-        System.out.println("streamFromFile = " + streamFromFile.collect(Collectors.toList())); //streamFromFile = [a1, a2, a3]
+        System.out.println("streamFromFile = " + streamFromFile.collect(toList())); //streamFromFile = [a1, a2, a3]
 
         //Создание стрима из строки: «строка».chars()
         IntStream streamFromString = "123".chars();
@@ -76,11 +78,11 @@ public class MainStream {
 
         System.out.println("streamFromBuilder = " +
                 streamFromBuilder
-                        .collect(Collectors.toList())); //streamFromBuilder = [a1, a2, a3]
+                        .collect(toList())); //streamFromBuilder = [a1, a2, a3]
 
         //Создание параллельного стрима: collection.parallelStream()
         Stream<String> parallelStream = collection.parallelStream();
-        System.out.println("parallelStream = " + parallelStream.collect(Collectors.toList())); //parallelStream = [a1, a2, a3]
+        System.out.println("parallelStream = " + parallelStream.collect(toList())); //parallelStream = [a1, a2, a3]
 
         //Создание бесконечных стрима с помощью Stream.iterate:
         //Stream.iterate(начальное_условие, выражение_генерации)
@@ -88,7 +90,7 @@ public class MainStream {
         Stream<Integer> streamFromIterate = Stream.iterate(1, n -> n + 1);
         System.out.println("streamFromIterate = " + streamFromIterate
                 .limit(3)
-                .collect(Collectors.toList())); //streamFromIterate = [1, 2, 3]
+                .collect(toList())); //streamFromIterate = [1, 2, 3]
 
         //Создание бесконечных стрима с помощью Stream.generate
         //Stream.generate(выражение_генерации)
@@ -96,11 +98,11 @@ public class MainStream {
         Stream<String> streamFromGenerate = Stream.generate(() -> "a1");
         System.out.println("streamFromGenerate = " + streamFromGenerate
                 .limit(3)
-                .collect(Collectors.toList())); //streamFromGenerate = [a1, a1, a1]
+                .collect(toList())); //streamFromGenerate = [a1, a1, a1]
 
         //Создать пустой стрим
         Stream<String> streamEmpty = Stream.empty();
-        System.out.println("streamEmpty = " + streamEmpty.collect(Collectors.toList())); //streamEmpty = []
+        System.out.println("streamEmpty = " + streamEmpty.collect(toList())); //streamEmpty = []
 
 
         // вывести на экран 10 случайных чисел, используя forEach()
@@ -255,7 +257,7 @@ public class MainStream {
         List<String> collect = collectionSource.stream()
                 .skip(1)
                 .limit(2)
-                .collect(Collectors.toList());
+                .collect(toList());
         System.out.println(Arrays.toString(objects)); //[a2, a3]
         System.out.println(collect); //[a2, a3]
 
@@ -264,7 +266,7 @@ public class MainStream {
         List<String> collect1 = collectionSource.stream()
                 .filter(str ->
                         str.contains("1"))
-                .collect(Collectors.toList());
+                .collect(toList());
         System.out.println(collect1); //[a1, a1]
 
         /*3. Примеры использования distinct*/
@@ -277,13 +279,13 @@ public class MainStream {
         //Получение коллекции без дубликатов
         List<String> distinct = nonOrdered.stream()
                 .distinct()
-                .collect(Collectors.toList());
+                .collect(toList());
         //distinct = [a1, a2, a3]
         System.out.println("distinct = " + distinct);//порядок не гарантируется
 
         List<String> distinctOrdered = ordered.stream()
                 .distinct()
-                .collect(Collectors.toList());
+                .collect(toList());
         //distinctOrdered = [a1, a2, a3]
         System.out.println("distinctOrdered = " + distinctOrdered);//порядок гарантируется
 
@@ -349,7 +351,7 @@ public class MainStream {
                         LinkedHashMap::new,
                         Collectors.mapping(
                                 String::toUpperCase,
-                                Collectors.toList())
+                                toList())
                 ));
         map3.entrySet().forEach(System.out::println);
         //2=[AB, GH]
@@ -404,7 +406,7 @@ public class MainStream {
         //Добавить "_1" к каждому элементу первой коллекции
         List<String> transform = collection1.stream()
                 .map(el1 -> el1 + "_1")
-                .collect(Collectors.toList());
+                .collect(toList());
         System.out.println("transform = " + transform); //transform = [a1_1, a2_1, a3_1, a1_1]
 
         //В первой коллекции убрать первый символ и вернуть массив чисел (int[])
@@ -415,7 +417,7 @@ public class MainStream {
         //или так с map:
         List<Integer> number = collection1.stream()
                 .map(b -> Integer.parseInt(b.substring(1)))
-                .collect(Collectors.toList());
+                .collect(toList());
         System.out.println("numberInts = " + Arrays.toString(numberInts));//numberInts = [1, 2, 3, 1]
         System.out.println("number = " + number); //number = [1, 2, 3, 1]
         System.out.println("==========");
@@ -512,19 +514,19 @@ public class MainStream {
         //Отсортировать коллекцию строк по алфавиту
         List<String> sorted = collection4.stream()
                 .sorted()
-                .collect(Collectors.toList());
+                .collect(toList());
         System.out.println("sorted = " + sorted); //sorted = [a1, a1, a2, a2, a3, a4, a5]
         //Отсортировать коллекцию строк по алфавиту в обратном порядке
         List<String> sortedReverse = collection4.stream()
                 .sorted((o1, o2) -> o2.compareTo(o1))
-                .collect(Collectors.toList());
+                .collect(toList());
         System.out.println("sortedReverse = " + sortedReverse); //sortedReverse = [a5, a4, a3, a2, a2, a1, a1]
 
         //Отсортировать коллекцию строк по алфавиту и убрать дубликаты
         List<String> sortedDistinct = collection4.stream()
                 .sorted()
                 .distinct()
-                .collect(Collectors.toList());
+                .collect(toList());
         System.out.println("sortedDistinct = " + sortedDistinct); //sortedDistinct = [a1, a2, a3, a4, a5]
         System.out.println("===========");
 
@@ -577,13 +579,13 @@ public class MainStream {
         List<String> peek = collection5.stream()
                 .map(String::toUpperCase)
                 .peek(p -> System.out.print(p + ","))  //peak1 = AA1,AA2,AA3,AA4,AA1,
-                .collect(Collectors.toList());
+                .collect(toList());
         System.out.println();
 
         //Используем stringBuilders2, т.к. stringBuilders уже изменен, и еще раз изменится.
         List<StringBuilder> newListPeek = stringBuilders2.stream()
                 .peek(p -> p.append("_new"))
-                .collect(Collectors.toList());
+                .collect(toList());
         System.out.println("newListPeek = " + newListPeek); //newListPeek = [a1_new, a2_new, a3_new]
 
         /*9. Примеры использования Reduce функции*/
@@ -891,7 +893,7 @@ public class MainStream {
                 //" +" - указывает что есть разделитель пробел или пробелы
                 .distinct()
                 .sorted()
-                .collect(Collectors.toList());
+                .collect(toList());
         System.out.println("Unique words: " + uniqueWords);
         //Unique words: [confounded, daddy, incumbent, jailer, mammy, perjury, skimming, sporadic]
 
@@ -1028,6 +1030,23 @@ public class MainStream {
         BiFunction<Function<Integer, Integer>, Integer, Integer> g =
                 (func, v) -> func.apply(v) * func.apply(v);
         System.out.println(g.apply(f, 7)); //100 => (v+3)*(v+3) => (7+3)*(7+3)=100
+
+        System.out.println("==========");
+
+        //выбрать два четных числа, возвести в квадрат и вывести в список
+        List<Integer> numbers2 = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8);
+        List<Integer> twoEvenSquares =
+                numbers.stream()
+                        .filter(n -> {
+                            System.out.println("filtering " + n);
+                            return n % 2 == 0;
+                        })
+                        .map(n -> {
+                            System.out.println("mapping " + n);
+                            return n * n;
+                        })
+                        .limit(2)
+                        .collect(toList());
 
 
     }

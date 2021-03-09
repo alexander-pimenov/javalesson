@@ -12,17 +12,17 @@ public class JavaEnumExamples {
 
         usingEnumMethods();
 
-        usingEnumValueOf();
+//        usingEnumValueOf();
 
-        usingEnumValues();
+//        usingEnumValues();
 
-        usingEnumInSwitch(ThreadStatesEnum.START);
+//        usingEnumInSwitch(ThreadStatesEnum.START);
 
-        usingEnumInSwitch(ThreadStatesEnum.DEAD);
+//        usingEnumInSwitch(ThreadStatesEnum.DEAD);
 
-        usingEnumMap();
+//        usingEnumMap();
 
-        usingEnumSet();
+//        usingEnumSet();
 
     }
 
@@ -32,6 +32,7 @@ public class JavaEnumExamples {
         EnumSet<ThreadStatesEnum> enumSet = EnumSet.allOf(ThreadStatesEnum.class);
         for (ThreadStatesEnum tsenum : enumSet) {
             System.out.println("Используем EnumSet, приоритет = " + tsenum.getPriority());
+            System.out.println(tsenum.name());
         }
     }
 
@@ -77,8 +78,8 @@ public class JavaEnumExamples {
         }
     }
 
-    //Метод usingEnumValueOf() показывает использование метода valueOf(enumType,
-    //name) класса java.util.Enum, с помощью которого мы можем создать объект
+    //Метод usingEnumValueOf() показывает использование метода valueOf(enumType,name)
+    //класса java.util.Enum, с помощью которого мы можем создать объект
     //перечисления из строки.
     private static void usingEnumValueOf() {
         ThreadStatesEnum th = Enum.valueOf(ThreadStatesEnum.class, "START");
