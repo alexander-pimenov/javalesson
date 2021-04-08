@@ -34,6 +34,11 @@ public enum ThreadStatesEnum implements Closeable {
         public String getDetail() {
             return "DEAD";
         }
+
+        @Override
+        public String toString(){
+            return "Реализация DEAD. Приоритет : " + getPriority();
+        }
     };
 
     private int priority;

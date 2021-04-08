@@ -27,6 +27,7 @@ import java.util.concurrent.CountDownLatch;
  * чтобы заставить поток ждать других, чтобы выполнить работу.
  * <p>
  * https://habr.com/ru/post/277669/
+ * http://java-online.ru/concurrent-synchronizers.xhtml#countdownlatch
  */
 public class Race {
     //Создаем CountDownLatch на 8 "условий"

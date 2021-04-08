@@ -28,16 +28,16 @@ public class BubbleSortingAlgorithm {
 
     private static void bubbleSort(int[] arr) {
         /*Берем элемент в конце массива. И проходим массив от конца до начала.*/
-        for (int i = arr.length - 1; i >= 0; i--) {
+        for (int out = arr.length - 1; out >= 0; out--) {
             /*В этом вложенном цикле мы идем от 0 до i, т.е. до текущего шага
              * цикла.*/
-            for (int j = 0; j < i; j++) {
+            for (int inner = 0; inner < out; inner++) {
                 /*Если условие arr[j]>arr[j+1] выполняется, то
                  * мы используем перестановку элементов*/
-                if (arr[j] > arr[j + 1]) {
-                    int temp = arr[j];
-                    arr[j] = arr[j + 1];
-                    arr[j + 1] = temp;
+                if (arr[inner] > arr[inner + 1]) {
+                    int temp = arr[inner];
+                    arr[inner] = arr[inner + 1];
+                    arr[inner + 1] = temp;
                 }
             }
         }

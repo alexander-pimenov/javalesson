@@ -102,6 +102,16 @@ public class JavaEnumExamples {
         System.out.println("Используем переопределенный метод. " + thc.toString());
         thc.setPriority(10);
         System.out.println("Константа Enum изменила значение = " + thc.getPriority());
+        thc = ThreadStatesEnum.WAITING;
+        System.out.println(thc.toString()+ ", название: "+thc.getDetail());
+
+        final ThreadStatesEnum[] values = ThreadStatesEnum.values();
+        for (ThreadStatesEnum value : values) {
+            System.out.println(value.toString());
+        }
+
+        System.out.println(ThreadStatesEnum.valueOf("RUNNING"));
+
         thc.close();
     }
 }

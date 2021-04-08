@@ -19,7 +19,8 @@ public enum Size {
     * как и МЕТОД Конструктор в () передает какой то параметр
     * в данном случае выбрали передачу абревиатуры*/
     Size (String abbreviation){
-        //this. ключевое слово, к-рое показывает, что мы используем ПОЛЕ "private String abbreviation;", а не параметр "Size (String abbreviation)"
+        //this. ключевое слово, к-рое показывает, что мы используем ПОЛЕ "private String abbreviation;",
+        // а не параметр "Size (String abbreviation)"
         //которое будет указывать на текущий объект
         //здесь мы у текущего объекта берем ПОЛЕ abbreviation и ему присваиваем значение нашего параметра abbreviation
         this.abbreviation = abbreviation;
@@ -42,7 +43,8 @@ public enum Size {
         return abbreviation;
     }
     /*кроме МЕТОДА getAbbreviation были не явно унаследованы МЕТОДЫ от нашего enum типа
-    *а какие, можем узнать нажав Ctrl-F12, поставить галочку "Show inherited members", то мы увидим целый ряд методов
+    *а какие, можем узнать нажав Ctrl-F12, поставить галочку "Show inherited members",
+    * то мы увидим целый ряд методов
     *интересуют записи с -Enum
     * */
 }

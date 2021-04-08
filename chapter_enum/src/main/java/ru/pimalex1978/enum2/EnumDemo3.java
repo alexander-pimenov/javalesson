@@ -2,7 +2,12 @@ package ru.pimalex1978.enum2;
 
 //использовать конструктор, переменную экземпляра и метод в перечислении
 enum Apple3 {
-    Jonatan(10), GoldenDel(9), RedDel, Winesap(15), Cortland(8);
+    Jonatan(10){
+        @Override
+        public String toString() {
+            return "Это название Jonatan";
+        }
+    }, GoldenDel(9), RedDel, Winesap(15), Cortland(8);
 
     private int price;//ПОЛЕ - цена яблока каждого сорта
 
@@ -26,7 +31,8 @@ enum Apple3 {
 public class EnumDemo3 {
     public static void main(String[] args) {
 
-        //Когда объявляется переменная ap, конструктор  Apple3() вызывается один раз
+        //Когда объявляется переменная ap, конструктор  Apple3()
+        // вызывается один раз
         //для каждой объявленной константы
         Apple3 ap;
 
@@ -42,5 +48,11 @@ public class EnumDemo3 {
             }
             System.out.println(a + " стоит " + a.getPrice() + " центов.");
         }
+
+        //найти значение константы (или переопределенный метод toString())
+        final Apple3 jonatan = Apple3.valueOf("Jonatan");
+        System.out.println(jonatan);
+        final Apple3 red = Apple3.valueOf("RedDel");
+        System.out.println(red);
     }
 }

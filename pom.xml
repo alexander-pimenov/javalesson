@@ -46,6 +46,8 @@
         <module>chapter_weather</module>
         <module>chapter_parser_vacancy</module>
         <module>chapter_encode_decode</module>
+        <module>chapter_http</module>
+        <module>chapter_coffee</module>
     </modules>
     <packaging>pom</packaging>
 

@@ -16,6 +16,7 @@ public class SimpleArray<E> implements Simple<E> {
         values = (E[]) new Object[0];
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public boolean add(E e) {
 
@@ -47,6 +48,7 @@ public class SimpleArray<E> implements Simple<E> {
         return false;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void delete(int index) {
 
