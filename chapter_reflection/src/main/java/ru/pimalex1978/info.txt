@@ -16,22 +16,120 @@ https://javarush.ru/groups/posts/513-reflection-api-refleksija-temnaja-storona-j
 4. Получить и установить значение поля объекта по имени;
 5. Вызвать метод объекта по имени.
 
-В java есть замечательный класс Class. Он представляет классы и интерфейсы в исполняемом приложении Java.
-Связь между Class и ClassLoader мы затрагивать не будем, т.к. это не есть тема статьи.
+В java есть замечательный класс Class. Он представляет классы и интерфейсы в
+исполняемом приложении Java.
+Связь между Class и ClassLoader мы затрагивать не будем, т.к. это не есть тема
+статьи.
+
+Reflection может получать всевозможную информацию о классе благодаря объекту
+классу Class.
+
+Получить объект класса Class можно 3-мя способами:
+
+1)  MyClass a = new MyClass();
+    Class<MyClass> aClass = a.getClass();
+2)  Class<MyClass> aClass = MyClass.class; //статическая переменная class (она есть у каждого класса)
+3)  Class<?> c = Class.forName("java.lang.Byte"); //передается полное имя класса - "java.lang.Byte"
+                                         //в ClassLoader и он загружает этот класс в память.
+                                         //Этот метод выбрасывает Exception, если класс Not Found
+У объекта класса Class есть много методов, вот несколько из них:
+- getName()
+    полное имя (java.lang.Integer)
+- getSimpleName()
+    короткое имя (Integer)
+- getModifiers()
+    модификаторы доступа (Modifier.isPublic(..))
+- getSuperClass()
+    получение родителя
+- getInterfaces()
+    получение всех имплементируемых implements (наследуемых для interface extendes)
+    интерфейсов, но без интерфейсов суперкласса
+- getFields(): Field[]
+    только публичные поля класса и даже из суперкласса
+- getDeclaredFields(): Field[]
+    все поля класса
+- getField(String name): Field
+    если нет такого поля, то бросает Exception: Field Not Found
+- getMethods(): Method[]
+    только публичные методы и нашего класса и суперкласса
+- getDeclaredMethods(): Method[]
+- getMethod(name, paramTypes): Method
+- getConstructors(): Constructor<?>[]
+    конструкторы класса и суперкласса только public
+- getDeclaredConstructors(): Constructor<?>[]
+- getConstructor(paramTypes): Constructor<?>
+
+Чтобы посмотреть поля супер класса, нужно рекурсивно пробежаться вызывая getSuperClass()
+и у него вызывать - getDeclaredFields(): Field[]
 
 Далее, чтобы получить поля этого класса нужно вызвать метод getFields(), этот метод вернет нам все доступные поля
-класса. Нам это не подходит, так как наше поле private, поэтому используем метод getDeclaredFields(), этот метод
+(public) класса. Нам это не подходит, так как наше поле private, поэтому используем метод getDeclaredFields(), этот метод
 также возвращает массив полей класса, но теперь и private и protected.
 В нашей ситуации мы знаем имя поля, которое нас интересует, и можем использовать метод getDeclaredField(String),
 где String — имя нужного поля.
 
-Примечание: getFields() и getDeclaredFields() не возвращают поля класса-родителя!
+Примечание: getField(String name) и getDeclaredFields() не возвращают поля класса-родителя!
+
+Создание экземпляра класса:
+
+Class<?> c = Class.forName("NameClass"); //загружаем наш класс имея строковое представление класса
+
+1)
+Object obj = c.newInstance(); //создаст объект, если в классе есть дефолтный конструктор
+NameClass test = (NameClass) obj;
+
+2)
+Constructor<?> con = c.getConstructor(...); //вызываем конструктор с нужными параметрами
+Object obj = con.newInstance(...); //создаем объект через конструктор передавая уже в него нужные параметры
+
+******Пример******
+Constructor<?> con = c.getConstructor(int.class, String.class);
+Object obj = con.newInstance(8, "Java");
+******************
 
 Возникает вопрос: где может пригодится рефлексивный вызов конструкторов?
 Современные технологии java, как уже говорилось в начале, не обходятся без
 Reflection API.
 Например, DI (Dependency Injection), где аннотации в сочетании с рефлексией методов
 и конструкторов образуют популярную в Android разработке библиотеку Darer.
+
+
+Вызов метода.
+
+//задаем параметры, они соответствуют параметрам метода, который ищем
+Class[] paramTypes = new Class[]{String.class, int.class};
+//по имени метода и по определенным параметрам получаем метод
+Method method = c.getMethod("methodName", paramTypes);
+//создаем объекты-параметры, т.е. то что уже реально подставляем в метод
+Object[] args = new Object[]{new String("aa"), new Integer(10)};
+//указываем obj, т.е. на каком объекте вызвать метод, если статический метод то указываем класс,
+//и также передаем в него параметры args
+//invoke всегда возвращает значение класса Object, поэтому приведение типов делаем
+//самостоятельно. Если возвращаемый тип void, то ничего не надо делать
+Double d = (Double) method.invoke(obj, args);
+
+******Пример******
+MyClass myClass1 = new MyClass(10, "Bob");
+Method printData = myClass1.getClass().getDeclaredMethod("printData");
+printData.setAccessible(true);
+printData.invoke(myClass1);
+******************
+
+Установка приватного поля.
+class SomeClass{
+private int pri = 0;
+}
+
+Class<?> c = Class.forName(SomeClass.class.getName());
+
+Field f = c.getDeclaredField("pri");
+f.setAccessible(true);
+f.setInt(obj, 47);
+
+Вызов приватного метода.
+Method method = c.getDeclaredMethod(...);
+method.setAccessible(true);
+
 
 Темной стороной java рефлексия называется не зря. Она напрочь ломает парадигму ООП.
 В java инкапсуляция служит для сокрытия и ограничения доступа одних компонентов
@@ -50,7 +148,7 @@ Reflection API.
 Защищаться от рефлексии или нет зависит от проекта. Есть специальный класс для защиты
  - SecurityManager.
 
-Так же ньюанс: Поля с модификаторама private+final нельзя изменить.
+Так же ньюанс: Поля с модификаторами private+final нельзя изменить!!!
 
 Сокрытие в целом и модификаторы доступа в частности - это не про защиту от злонамеренных хакеров, взламывающих ваш код.
 Модификаторы доступа нужны для предотвращения непреднамеренно ошибочного использования объектов. В больших системах

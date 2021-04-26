@@ -1,4 +1,10 @@
 package ru.pimalex1978;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
 /**
  * Разберем что тут сейчас произошло. В java есть замечательный класс Class. Он представляет классы и интерфейсы
  * в исполняемом приложении Java. Связь между Class и ClassLoader мы затрагивать не будем, т.к. это не есть тема статьи.
@@ -8,19 +14,13 @@ package ru.pimalex1978;
  * также возвращает массив полей класса, но теперь и private и protected. В нашей ситуации мы знаем имя поля,
  * которое нас интересует, и можем использовать метод getDeclaredField(String), где String — имя нужного поля.
  * <p>
- * Примечание: getFields() и getDeclaredFields() не возвращают поля класса-родителя!
+ * Примечание: getFields() и getDeclaredFields() не возвращают поля класса-родителя!!!
  * <p>
  * Отлично, мы получили объект Field с ссылкой на наш name. Т.к. поле не было публичным (public) следует дать
  * доступ для работы с ним. Метод setAccessible(true) разрешает нам дальнейшую работу. Теперь поле name
  * полностью под нашим контролем! Получить его значение можно вызовом get(Object) у объекта Field, где Object —
  * экземпляр нашего класса MyClass. Приводим к типу String и присваиваем нашей переменной name.
  */
-
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-
 public class MyClassRunner {
     public static void main(String[] args) {
         MyClass myClass1 = new MyClass(10, "Bob");
@@ -47,14 +47,14 @@ public class MyClassRunner {
         System.out.println("hashCode() объекта myClass1 : " + myClass1.hashCode());
         System.out.println("==========");
 
-        /**
+        /*
          * На момент старта java приложения далеко не все классы оказываются загруженными
          * в JVM. Если в вашем коде нет обращения к классу MyClass, то тот, кто отвечает
          * за загрузку классов в JVM, а им является ClassLoader, никогда его туда и
          * не загрузит. Поэтому нужно заставить ClassLoader загрузить его и получить
          * описание нашего класса в виде переменной типа Class.
          * Для этой задачи существует метод forName(String), где String — имя класса,
-         * описание которого нам требуется.
+         * описание которого нам требуется: Class.forName(MyClass.class.getName())
          *
          * Получив Сlass, вызов метода newInstance() вернет Object, который будет создан
          * по тому самому описанию. Остается привести этот объект к нашему классу MyClass.
@@ -70,7 +70,8 @@ public class MyClassRunner {
 
         try {
             Class<?> clazz2 = Class.forName(MyClass.class.getName());
-            myClass2 = (MyClass) clazz2.newInstance();
+            myClass2 = (MyClass) clazz2.newInstance(); //при конструкторе без параметров
+            //clazz.getDeclaredConstructor().newInstance()
 
             System.out.println("clazz2 = " + clazz2); //output class ru.pimalex1978.MyClass
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
@@ -81,7 +82,7 @@ public class MyClassRunner {
         System.out.println(myClass2); //output created object MyClass{number=0, name='default'}
         System.out.println("==========");
 
-        /**
+        /*
          * Как же вызывать методы с аргументами и конструкторы с параметрами?
          * Для получения конструкторов класса следует у описания класса вызвать
          * метод getConstructors(), а для получения параметров конструктора -
@@ -89,13 +90,14 @@ public class MyClassRunner {
          */
         MyClass myClass3 = null;
         try {
-            Class clazz3 = Class.forName(MyClass.class.getName());
+            Class<?> clazz3 = Class.forName(MyClass.class.getName());
             //Эти параметры прописали самостоятельно, чтоб потом добавить их
             //в getConstructor(params)
-            Class[] params = {int.class, String.class};
+            Class<?>[] params = {int.class, String.class};
             myClass3 = (MyClass) clazz3.getConstructor(params).newInstance(1, "default2");
 
-        } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
+        } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException
+                | IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
         }
         System.out.println("hashCode() объекта myClass3 : " + myClass3.hashCode());
@@ -105,11 +107,11 @@ public class MyClassRunner {
 
         MyClass myClass4 = null;
         try {
-            Class clazz4 = Class.forName((MyClass.class.getName()));
-            Constructor[] constructors = clazz4.getConstructors();
-            for (Constructor constructor : constructors) {
-                Class[] paramTypes = constructor.getParameterTypes();
-                for (Class paramType : paramTypes) {
+            Class<?> clazz4 = Class.forName((MyClass.class.getName()));
+            Constructor<?>[] constructors = clazz4.getConstructors();
+            for (Constructor<?> constructor : constructors) {
+                Class<?>[] paramTypes = constructor.getParameterTypes();
+                for (Class<?> paramType : paramTypes) {
                     System.out.println(" - " + paramType.getName());
                 }
             }
