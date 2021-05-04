@@ -12,7 +12,6 @@ public class Count {
         //.get();
     }
 
-
     public static int count2(List<Integer> data) {
         return data.stream()
                 .filter(x -> x % 2 == 0)
@@ -24,9 +23,6 @@ public class Count {
                 .mapToInt(p -> p % 2 == 0 ? p * p : 0)
                 .sum();
     }
-
-
-
 
     public static void main(String[] args) {
         List<Integer> data = List.of(1, 2, 3, 4, 5);

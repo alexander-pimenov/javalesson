@@ -48,6 +48,7 @@
         <module>chapter_encode_decode</module>
         <module>chapter_http</module>
         <module>chapter_coffee</module>
+        <module>chapter_gc</module>
     </modules>
     <packaging>pom</packaging>
 
