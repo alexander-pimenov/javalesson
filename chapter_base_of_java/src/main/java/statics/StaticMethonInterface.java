@@ -1,4 +1,4 @@
-package ru.pimalex1978.function_interface;
+package statics;
 
 /**
  * Что такое static метод интерфейса?

@@ -30,7 +30,7 @@ public class CollectAndToArrayTests {
 
         // Получить сумму нечетных чисел
         long sumOdd = numbers.stream().collect(Collectors.summingInt(((p) -> p % 2 == 1 ? p : 0))); //или так:
-        //long sumOdd = numbers.stream().maoToInt(((p) -> p % 2 == 1 ? p : 0)).sum();
+        //long sumOdd = numbers.stream().mapToInt(((p) -> p % 2 == 1 ? p : 0)).sum();
         System.out.println("sumOdd = " + sumOdd); // напечатает sumEven = 4
 
         // Вычисть к каждого элемента 1 и получить среднее
@@ -68,12 +68,13 @@ public class CollectAndToArrayTests {
         Map<String, String> map = strings.stream().distinct().collect(Collectors.toMap((p) -> p.substring(0, 1), (p) -> p.substring(1, 2)));
         System.out.println("map = " + map); // напечатает map = {a=1, b=2, c=3}
 
-        // Преобразовать в map, сгрупировав по первому символу строки
+        // Преобразовать в map, сгруппировав по первому символу строки
         Map<String, List<String>> groups = strings.stream().collect(Collectors.groupingBy((p) -> p.substring(0, 1)));
         System.out.println("groups = " + groups); // напечатает groups = {a=[a1, a1, a1], b=[b2, b2], c=[c3, c3]}
 
-        // Преобразовать в map, сгрупировав по первому символу строки и в качестве значения взять второй символ объединив через ":"
-        Map<String, String> groupJoin = strings.stream().collect(Collectors.groupingBy((p) -> p.substring(0, 1), Collectors.mapping((p) -> p.substring(1, 2), Collectors.joining(":"))));
+        // Преобразовать в map, сгруппировав по первому символу строки и в качестве значения взять второй символ объединив через ":"
+        Map<String, String> groupJoin = strings.stream()
+                .collect(Collectors.groupingBy((p) -> p.substring(0, 1), Collectors.mapping((p) -> p.substring(1, 2), Collectors.joining(":"))));
         System.out.println("groupJoin = " + groupJoin); // напечатает groupJoin = {a=1:1:1, b=2:2, c=3:3}
 
         // Напишем собственный Collector, который будет выполнять объединение строк с помощью StringBuilder
@@ -81,7 +82,7 @@ public class CollectAndToArrayTests {
                 StringBuilder::new, // метод инициализации аккумулятора
                 (b, s) -> b.append(s).append(" , "), // метод обработки каждого элемента
                 (b1, b2) -> b1.append(b2).append(" , "), // метод соединения двух аккумуляторов при параллельном выполнении
-                StringBuilder::toString // метод выполняющися в самом конце
+                StringBuilder::toString // метод выполняющийся в самом конце
         );
         String joinBuilder = strings.stream().collect(stringBuilderCollector);
         System.out.println("joinBuilder = " + joinBuilder); // напечатает joinBuilder = a1 , b2 , c3 , a1 , b2 , a1 , c3 ,
@@ -91,7 +92,7 @@ public class CollectAndToArrayTests {
         for (String s : strings) {
             b.append(s).append(" , "); // метод обработки каждого элемента
         }
-        String joinBuilderOld = b.toString(); // метод выполняющися в самом конце
+        String joinBuilderOld = b.toString(); // метод выполняющийся в самом конце
         System.out.println("joinBuilderOld = " + joinBuilderOld); // напечатает joinBuilderOld = a1 , b2 , c3 , a1 , b2 , a1 , c3 ,
     }
 

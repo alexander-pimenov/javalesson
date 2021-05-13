@@ -160,7 +160,7 @@ public class Group {
 
 
     /*Используя mapping мы можем сначала выполнить группировку на основе всего объекта Student, а затем сопоставить его с именами.*/
-    /*Но это подходит, если в списке секций указана только по одной секциидля каждого студента.*/
+    /*Но это подходит, если в списке секций указана только по одной секции для каждого студента.*/
     public static Map<Set<String>, Set<String>> groupingBySectionsSet(List<Student> students) {
         return students.stream()
                 .collect(Collectors.groupingBy(

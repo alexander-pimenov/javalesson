@@ -7,13 +7,13 @@ import java.util.stream.Collectors;
 public class MainArticle {
 
     public static void main(String[] args) {
-        Article article1 = new Article("Обучение Java", "Peterson", List.of("java")); //, обучение, code
-        Article article2 = new Article("Лучшие учебники по Java", "Horstmann", List.of("java")); //, book
-        Article article3 = new Article("Kotlin. Что лучше Java  Core или Kotlin", "Shildt", List.of("java, kotlin, best code"));
-        Article article4 = new Article("Базы SQL. Знакомимся с реляционными базами данных", "Vitas", List.of("sql, ru.job4j.vacancyparser.database"));
-        Article article5 = new Article("PostgreSQL и Java", "Lafore", List.of("java, sql, postgresql"));
-        Article article6 = new Article("Изучаем Java.", "Shildt", List.of("java, java core, basic code"));
-        Article article7 = new Article("Java forever.", "Shildt", List.of("java, java bean, best practice"));
+        Article article1 = new Article("Обучение Java", "Peterson", List.of("java", "basic code", "education"));
+        Article article2 = new Article("Лучшие учебники по Java", "Horstmann", List.of("java"));
+        Article article3 = new Article("Kotlin. Что лучше Java  Core или Kotlin", "Shildt", List.of("java", "kotlin", "best code"));
+        Article article4 = new Article("Базы SQL. Знакомимся с реляционными базами данных", "Vitas", List.of("sql", "postgresql"));
+        Article article5 = new Article("PostgreSQL и Java", "Lafore", List.of("java", "sql", "postgresql"));
+        Article article6 = new Article("Изучаем Java.", "Shildt", List.of("java", "java core", "basic code"));
+        Article article7 = new Article("Java forever.", "Shildt", List.of("java", "java bean", "best practice"));
 
         List<Article> articles = Arrays.asList(article1, article2, article3, article4, article5, article6, article7);
 
@@ -90,14 +90,20 @@ public class MainArticle {
         return result;
     }
 
-    /*Метод возвращающий все совпадающие элементы, а не только первый. Stream API.*/
+    /**
+     * Метод возвращающий все совпадающие элементы,
+     * а не только первый. Stream API.
+     */
     public static List<Article> getAllJavaArticlesStream(List<Article> articles) {
         return articles.stream()
                 .filter(article -> article.getTags().contains("Java".toLowerCase()))
                 .collect(Collectors.toList());
     }
 
-    /*Метод сгруппировывает все статьи на основе автора. С использованием цикла for.*/
+    /**
+     * Метод сгруппировывает все статьи на основе автора.
+     * С использованием цикла for.
+     */
     public static Map<String, List<Article>> groupByAuthor(List<Article> articles) {
 
         Map<String, List<Article>> result = new HashMap<>();
