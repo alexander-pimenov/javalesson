@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 /**
  * Задача на программирование: непрерывный рюкзак
+ * Решаемая с помощью жадного алгоритма.
  */
 public class GreedyKnapsack {
     /**
@@ -56,7 +57,6 @@ public class GreedyKnapsack {
             return -Long.compare(r1, r2);
         }
     }
-
 
     public static void main(String[] args) throws FileNotFoundException {
         long startTime = System.currentTimeMillis();
