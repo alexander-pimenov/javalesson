@@ -1,4 +1,4 @@
-package ru.pimalex1978.invertions;
+package ru.pimalex1978.merge_sort_invertions;
 
 import java.io.*;
 import java.util.Arrays;
@@ -18,7 +18,7 @@ import java.util.Scanner;
  * а в массиве, упорядоченном по убыванию, инверсию образуют каждые два
  * элемента.)
  */
-public class Inversions {
+public class MergeSortInversions {
 
     //счетчик для подсчета плохих пар (инверсии массива),
     // т.е. которые нужно развернуть для сортировки
@@ -59,7 +59,7 @@ public class Inversions {
 
 
     /**
-     * Сортировка слиянием.
+     * Метод сортировки слиянием.
      * Берет массив, разбивает его пополам, сортирует рекурсивно каждую из
      * частей, после чего сливает полученные части вместе.
      * Реализация не аккуратная, т.к. создается куча массивов и тратится
@@ -92,9 +92,9 @@ public class Inversions {
 
     public static void main(String[] args) throws FileNotFoundException, IOException {
         long startTime = System.currentTimeMillis();
-        new Inversions().run1();
-//        new Inversions().run2(); //тестовый вызов
-//        new Inversions().run3(); //читаем через BufferedReader
+        new MergeSortInversions().run1();
+//        new MergeSortInversions().run2(); //тестовый вызов
+//        new MergeSortInversions().run3(); //читаем через BufferedReader
         long finishTime = System.currentTimeMillis();
         System.out.println(finishTime - startTime + " ms");
     }
@@ -112,7 +112,7 @@ public class Inversions {
      */
     private void run1() throws FileNotFoundException {
 //        Scanner input = new Scanner(new File("inputInversions.txt"));
-        Scanner input = new Scanner(new File(Inversions.class.getResource("/inputInversions.txt").getFile()));
+        Scanner input = new Scanner(new File(MergeSortInversions.class.getResource("/inputInversions.txt").getFile()));
 
         //читаем первое число из первой строки из файла - это количество чисел в массиве
         int n = input.nextInt();
@@ -178,7 +178,7 @@ public class Inversions {
     private void run3() throws IOException {
         //Для более быстрого чтения используем BufferedReader вместо Scanner
         BufferedReader input = new BufferedReader(new FileReader("inputInversions.txt"));
-//        BufferedReader input = new BufferedReader(new FileReader(Inversions.class.getResource("/inputInversions.txt").getFile()));
+//        BufferedReader input = new BufferedReader(new FileReader(MergeSortInversions.class.getResource("/inputInversions.txt").getFile()));
 
 
         //в первой строчке лежит одно число - количество элементов

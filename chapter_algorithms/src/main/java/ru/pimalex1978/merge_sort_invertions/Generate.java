@@ -1,4 +1,4 @@
-package ru.pimalex1978.invertions;
+package ru.pimalex1978.merge_sort_invertions;
 
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
