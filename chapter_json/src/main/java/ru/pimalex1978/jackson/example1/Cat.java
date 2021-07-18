@@ -17,17 +17,17 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonAutoDetect
 public class Cat {
-    //Ставится перед свойством или getter’ом или setter’ом. Позволяет задать другое имя поля при сериализации.
-    @JsonProperty("alias")
+    //Ставится перед свойством или getter’ом или setter’ом.
+    // Позволяет задать другое имя поля при сериализации.
+    @JsonProperty("aliasInsteadName")
     public String name;
-
     public int age;
+    public Cat[] cats = new Cat[0];
 
     // Ставится перед полем. Поле игнорируется при сериализации.
     @JsonIgnore
     public int weight;
 
-    public Cat[] cats = new Cat[0];
 
     public Cat() {
     }

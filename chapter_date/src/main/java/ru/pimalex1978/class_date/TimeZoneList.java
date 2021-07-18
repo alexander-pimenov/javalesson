@@ -60,7 +60,7 @@ public class TimeZoneList {
         }
         // All available TimeZones same as for Moscow
         System.out.println(
-                "Список TimeZone, соответствующие текущей");
+                "\nСписок TimeZone, соответствующие текущей");
         timezones = TimeZone.getAvailableIDs(rawOffset);
         for (int cnt = 0; cnt < timezones.length; cnt++) {
             tz = TimeZone.getTimeZone(timezones[cnt]);

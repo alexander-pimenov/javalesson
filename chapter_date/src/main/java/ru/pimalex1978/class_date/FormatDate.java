@@ -2,10 +2,9 @@ package ru.pimalex1978.class_date;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -51,6 +50,13 @@ public class FormatDate {
         System.out.println("============================================");
 
         ////////////////////////////////////////////////////////////////////////
+        Date dateFromStr = new Date(2020, Calendar.APRIL, 10);
+        System.out.println("Дата из строки: " + dateFromStr);
+
+        ////////////////////////////////////////////////////////////////////////
+        System.out.println("============================================");
+
+        ////////////////////////////////////////////////////////////////////////
         LocalDateTime localDateTime = LocalDateTime.now();
         //Pattern
         DateTimeFormatter pattern = DateTimeFormatter.ofPattern("hh:mm:ss a");
@@ -60,6 +66,15 @@ public class FormatDate {
         System.out.println("Time in 12 Hour format - " + localDateTime.format(pattern));
         System.out.println("Time format (2) - " + localDateTime.format(pattern2));
         System.out.println("Time format (3) - " + localDateTime.format(pattern3));
+        ////////////////////////////////////////////////////////////////////////
+
+        System.out.println("============================================");
+
+        ////////////////////////////////////////////////////////////////////////
+
+        LocalDateTime a = LocalDateTime.of(2012, 6, 30, 12, 0, 0);
+        System.out.println("LocalDateTime: " + a);
+
         ////////////////////////////////////////////////////////////////////////
 
         System.out.println("============================================");
@@ -82,6 +97,7 @@ public class FormatDate {
         DateTimeFormatter patternDF = DateTimeFormatter.ofPattern("dd--MM--yyyy");
         System.out.println("LocalDate без форматирования: " + date);
         System.out.println("Date in format - " + date.format(patternDF));
+        Instant instant = Instant.now();
         ////////////////////////////////////////////////////////////////////////
 
         System.out.println("============================================");
@@ -95,6 +111,39 @@ public class FormatDate {
         DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         System.out.println("Вывод new Date(long): " + date2);
         System.out.println("Время преобразованное из миллисекунд: " + formatter.format(date2));
+        ////////////////////////////////////////////////////////////////////////
+
+        System.out.println("============================================");
+
+        ////////////////////////////////////////////////////////////////////////
+        ZonedDateTime parse = ZonedDateTime.parse("2007-12-03T10:15:30+01:00[Europe/Paris]");
+        System.out.println(parse);
+
+        ////////////////////////////////////////////////////////////////////////
+
+        System.out.println("============================================");
+
+        ////////////////////////////////////////////////////////////////////////
+        OffsetTime timeOf = OffsetTime.now();
+        ZoneOffset offset = ZoneOffset.UTC;
+        System.out.println(offset);
+// changes offset, while keeping the same point on the timeline
+        OffsetTime sameTimeDifferentOffset = timeOf.withOffsetSameInstant(offset);
+        System.out.println(sameTimeDifferentOffset);
+// changes the offset, and updates the point on the timeline
+        OffsetTime changeTimeWithNewOffset = timeOf.withOffsetSameLocal(offset);
+// Can also create new object with altered fields as before
+        changeTimeWithNewOffset
+                .withHour(3)
+                .plusSeconds(2);
+        System.out.println(changeTimeWithNewOffset);
+        ////////////////////////////////////////////////////////////////////////
+
+        System.out.println("============================================");
+
+        ////////////////////////////////////////////////////////////////////////
+        OffsetDateTime offsetDateTime = OffsetDateTime.now();
+        System.out.println(offsetDateTime);
 
     }
 }
