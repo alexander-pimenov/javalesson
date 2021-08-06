@@ -52,7 +52,7 @@ public class Json {
 //        ObjectMapper defaultObjectMapper = new ObjectMapper();
         ObjectMapper customObjectMapper = JsonMapper.builder()
                 .addModule(new JavaTimeModule())
-                .configure(DeserializationFeature.FAIL_ON_IGNORED_PROPERTIES, false)
+                .configure(DeserializationFeature.FAIL_ON_IGNORED_PROPERTIES, false) //игнорировать не смапленные поля
                 .build();
         // ------
 

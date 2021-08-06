@@ -25,10 +25,29 @@ public class Main {
         }
 
         System.out.println(Arrays.toString(res));
+
+
+        int counter = 0;
+        for (int i = 100; i <= 999; i++) {
+            String[] symbol = splitChars(i);
+            if (!symbol[0].equals(symbol[1])) {
+                if (!symbol[1].equals(symbol[2])) {
+                    counter++;
+                }
+            } else {
+                System.out.printf(" %s ", i);
+            }
+        }
+        System.out.printf("\nколичество трёхзначных чисел не имеющих одинаковых соседних чисел: %s \n", counter);
     }
 
     public static String firstUpperCase(String word) {
         if (word == null || word.isEmpty()) return "";//или return word;
         return word.substring(0, 1).toUpperCase() + word.substring(1);
+    }
+
+    public static String[] splitChars(int number) {
+        String numberString = String.valueOf(number);
+        return numberString.split("");
     }
 }

@@ -23,7 +23,5 @@ public class AverageOfList {
         } else {
             System.out.println("Try Again!");
         }
-
-
     }
 }

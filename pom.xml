@@ -61,6 +61,7 @@
         <log4j.version>2.13.0</log4j.version>
         <slf4j.version>1.7.30</slf4j.version>
         <com.fasterxml.jackson.version>2.12.3</com.fasterxml.jackson.version>
+        <commons.version>2.10.0</commons.version>
     </properties>
 
     <profiles>
@@ -227,6 +228,12 @@
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-jdk8</artifactId>
             <version>${com.fasterxml.jackson.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>${commons.version}</version>
         </dependency>
 
 

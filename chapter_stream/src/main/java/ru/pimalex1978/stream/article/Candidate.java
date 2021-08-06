@@ -1,17 +1,12 @@
-package ru.pimalex1978.jackson.example5;
+package ru.pimalex1978.stream.article;
 
-import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.Map;
 
 /*
- * сериализация - объект -> строка json
- * десериализация - строка json -> объект
- *
- * https://nsergey.com/jackson-annotations/
- *
  * сериализация - объект -> строка json
  * десериализация - строка json -> объект
  * @JsonAutoDetect - Ставится перед классом. Помечает класс как готовый к сериализации в JSON.
@@ -36,49 +31,48 @@ import java.util.Map;
  * @JsonUnwrapped используется для определения значений, которые следует развернуть / развернуть при сериализации / десериализации.
  *
  *
- *
- * небольшой пример: https://github.com/PratikBlog92/youtube/blob/master/DtoToEntityConversion/src/main/java/com/mapper/converter/StudentConverter.java
- *
- *
- *
  */
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
-@JsonPropertyOrder({
-        "firstName",
-        "lastName",
-        "middleName",
-        "Birthday",
-        "Login",
-        "Femida id",
-        "Gender"
-})
 public class Candidate {
 
-    //    @JsonProperty("firstName")
     private String firstName;
-    //    @JsonProperty("lastName")
     private String lastName;
-    //    @JsonProperty("middleName")
     private String middleName;
-    //    @JsonProperty("Birthday")
-    //@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+
     private LocalDate birthday;
-    //    @JsonProperty("Login")
     private String login;
-    //    @JsonProperty("Femida id")
     private Integer femidaId;
-    //    @JsonProperty("Gender")
     private String gender;
-    @JsonIgnore
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+
+    private String country;
+    private String city;
+
+    private boolean is_active;
+    private String type;
+    private boolean is_main;
+    private String normalized_account_id;
+
 
     public Candidate() {
     }
 
+    public Candidate(String firstName, String lastName, String middleName, LocalDate birthday, String login, Integer femidaId, String gender, String country, String city, boolean is_active, String type, boolean is_main, String normalized_account_id) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.middleName = middleName;
+        this.birthday = birthday;
+        this.login = login;
+        this.femidaId = femidaId;
+        this.gender = gender;
+        this.country = country;
+        this.city = city;
+        this.is_active = is_active;
+        this.type = type;
+        this.is_main = is_main;
+        this.normalized_account_id = normalized_account_id;
+    }
 
-    /*@JsonGetter аннотации является альтернативой @JsonProperty аннотации, который отмечает в качестве способа геттера.*/
-    @JsonProperty("first_name")
+    //    @JsonProperty("first_name")
     @JsonGetter("firstName")
     public String getFirstName() {
         return firstName;
@@ -89,7 +83,7 @@ public class Candidate {
         this.firstName = firstName;
     }
 
-    @JsonProperty("last_name")
+    //    @JsonProperty("last_name")
     @JsonGetter("lastName")
     public String getLastName() {
         return lastName;
@@ -100,7 +94,7 @@ public class Candidate {
         this.lastName = lastName;
     }
 
-    @JsonProperty("middle_name")
+    //    @JsonProperty("middle_name")
     @JsonGetter("middleName")
     public String getMiddleName() {
         return middleName;
@@ -113,7 +107,6 @@ public class Candidate {
 
     @JsonProperty("birthday")
 //    @JsonGetter("Birthday")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy") //дату развернем при сериализации
     public LocalDate getBirthday() {
         return birthday;
     }
@@ -157,20 +150,26 @@ public class Candidate {
         this.gender = gender;
     }
 
-    /*@JsonAnyGetter Аннотацию Джексон позволяет использовать Map в качестве контейнера для свойств,
-     * которые вы хотите сериализовать в формате JSON.*/
-    @JsonAnyGetter
-    public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
+    @JsonProperty("country")
+    public String getCountry() {
+        return country;
     }
 
-    /*@JsonAnySetter аннотация указывает Джексону вызвать один и тот же метод установки
-     * для всех нераспознанных полей в объекте JSON. Под «нераспознанными» подразумеваются все поля,
-     * которые еще не сопоставлены со свойством или методом установки в объекте Java. */
-    @JsonAnySetter
-    public void setAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
+    @JsonProperty("country")
+    public void setCountry(String country) {
+        this.country = country;
     }
+
+    @JsonProperty("city")
+    public String getCity() {
+        return city;
+    }
+
+    @JsonProperty("city")
+    public void setCity(String city) {
+        this.city = city;
+    }
+
 
     @Override
     public String toString() {
@@ -178,11 +177,12 @@ public class Candidate {
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", middleName='" + middleName + '\'' +
-                ", birthday='" + birthday + '\'' +
+                ", birthday=" + birthday +
                 ", login='" + login + '\'' +
                 ", femidaId=" + femidaId +
                 ", gender='" + gender + '\'' +
-                ", additionalProperties=" + additionalProperties +
+                ", country='" + country + '\'' +
+                ", city='" + city + '\'' +
                 '}';
     }
 }
