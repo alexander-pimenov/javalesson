@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 import static java.time.temporal.ChronoUnit.DAYS;
 
-public class TestDate {
+public class TestDate_Duration_LocalDate {
     public static void main(String[] args) throws InterruptedException {
 
         //Простой пример использования Date для вывода даты в консоль.
