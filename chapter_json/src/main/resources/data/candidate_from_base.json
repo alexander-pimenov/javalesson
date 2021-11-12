@@ -1,0 +1,75 @@
+{
+  "modified": "2016-12-27T16:51:36.517+03:00",
+  "is_hidden": false,
+  "first_name": "Елизавета",
+  "last_name": "Феденина",
+  "middle_name": "Игоревна",
+  "birthday": "1980-01-01",
+  "country": "РФ",
+  "city": "Москва",
+  "login": "lizabetfedenina",
+  "base_id": 200000000,
+  "gender": "female",
+  "status": "closed",
+  "consideration_resolution": "no_offer_rejected_by",
+  "consideration_source": "job_website",
+  "contacts": [
+    {
+      "is_active": true,
+      "type": "phone",
+      "is_main": true,
+      "normalized_account_id": "+100 29 300-00-14"
+    },
+    {
+      "is_active": true,
+      "type": "email",
+      "is_main": true,
+      "normalized_account_id": "lizabetfedenina@test.su"
+    },
+    {
+      "is_active": true,
+      "type": "telegram",
+      "is_main": false,
+      "normalized_account_id": "@afafafafafaf"
+    }
+  ],
+  "skills": [
+    "Computer Vision",
+    "machine learning",
+    "Python",
+    "Нейронные сети",
+    "C++"
+  ],
+  "professions": [
+    "Backend Developer",
+    "ML Software Developer"
+  ],
+  "professional_spheres": [
+    "Development"
+  ],
+  "tags": [
+    "отложен_стаж_бек",
+    "отложен_стаж_мл"
+  ],
+  "interviews": [
+    {
+      "grade": 2,
+      "type": "regular",
+      "consideration_created": "2016-12-25T12:33:50+03:00",
+      "consideration_id": 700000
+    },
+    {
+      "grade": 0,
+      "type": "regular",
+      "consideration_created": "2016-12-25T12:33:50.3+03:00",
+      "consideration_id": 700000
+    }
+  ],
+  "global_status": {
+    "state": false,
+    "extended_status": "archived",
+    "login": null,
+    "is_dismissed": null,
+    "is_intern": null
+  }
+}
