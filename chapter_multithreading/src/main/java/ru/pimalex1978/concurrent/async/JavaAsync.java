@@ -27,6 +27,10 @@ public class JavaAsync {
         // CompletableFuture Example
         Future<Long> completableFuture = factorialUsingCompletableFuture(number);
         System.out.println("Factorial of " + number + " by 'completableFuture' is: " + completableFuture.get());
+
+        //Один главный поток
+        long factorial = factorial(number);
+        System.out.println("Factorial of " + number + " by 'main method' is: " + factorial);
     }
 
     /**
@@ -36,10 +40,12 @@ public class JavaAsync {
      * @return
      */
     public static long factorial(int number) {
+        long start = System.currentTimeMillis();
         long result = 1;
         for (int i = number; i > 0; i--) {
             result *= i;
         }
+        System.out.println(" Метод factorial: Затраченое на это время: " + (System.currentTimeMillis() - start));
         return result;
     }
 
@@ -50,10 +56,12 @@ public class JavaAsync {
      * @return
      */
     public static Thread factorialUsingThread(int number) {
+        long start = System.currentTimeMillis();
         Thread newThread = new Thread(() -> {
             System.out.println("Factorial of " + number + " by 'usingThread' is: " + factorial(number));
         });
 
+        System.out.println(" Метод factorialUsingThread: Затраченое на это время: " + (System.currentTimeMillis() - start));
         return newThread;
     }
 
@@ -64,12 +72,14 @@ public class JavaAsync {
      * @return
      */
     public static Future<Long> factorialUsingFutureTask(int number) {
+        long start = System.currentTimeMillis();
         Future<Long> futureTask = threadpool.submit(() -> factorial(number));
 
         while (!futureTask.isDone()) {
             System.out.println("FutureTask is not finished yet...");
         }
 
+        System.out.println(" Метод factorialUsingFutureTask: Затраченое на это время: " + (System.currentTimeMillis() - start));
         return futureTask;
     }
 
@@ -80,7 +90,9 @@ public class JavaAsync {
      * @return
      */
     public static Future<Long> factorialUsingCompletableFuture(int number) {
+        long start = System.currentTimeMillis();
         CompletableFuture<Long> completableFuture = CompletableFuture.supplyAsync(() -> factorial(number));
+        System.out.println(" Метод factorialUsingCompletableFuture: Затраченое на это время: " + (System.currentTimeMillis() - start));
         return completableFuture;
     }
 }
