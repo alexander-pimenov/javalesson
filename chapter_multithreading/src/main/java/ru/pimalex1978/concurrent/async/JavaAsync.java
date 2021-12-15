@@ -29,8 +29,10 @@ public class JavaAsync {
         System.out.println("Factorial of " + number + " by 'completableFuture' is: " + completableFuture.get());
 
         //Один главный поток
+        long start = System.currentTimeMillis();
         long factorial = factorial(number);
-        System.out.println("Factorial of " + number + " by 'main method' is: " + factorial);
+        System.out.println("Factorial of " + number + " by 'main method' is: " + factorial
+                + "Затраченое на это время: " + (System.currentTimeMillis() - start));
     }
 
     /**
@@ -40,12 +42,10 @@ public class JavaAsync {
      * @return
      */
     public static long factorial(int number) {
-        long start = System.currentTimeMillis();
         long result = 1;
         for (int i = number; i > 0; i--) {
             result *= i;
         }
-        System.out.println(" Метод factorial: Затраченое на это время: " + (System.currentTimeMillis() - start));
         return result;
     }
 
