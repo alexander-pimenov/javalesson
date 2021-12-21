@@ -2,6 +2,7 @@ package ru.pimalex1978.streamepam;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.OptionalDouble;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
@@ -74,6 +75,22 @@ public class Main {
                 .stream()
                 .sorted() //сделаем числа упорядоченными
                 .forEach(System.out::println);
+
+        /*5 вариант*/
+        IntStream is = IntStream.of(1, 3, 5);
+        OptionalDouble average = is.filter(i -> i % 2 == 0).average();//1
+//        int x = is.filter(i -> i % 2 == 0).average(); //1 - не верная запись, т.к. возвращается объект OptionalDouble
+        System.out.println(average.isPresent() ? average.getAsDouble() : -1.0); //если нет таких чисел то вернем -1.0
+
+        IntStream is2 = IntStream.of(1, 3, 5);
+        int y = is2.filter(i -> i % 2 != 0).sum();//2
+        System.out.println(y);
+
+        is = IntStream.of(1, 3, 5, 9);
+        long count = is.filter(i -> i % 3 != 0).count();//3
+//        int z = is.filter(i -> i % 3 != 0).count();//3 - не верная запись, т.к. возвращается long
+        System.out.println(count);
+
 
     }
 

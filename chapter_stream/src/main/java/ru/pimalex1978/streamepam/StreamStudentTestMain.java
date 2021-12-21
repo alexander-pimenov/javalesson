@@ -1,6 +1,11 @@
 package ru.pimalex1978.streamepam;
 
+import static java.util.stream.Collectors.groupingBy;
+import static java.util.stream.Collectors.mapping;
+import static java.util.stream.Collectors.toList;
+
 import ru.pimalex1978.streamepam.beans.Address;
+import ru.pimalex1978.streamepam.beans.AnotherStudent;
 import ru.pimalex1978.streamepam.beans.MobileNumber;
 import ru.pimalex1978.streamepam.beans.Student;
 import ru.pimalex1978.streamepam.beans.TempStudent;
@@ -31,6 +36,16 @@ public class StreamStudentTestMain {
                 Arrays.asList(new MobileNumber("3333"), new MobileNumber("4444")));
 
         List<Student> students = Arrays.asList(student1, student2, student3);
+
+        var anotherStudentLists = Arrays.asList(
+                new AnotherStudent("S1", 20, AnotherStudent.Grade.A),
+                new AnotherStudent("S2", 21, AnotherStudent.Grade.A),
+                new AnotherStudent("S3", 20, AnotherStudent.Grade.B),
+                new AnotherStudent("S4", 19, AnotherStudent.Grade.C),
+                new AnotherStudent("S5", 21, AnotherStudent.Grade.F),
+                new AnotherStudent("S6", 23, AnotherStudent.Grade.C),
+                new AnotherStudent("S7", 20, AnotherStudent.Grade.D)
+        );
 
         /*****************************************************
          Get student with exact match name "jayesh"
@@ -103,7 +118,8 @@ public class StreamStudentTestMain {
                 .map(Student::getName)
                 .collect(Collectors.toList());
 
-        System.out.println(studentsName.stream().collect(Collectors.joining(",")));
+        System.out.println("1) " + studentsName.stream().collect(Collectors.joining(",")));
+        System.out.println("2) " + String.join(",", studentsName)); //аналогичный результат для 1)
         System.out.println(studentsName.stream().collect(Collectors.joining(",", "[", "]")));
         System.out.println("--------------------");
 
@@ -146,7 +162,7 @@ public class StreamStudentTestMain {
         Stream<Student> conditionalFilterResult = students.stream()
                 .filter(std -> std.getName().startsWith("J"));
 
-        if(sortConditionFlag){
+        if (sortConditionFlag) {
             conditionalFilterResult = conditionalFilterResult.sorted(Comparator.comparing(Student::getName));
         }
 
@@ -156,6 +172,20 @@ public class StreamStudentTestMain {
         List<Student> list = conditionalFilterResult.collect(Collectors.toList());
         System.out.println("After filter and conditional sorting :");
         list.forEach(s -> System.out.println(s.getName()));
+
+        /*****************************************************
+         Соберем студентов в коллекции типа мапа. Одна Grade=Name, другая Age=Name
+         *****************************************************/
+
+        var group = anotherStudentLists.stream()
+                .filter(st -> st.getGrade() != AnotherStudent.Grade.F)
+                .collect(groupingBy(AnotherStudent::getGrade,
+                        Collectors.mapping(AnotherStudent::getName, Collectors.toList())));
+        System.out.println(group);
+        Map<Integer, List<String>> age = anotherStudentLists.stream()
+                .collect(groupingBy(AnotherStudent::getAge,
+                        mapping(AnotherStudent::getName, toList())));
+        System.out.println(age);
 
     }
 }
