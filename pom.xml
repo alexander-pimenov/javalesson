@@ -50,6 +50,7 @@
         <module>chapter_coffee</module>
         <module>chapter_gc</module>
         <module>chapter_csv</module>
+        <module>chapter_lombok</module>
     </modules>
     <packaging>pom</packaging>
 

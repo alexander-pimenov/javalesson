@@ -6,20 +6,23 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import javax.print.Doc;
 import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 public class GetDocument {
-    private static List<Valute> valutesList = new ArrayList<>();
-    private static Map<String, Valute> valutesMap = new HashMap<>();
+    private static final List<Valute> valutesList = new ArrayList<>();
+    private static final Map<String, Valute> valutesMap = new HashMap<>();
 
     public static void main(String[] args) throws IOException, ParseException {
 
@@ -39,7 +42,7 @@ public class GetDocument {
 //
 //        queryLinks();
 //
-//        selectorDemo();
+        selectorDemo();
 
         getCrbCourse();
 
@@ -75,8 +78,12 @@ public class GetDocument {
 
     }
 
-    //Метод распарсивания страницы курсов валют от ЦРБ.
-    //на странице представлен XML файл. Распарсили его благодаря тегам.
+    /**
+     * Метод распарсивания страницы курсов валют от ЦРБ.
+     * на странице представлен XML файл. Распарсили его благодаря тегам.
+     *
+     * @throws IOException возможен иксепшен
+     */
     private static void getCrbCourse() throws IOException {
 
 //        1) Получение Document при обращении к URL через connect()
@@ -167,7 +174,8 @@ public class GetDocument {
 
     private static void getAllLinks() throws IOException {
         //
-        Document doc = Jsoup.connect("https://o7planning.org").get();
+        Document doc = Jsoup.connect("https://o7planning.org").get(); //1-й вариант
+//        Document doc = Jsoup.parse(new URL("https://o7planning.org"),2000); //2-й вариант
 
         //Elements расширяет ArrayList <Element>
         Elements aElements = doc.getElementsByTag("a");
@@ -194,7 +202,7 @@ public class GetDocument {
          * */
 
         Connection conn = Jsoup.connect("https://o7planning.org");
-
+//https://o7planning.org/
         Document doc = conn.get();
 
         // a with href
@@ -222,6 +230,7 @@ public class GetDocument {
     }
 
     private static void selectorDemo() throws IOException {
+
         File htmlFile = new File("c:/test/document.html");
         Document doc = Jsoup.parse(htmlFile, "UTF-8");
 
