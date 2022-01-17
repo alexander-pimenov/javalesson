@@ -1,7 +1,6 @@
-package ru.pimalex1978.make_type_without_declaring_it;
+package ru.pimalex1978.puzzlers;
 
 import java.util.Optional;
-import java.util.function.Consumer;
 
 /* Барух Садогурский, Евгений Борисов, Тагир Валеев — Java 8 Puzzlers
 https://www.youtube.com/watch?v=6bN1HcRhse4&t=1581s

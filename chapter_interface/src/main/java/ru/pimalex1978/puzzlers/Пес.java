@@ -1,4 +1,4 @@
-package ru.pimalex1978.make_type_without_declaring_it;
+package ru.pimalex1978.puzzlers;
 
 public interface Пес {
     default void лаять(){
