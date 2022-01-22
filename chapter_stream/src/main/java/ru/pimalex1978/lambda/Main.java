@@ -37,7 +37,8 @@ public class Main {
 
     /*Возьмем стандартный паттерн стратегия.
      * Это когда мы передаем в метод или в класс кусок кода,
-     * который там внутри исполняется. Его может окружать другой код. */
+     * который там внутри исполняется. Его может окружать другой код.
+     * Здесь передаем в аргумет интерфейс Runnable*/
     private static void execute(Runnable runnable) {
         System.out.println("Start runner");
         runnable.run();
@@ -49,6 +50,10 @@ public class Main {
         System.out.println("Start consumer");
         consumer.accept(out);
         System.out.println("End consumer");
+    }
+
+    public static void staticMethodInMainClass(String s) {
+        //что то делаем
     }
 }
 

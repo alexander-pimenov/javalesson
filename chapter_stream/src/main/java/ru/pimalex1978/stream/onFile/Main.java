@@ -10,8 +10,8 @@ public class Main {
 
     public static void main(String[] args) {
 
-        File file = new File("text.txt");
-        File file2 = new File("c://test//text.txt");
+        File file = new File("text.info about lambda.txt");
+        File file2 = new File("c://test//text.info about lambda.txt");
         //далее работаем в блоке try,т.к. мы в методе printStatistic делегировали обработку исключения
         try {
             printStatistic(file2);

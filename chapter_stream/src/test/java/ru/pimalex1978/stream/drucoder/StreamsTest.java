@@ -65,10 +65,10 @@ public class StreamsTest {
     public void creation() throws IOException {
         //Попробуем создать стримы из обектов файловой системы
 
-        //"source.txt" - путь к файлу, который мы хотели бы прочитать, указан относительный путь
+        //"source.info about lambda.txt" - путь к файлу, который мы хотели бы прочитать, указан относительный путь
         //Метод Files.lines(path) вернет стрим из строк содержащихся в файле
-        Stream<String> lines = Files.lines(Paths.get("src/main/resources/source.txt"));
-//        Stream<String> lines = Files.lines(Paths.get("C:\\projects\\javalessons\\source.txt"));
+        Stream<String> lines = Files.lines(Paths.get("src/main/resources/source.info about lambda.txt"));
+//        Stream<String> lines = Files.lines(Paths.get("C:\\projects\\javalessons\\source.info about lambda.txt"));
 //        lines.forEach(System.out::println); //чтобы посмотреть вывод
         //список текущей директории
         Stream<Path> list = Files.list(Paths.get("./"));

@@ -48,7 +48,7 @@ public class MainStream {
         //Создание стрима из файла (каждая строка в файле будет отдельным элементом в стриме)
         //Files.lines(путь_к_файлу)
         //.lines() - выбрасывает exception IOException
-        Stream<String> streamFromFiles = Files.lines(Paths.get("text.txt"));
+        Stream<String> streamFromFiles = Files.lines(Paths.get("text.info about lambda.txt"));
         /*Создадим файл и запишем туда что то*/
         File file = new File("1.tmp");
         file.deleteOnExit(); //Требует, чтобы файл или каталог, обозначенный этим абстрактным путем,
@@ -781,23 +781,23 @@ public class MainStream {
 
         /*11. Примеры*/
         //Дан массив аргументов. Нужно получить Map, где каждому ключу будет соответствовать своё значение.
-        String[] arguments = {"-i", "in.txt", "--limit", "40", "-d", "1", "-o", "out.txt"};
+        String[] arguments = {"-i", "in.info about lambda.txt", "--limit", "40", "-d", "1", "-o", "out.info about lambda.txt"};
         Map<String, String> argsMap = new LinkedHashMap<>(arguments.length / 2);
         for (int i = 0; i < arguments.length; i += 2) {
             argsMap.put(arguments[i], arguments[i + 1]);
         }
         argsMap.forEach((key, value) -> System.out.format("%s: %s%n", key, value));
-        //-i: in.txt
+        //-i: in.info about lambda.txt
         //--limit: 40
         //-d: 1
-        //-o: out.txt
+        //-o: out.info about lambda.txt
 
         //Обратная задача — сконвертировать Map с аргументами в массив строк, стримы помогут.
         String[] argums = argsMap.entrySet().stream()
                 .flatMap(a -> Stream.of(a.getKey(), a.getValue()))
                 .toArray(String[]::new);
         System.out.println(String.join(" ", argums));
-        //-i in.txt --limit 40 -d 1 -o out.txt
+        //-i in.info about lambda.txt --limit 40 -d 1 -o out.info about lambda.txt
 
         /*Задачи:*/
         System.out.println("*****Разные задачи:*****");
