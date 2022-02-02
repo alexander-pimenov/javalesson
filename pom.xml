@@ -365,7 +365,7 @@
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <version>42.2.5</version>
+            <version>42.2.25</version>
         </dependency>
         <!-- Библиотека для логирования Log4j1.2, к ней подключаемся через обертку SLF4J -->
         <dependency>
