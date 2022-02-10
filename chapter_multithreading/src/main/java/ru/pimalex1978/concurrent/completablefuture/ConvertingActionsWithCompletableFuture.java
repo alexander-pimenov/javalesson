@@ -64,8 +64,7 @@ public class ConvertingActionsWithCompletableFuture {
 
         //Заметка об асинхронных колбэках
         //Все методы-колбэки в CompletableFuture имеют два асинхронных вида:
-        //[копировать] [скачать]
-        //// Виды thenApply()
+        // Виды thenApply()
         //<U> CompletableFuture<U> thenApply(Function<? super T,? extends U> fn)
         //<U> CompletableFuture<U> thenApplyAsync(Function<? super T,? extends U> fn)
         //<U> CompletableFuture<U> thenApplyAsync(Function<? super T,? extends U> fn, Executor executor)
@@ -83,10 +82,11 @@ public class ConvertingActionsWithCompletableFuture {
         Выполняется в том же потоке, где и задача supplyAsync()
         или в главном потоке, если задача supplyAsync() завершается сразу(чтобы проверить это удалите sleep())
         */
-            return "Обработанный результат";
+            return "Обработанный результат " + result;
         });
 
-        //Чтобы иметь больше контроля над потоком, выполняющим задачу, вы можете использовать асинхронные колбэки. Если вы используете thenApplyAsync(),
+        //Чтобы иметь больше контроля над потоком, выполняющим задачу, вы можете использовать асинхронные колбэки.
+        // Если вы используете thenApplyAsync(),
         // он будет выполнен в другом потоке, полученном из ForkJoinPool.commonPool():
         CompletableFuture<String> completableFuture = CompletableFuture.supplyAsync(() -> {
             System.out.println("Поток, который работатет в supplyAsync " + Thread.currentThread().getName() + "--" + Thread.currentThread().getId());
@@ -98,8 +98,12 @@ public class ConvertingActionsWithCompletableFuture {
             return "Некоторый результат";
         }).thenApplyAsync(result -> {
             // Выполняется в другом потоке, взятом из ForkJoinPool.commonPool()
+            //Чтобы иметь больше контроля над потоком, выполняющим задачу,
+            //вы можете использовать асинхронные колбэки. Если вы используете
+            // thenApplyAsync(), он будет выполнен в другом потоке, полученном из
+            // ForkJoinPool.commonPool()
             System.out.println("Поток, который работатет в thenApplyAsync " + Thread.currentThread().getName() + "--" + Thread.currentThread().getId());
-            return "Обработанный результат";
+            return "Обработанный результат " + result;
         });
 
         System.out.println(completableFuture.get());
@@ -108,12 +112,14 @@ public class ConvertingActionsWithCompletableFuture {
         //Более того, если вы передадите Executor в thenApplyAsync(), задача будет выполнена в потоке,
         // полученном из пула потоков Executor.
         Executor executor = Executors.newFixedThreadPool(2);
-        CompletableFuture.supplyAsync(() -> {
+        CompletableFuture<String> stringCompletableFuture = CompletableFuture.supplyAsync(() -> {
             return "Некоторый результат";
         }).thenApplyAsync(result -> {
             // Выполняется в потоке, полученном от Executor
-            return "Обработанный результат";
+            return "Обработанный результат " + result;
         }, executor);
+
+        System.out.println(stringCompletableFuture.get());
 
     }
 }

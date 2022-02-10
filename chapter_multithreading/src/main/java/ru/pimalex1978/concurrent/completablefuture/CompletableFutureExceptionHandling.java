@@ -20,14 +20,20 @@ public class CompletableFutureExceptionHandling {
             // Код, который может выбросить исключение
             return "Некоторый результат";
         }).thenApply(result -> {
-            return "Обработанный результат";
-        }).thenApply(result -> {
-            return "Результат дальнейшей обработки";
+            return "Обработанный результат " + result;
+        }).thenApplyAsync(result -> {
+            //Чтобы иметь больше контроля над потоком, выполняющим задачу,
+            //вы можете использовать асинхронные колбэки. Если вы используете
+            // thenApplyAsync(), он будет выполнен в другом потоке, полученном из
+            // ForkJoinPool.commonPool()
+            return "Результат дальнейшей обработки " + result;
         }).thenAccept(result -> {
             // Какие-то действия с окончательным результатом
+            //просто выведем на печать:
+            System.out.println(result);
         });
 
-        //1. Обработка исключений с использованием метода exceptionally()
+        //1. Обработка исключений с использованием метода -= exceptionally() =-
         // Метод exceptionally() даёт возможность обойти возможные ошибки, если они есть.
         // Можно залогировать исключение и вернуть значение по умолчанию.
         Integer age = -10;
@@ -49,11 +55,11 @@ public class CompletableFutureExceptionHandling {
 
         System.out.println("Зрелость: " + maturityFuture.get());
 
-        //2. Обработка исключений с использованием метода handle()
+        //2. Обработка исключений с использованием метода -= handle() =-
         //
         // Для восстановления после исключений API также предоставляет более общий метод handle().
         // Он вызывается независимо от того, возникло исключение или нет.
-        Integer age2 = 10;
+        Integer age2 = -10;
 
         CompletableFuture<String> maturityFuture2 = CompletableFuture.supplyAsync(() -> {
             if (age2 < 0) {

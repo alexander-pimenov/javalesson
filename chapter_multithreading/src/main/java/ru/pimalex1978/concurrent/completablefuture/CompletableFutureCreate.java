@@ -85,6 +85,7 @@ public class CompletableFutureCreate {
         // Метод CompletableFuture.get() блокирующий. Он ждет, пока Future завершится и вернёт результат.
         System.out.println("Основной поток пришел сюда. " + Thread.currentThread().getName() + " ожидает ответа от futureSupply. "
                 + "Текущее время: " + System.currentTimeMillis());
+        // Блокировка и получение результата Future
         String result = futureSupply.get();
         System.out.println(result);
 
