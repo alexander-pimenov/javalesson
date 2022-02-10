@@ -1,0 +1,9 @@
+{
+  "data": {
+    "type": "standard",
+    "config": {
+      "rows": 1000,
+      "columns": 10
+    }
+  }
+}

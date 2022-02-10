@@ -1,0 +1,10 @@
+{
+  "data": {
+    "type": "totalSize",
+    "config": {
+      "sizeInBytes": 1073741824,
+      "cellDensityInBytes": 12,
+      "columns": 5
+    }
+  }
+}
