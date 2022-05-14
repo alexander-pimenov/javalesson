@@ -8,11 +8,15 @@ import java.util.stream.Stream;
 public class TestingClass implements Runnable {
     @Override
     public void run() {
+        System.out.println("Запущен поток - " + Thread.currentThread().getName());
         System.out.println("12");
     }
 
     public static void main(String[] args) {
+//        System.out.println("Запущен поток - " + Thread.currentThread().getName());
 //        new Thread(new TestingClass()).start();
+
+        //Посмотри как правильно называются классы:
         System.out.println(String.class.getName());
         System.out.println(Class.class.getName());
         System.out.println(int[].class.getName());
@@ -25,5 +29,13 @@ public class TestingClass implements Runnable {
 
     }
 }
-//Output
-// Exception in thread "main" java.lang.ClassCastException
+//output:
+//java.lang.String
+//java.lang.Class
+//[I
+//void
+//char
+//double
+//java.util.ArrayList
+//java.io.InputStream
+//java.util.stream.Stream
