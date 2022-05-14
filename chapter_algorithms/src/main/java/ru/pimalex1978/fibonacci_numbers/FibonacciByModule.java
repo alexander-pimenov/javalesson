@@ -13,7 +13,7 @@ public class FibonacciByModule {
 
     public static void main(String[] args) {
         long startTime = System.currentTimeMillis();
-        new FibonacciByModule().run(10000);
+        new FibonacciByModule().run(1);
         long finishTime = System.currentTimeMillis();
         System.out.println(finishTime - startTime + " ms");
 

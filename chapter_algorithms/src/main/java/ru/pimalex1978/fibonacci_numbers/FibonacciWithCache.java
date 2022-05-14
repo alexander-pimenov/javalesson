@@ -33,7 +33,7 @@ public class FibonacciWithCache {
 //        }
 
         long startTime = System.currentTimeMillis();
-        new FibonacciWithCache().run(1000);
+        new FibonacciWithCache().run(0);
         long finishTime = System.currentTimeMillis();
         System.out.println(finishTime - startTime + " ms");
     }
