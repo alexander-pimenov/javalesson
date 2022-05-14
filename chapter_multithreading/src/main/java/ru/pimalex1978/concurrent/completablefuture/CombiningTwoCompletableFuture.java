@@ -9,11 +9,11 @@ public class CombiningTwoCompletableFuture {
     public static void main(String[] args) throws ExecutionException, InterruptedException {
         //1. Комбинирование двух зависимых задач, с использованием thenCompose()
         // Правило таково: если функция-колбэк возвращает CompletableFuture, а вы хотите простой результат,
-        // (а в большинстве случаев именно он вам и нужен), тогда используйте thenCompose().
+        // (а в большинстве случаев именно он вам и нужен), тогда используйте -=thenCompose()=-.
 
         //2. Комбинирование двух независимых задач, с использованием thenCombine()
         // Если thenCompose() используется для объединения двух задач, когда одна зависит от другой,
-        // то thenCombine() используется, когда вы хотите, чтобы две задачи работали независимо друг
+        // то -=thenCombine()=- используется, когда вы хотите, чтобы две задачи работали независимо друг
         // от друга и по завершению обоих выполнялось какое-нибудь действие.
         System.out.println("Получение веса.");
         CompletableFuture<Double> weightInKgFuture = CompletableFuture.supplyAsync(() -> {

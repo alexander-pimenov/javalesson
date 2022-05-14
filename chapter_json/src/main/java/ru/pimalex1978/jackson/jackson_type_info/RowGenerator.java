@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 https://github.com/DarrenForsythe/jackson-type-info/blob/master/src/main/java/com/darrenforsythe/jackson/type/info/RowGenerator.java*/
 
 @JsonTypeInfo(use = Id.NAME, include = As.PROPERTY, property = RowGenerator.PROPERTY, defaultImpl = StandardRowGenerator.class)
-@JsonSubTypes(value = {@Type(StandardRowGenerator.class), @Type(TotalSizeGenerator.class)})
+@JsonSubTypes(value = {@Type(StandardRowGenerator.class), @Type(TotalSizeGenerator.class), @Type(DetailedSizeGenerator.class)})
 @JsonRootName(value = "data")
 public interface RowGenerator {
     String PROPERTY = "type";

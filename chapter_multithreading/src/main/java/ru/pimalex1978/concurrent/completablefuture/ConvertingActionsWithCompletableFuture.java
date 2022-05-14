@@ -11,7 +11,6 @@ public class ConvertingActionsWithCompletableFuture {
     public static void main(String[] args) throws ExecutionException, InterruptedException {
 
         //Преобразование действий с CompletableFuture
-        //Преобразование действий с CompletableFuture
         //
         //Метод CompletableFuture.get() блокирующий. Он ждет, пока Future завершится и вернёт результат.
         //
@@ -21,7 +20,9 @@ public class ConvertingActionsWithCompletableFuture {
         //Так что нам не потребуется ждать результат и внутри функции-колбэка мы сможем написать логику,
         // которая отработает после завершения Future.
         //
-        //Вы можете повесить колбэк на CompletableFuture, используя методы thenApply(), thenAccept() и thenRun().
+        //Вы можете повесить колбэк на CompletableFuture, используя методы
+        // -=thenApply()=-, -=thenAccept()=-
+        // и -=thenRun()=-.
 
         //1. thenApply()
         // Вы можете использовать метод thenApply() для обработки и преобразования результата CompletableFuture
@@ -89,7 +90,8 @@ public class ConvertingActionsWithCompletableFuture {
         // Если вы используете thenApplyAsync(),
         // он будет выполнен в другом потоке, полученном из ForkJoinPool.commonPool():
         CompletableFuture<String> completableFuture = CompletableFuture.supplyAsync(() -> {
-            System.out.println("Поток, который работатет в supplyAsync " + Thread.currentThread().getName() + "--" + Thread.currentThread().getId());
+            System.out.println("Поток, который работатет в supplyAsync "
+                    + Thread.currentThread().getName() + "--" + Thread.currentThread().getId());
             try {
                 TimeUnit.SECONDS.sleep(2);
             } catch (InterruptedException e) {
@@ -102,7 +104,8 @@ public class ConvertingActionsWithCompletableFuture {
             //вы можете использовать асинхронные колбэки. Если вы используете
             // thenApplyAsync(), он будет выполнен в другом потоке, полученном из
             // ForkJoinPool.commonPool()
-            System.out.println("Поток, который работатет в thenApplyAsync " + Thread.currentThread().getName() + "--" + Thread.currentThread().getId());
+            System.out.println("Поток, который работатет в thenApplyAsync " + Thread.currentThread().getName()
+                    + "--" + Thread.currentThread().getId());
             return "Обработанный результат " + result;
         });
 

@@ -1,11 +1,18 @@
 package ru.pimalex1978;
 
+import lombok.SneakyThrows;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 /**
+ * https://javadevblog.com/polnoe-rukovodstvo-po-java-reflection-api-refleksiya-na-primerah.html
+ * Объект java.lang.Class является точкой входа для всех операций рефлексии. Для каждого типа объекта,
+ * JVM создает неизменяемый экземпляр java.lang.Class который предоставляет методы для получения свойств
+ * объекта, создания новых объектов, вызова методов.
+ *
  * Разберем что тут сейчас произошло. В java есть замечательный класс Class. Он представляет классы и интерфейсы
  * в исполняемом приложении Java. Связь между Class и ClassLoader мы затрагивать не будем, т.к. это не есть тема статьи.
  * <p>
@@ -20,8 +27,10 @@ import java.lang.reflect.Method;
  * доступ для работы с ним. Метод setAccessible(true) разрешает нам дальнейшую работу. Теперь поле name
  * полностью под нашим контролем! Получить его значение можно вызовом get(Object) у объекта Field, где Object —
  * экземпляр нашего класса MyClass. Приводим к типу String и присваиваем нашей переменной name.
+ * 
  */
 public class MyClassRunner {
+    @SneakyThrows
     public static void main(String[] args) {
         MyClass myClass1 = new MyClass(10, "Bob");
         int number = myClass1.getNumber();
@@ -118,6 +127,29 @@ public class MyClassRunner {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
+
+        System.out.println("==========");
+        //Представим, что нам нужно спомощью рефлексии задать другое отличное при создании значение полю number
+        MyClass myClassNick = new MyClass(10, "Nick");
+        System.out.println(myClassNick); //MyClass{number=10, name='Nick'}
+
+        Class<?> nickClass = Class.forName("ru.pimalex1978.MyClass");
+        Field fieldNumber = nickClass.getDeclaredField("number");
+        fieldNumber.setAccessible(true);
+        //хотим посмотреть что находится в поле number
+        //если мы знаем что это int то можно кастовать
+        int o = (int) fieldNumber.get(myClassNick);
+//        Object o = fieldNumber.get(myClassNick);
+        System.out.println(o); //10
+        /*Параметр myClassNick, который передается в методы для получения и установки значения поля,
+        должен быть экземпляром класса, которому принадлежит само поле.
+        В приведенном примере используется экземпляр класса myClassNick, потому что поле
+        fieldName является членом экземпляра этого класса.*/
+        fieldNumber.set(myClassNick,25);
+        System.out.println(myClassNick); //MyClass{number=25, name='Nick'}
+
+        System.out.println("==========");
+
 
 
     }

@@ -1,0 +1,11 @@
+{
+  "data": {
+    "type": "detailedSize",
+    "config": {
+      "sizeInBytes": 1088841824,
+      "cellDensityInBytes": 24,
+      "rows": 15,
+      "columns": 15
+    }
+  }
+}

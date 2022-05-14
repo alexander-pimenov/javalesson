@@ -22,6 +22,17 @@ public class Main {
         System.out.println(optionalEmpty.isPresent()); // false
         optionalEmpty.ifPresent(s -> System.out.println(s.length())); // 0
 //        System.out.println(optionalEmpty.get()); // "hello"
-        optionalEmpty.orElse("ops..."); //
+        String orElse = optionalEmpty.orElse("ops...");//
+        System.out.println(orElse);
+
+        /*Если значение присутствует, возвращает значение, в противном случае возвращает результат, полученный функцией-поставщиком.
+        Броски:
+        NullPointerException — если значение отсутствует, а функция-поставщик равна нулю.*/
+        String orElseGet = optionalEmpty.orElseGet(() -> "ops from Supplier");//
+        System.out.println(orElseGet);
+
+        String orElseGet2 = optional.orElseGet(() -> "ops from Supplier");//
+        System.out.println(orElseGet2);
+
     }
 }

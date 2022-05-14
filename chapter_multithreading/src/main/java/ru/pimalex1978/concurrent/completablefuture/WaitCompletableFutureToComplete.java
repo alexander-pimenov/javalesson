@@ -18,7 +18,7 @@ public class WaitCompletableFutureToComplete {
 
         waitCompletableFutureToComplete(CompletableFuture.runAsync(() -> System.out.println("Hi_3")));
 
-        //==создание  CF==
+        //==создание  CompletableFuture==
         //Разница в том, что supplyAsync() принимает Supplier, а runAsync -> Runnable.
         // Проще говоря, с помощью supplyAsync() можно вернуть результат, с runAsync() - нельзя.
         //метод supplyAsync()
@@ -51,6 +51,7 @@ public class WaitCompletableFutureToComplete {
         //Добавление callback
         //Более приемлемым способом обработать результат работы CompletableFuture есть callback.
         //Если после выполенения задачи мы хотим вывести ее на екран, это будет выглядеть так
+        //thenAccept - затем Примите
         CompletableFuture<String> future6 = CompletableFuture.supplyAsync(() -> "Hi_6");
         future6.thenAccept(result -> System.out.println(result));
         future6.get();
@@ -58,6 +59,7 @@ public class WaitCompletableFutureToComplete {
         //Добавление нескольких callback
         //Для добавления несколько callback метод thenAccept() не подоходит, поскольку Consumer
         // ничего не возвращает. Для этого нужно использовать другой метод - thenApply(), который принимает Function.
+        //thenApply - затем Примените
         CompletableFuture<String> future7 = CompletableFuture.supplyAsync(() -> "Hi_7");
 
         future7.thenApply(result -> {
