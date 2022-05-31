@@ -7,6 +7,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 /**
+ * Пример вычисления факториала разными способами.
  * https://www.baeldung.com/java-asynchronous-programming
  * https://github.com/eugenp/tutorials/blob/master/core-java-modules/core-java-concurrency-advanced-3/src/main/java/com/baeldung/async/JavaAsync.java
  */
@@ -32,7 +33,7 @@ public class JavaAsync {
         long start = System.currentTimeMillis();
         long factorial = factorial(number);
         System.out.println("Factorial of " + number + " by 'main method' is: " + factorial
-                + "Затраченое на это время: " + (System.currentTimeMillis() - start));
+                + " Затраченное на это время: " + (System.currentTimeMillis() - start));
     }
 
     /**
@@ -61,7 +62,7 @@ public class JavaAsync {
             System.out.println("Factorial of " + number + " by 'usingThread' is: " + factorial(number));
         });
 
-        System.out.println(" Метод factorialUsingThread: Затраченое на это время: " + (System.currentTimeMillis() - start));
+        System.out.println(" Метод factorialUsingThread: Затраченное на это время: " + (System.currentTimeMillis() - start));
         return newThread;
     }
 
@@ -79,7 +80,7 @@ public class JavaAsync {
             System.out.println("FutureTask is not finished yet...");
         }
 
-        System.out.println(" Метод factorialUsingFutureTask: Затраченое на это время: " + (System.currentTimeMillis() - start));
+        System.out.println(" Метод factorialUsingFutureTask: Затраченное на это время: " + (System.currentTimeMillis() - start));
         return futureTask;
     }
 
@@ -92,7 +93,7 @@ public class JavaAsync {
     public static Future<Long> factorialUsingCompletableFuture(int number) {
         long start = System.currentTimeMillis();
         CompletableFuture<Long> completableFuture = CompletableFuture.supplyAsync(() -> factorial(number));
-        System.out.println(" Метод factorialUsingCompletableFuture: Затраченое на это время: " + (System.currentTimeMillis() - start));
+        System.out.println(" Метод factorialUsingCompletableFuture: Затраченное на это время: " + (System.currentTimeMillis() - start));
         return completableFuture;
     }
 }

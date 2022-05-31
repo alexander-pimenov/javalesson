@@ -37,15 +37,6 @@ public class StreamStudentTestMain {
 
         List<Student> students = Arrays.asList(student1, student2, student3);
 
-        var anotherStudentLists = Arrays.asList(
-                new AnotherStudent("S1", 20, AnotherStudent.Grade.A),
-                new AnotherStudent("S2", 21, AnotherStudent.Grade.A),
-                new AnotherStudent("S3", 20, AnotherStudent.Grade.B),
-                new AnotherStudent("S4", 19, AnotherStudent.Grade.C),
-                new AnotherStudent("S5", 21, AnotherStudent.Grade.F),
-                new AnotherStudent("S6", 23, AnotherStudent.Grade.C),
-                new AnotherStudent("S7", 20, AnotherStudent.Grade.D)
-        );
 
         /*****************************************************
          Get student with exact match name "jayesh"
@@ -72,7 +63,8 @@ public class StreamStudentTestMain {
                 .filter(student111 -> student111.getMobileNumbers().stream().anyMatch(x -> Objects.equals(x.getNumber(), "3333")))
                 .collect(Collectors.toList());
 
-        String result1 = stud2.stream().map(std -> std.getName()).collect(Collectors.joining(",", "[", "]"));
+        String result1 = stud2.stream().map(std -> std.getName())
+                .collect(Collectors.joining(",", "[", "]"));
         System.out.println(result1);
         System.out.println("--------------------");
 
@@ -80,10 +72,12 @@ public class StreamStudentTestMain {
          Get all student having mobile number 1233 and 1234
          *****************************************************/
         List<Student> stud3 = students.stream()
-                .filter(student -> student.getMobileNumbers().stream().allMatch(x -> Objects.equals(x.getNumber(), "1233") || Objects.equals(x.getNumber(), "1234")))
+                .filter(student -> student.getMobileNumbers().stream().allMatch(x -> Objects.equals(x.getNumber(), "1233")
+                        || Objects.equals(x.getNumber(), "1234")))
                 .collect(Collectors.toList());
 
-        String result4 = stud3.stream().map(std -> std.getName()).collect(Collectors.joining(",", "[", "]"));
+        String result4 = stud3.stream().map(std -> std.getName())
+                .collect(Collectors.joining(",", "[", "]"));
         System.out.println(result4);
         System.out.println("--------------------");
 
@@ -172,6 +166,19 @@ public class StreamStudentTestMain {
         List<Student> list = conditionalFilterResult.collect(Collectors.toList());
         System.out.println("After filter and conditional sorting :");
         list.forEach(s -> System.out.println(s.getName()));
+
+        /********************************************************
+         Создадим новую коллекцию студентов
+         ********************************************************/
+        var anotherStudentLists = Arrays.asList(
+                new AnotherStudent("name1", 20, AnotherStudent.Grade.A),
+                new AnotherStudent("name2", 21, AnotherStudent.Grade.A),
+                new AnotherStudent("name3", 20, AnotherStudent.Grade.B),
+                new AnotherStudent("name4", 19, AnotherStudent.Grade.C),
+                new AnotherStudent("name5", 21, AnotherStudent.Grade.F),
+                new AnotherStudent("name6", 23, AnotherStudent.Grade.C),
+                new AnotherStudent("name7", 20, AnotherStudent.Grade.D)
+        );
 
         /*****************************************************
          Соберем студентов в коллекции типа мапа. Одна Grade=Name, другая Age=Name

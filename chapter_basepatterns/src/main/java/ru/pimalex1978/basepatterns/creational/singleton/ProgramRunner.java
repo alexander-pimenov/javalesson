@@ -7,5 +7,10 @@ public class ProgramRunner {
         ProgramLogger.getProgramLogger().addLogInfo("Third log...");
 
         ProgramLogger.getProgramLogger().showLogFile();
+
+        //так сможем увидеть, что ссылки ссылаются на один и тот же объект в памяти
+        ProgramLogger programLogger1 = ProgramLogger.getProgramLogger();
+        ProgramLogger programLogger2 = ProgramLogger.getProgramLogger();
+        System.out.println(programLogger2==programLogger1);
     }
 }

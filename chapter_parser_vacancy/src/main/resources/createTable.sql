@@ -39,7 +39,7 @@ CREATE TABLE vacancy (id serial PRIMARY KEY, name varchar(200), description text
 
 --////////// Ниже написаны данные только для римера  //////////--
 
---//Создаем таблицу для хранения данных Person:
+--//Создаем таблицу для хранения данных SomeItemsCountTest:
 
 --create table if not exists persons (
 --    id serial primary key not null,

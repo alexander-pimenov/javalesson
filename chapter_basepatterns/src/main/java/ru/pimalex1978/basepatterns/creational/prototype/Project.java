@@ -1,6 +1,6 @@
 package ru.pimalex1978.basepatterns.creational.prototype;
 
-public class Project implements Copyable{
+public class Project implements Copyable {
     private int id;
     private String projectName;
     private String sourceCode;
@@ -9,6 +9,10 @@ public class Project implements Copyable{
         this.id = id;
         this.projectName = projectName;
         this.sourceCode = sourceCode;
+    }
+
+    public Project(Project that) {
+        this(that.id, that.projectName, that.sourceCode);
     }
 
     public int getId() {

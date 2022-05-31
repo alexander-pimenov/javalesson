@@ -4,7 +4,7 @@ package ru.pimalex1978.concurrent.pools.threadpooljenkov;
 public class ThreadPoolMain {
 
     public static void main(String[] args) throws Exception {
-        ThreadPool threadPool = new ThreadPool(2, 10);
+        ThreadPool threadPool = new ThreadPool(3, 10);
 
 //        for (int i = 0; i < 20; i++) {
 //            int taskNo = i;

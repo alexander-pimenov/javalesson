@@ -22,12 +22,15 @@ public class PoolThreadRunnable implements Runnable {
             } catch (InterruptedException e) {
                 System.out.println("-------- " + e.getMessage());
                 //                e.printStackTrace();
+                //log или другим способом сообщить об exception,
+                //но сохранить pool thread живым.
             }
         }
     }
 
     public synchronized void doStop() {
         isStopped = true;
+        //прервать pool thread из вызова dequeue().
         this.thread.interrupt();
     }
 

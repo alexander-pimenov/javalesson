@@ -56,7 +56,7 @@ class CountThread implements Runnable {
             for (int i = 1; i < 5; i++) {
                 System.out.printf("%s  %d \n", Thread.currentThread().getName(), res.x);
                 res.x++;
-                Thread.sleep(100);
+                Thread.sleep(200);
             }
         } catch (InterruptedException e) {
             System.out.println(e.getMessage());

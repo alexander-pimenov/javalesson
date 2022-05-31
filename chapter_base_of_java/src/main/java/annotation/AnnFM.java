@@ -13,7 +13,7 @@ import java.lang.annotation.ElementType;
 * (compiler).
 * RetentionPolicy.CLASS: Компилятор распознает существование, но не распознается
 * виртуальной машиной при запуске (Runtime).
-* RetentionPolicyRUNTIME: достигает высшую степень существования, распознается
+* RetentionPolicy.RUNTIME: достигает высшую степень существования, распознается
 * компилятором (compiler), и распознается существование виртуальной машиной при
 * запуске.
 *

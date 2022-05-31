@@ -30,13 +30,13 @@ public class FunctionMainCompositions {
         fibonacciNumbers.stream().map(addTwo.andThen(multipleTen)).forEach(System.out::println);
         //output (30 30 40 50 70 100 150)
 
-        //сначала *10 а потом +2 (порядок поменялся!!!!!!!!)
+        //сначала *10 а потом +2 (!!!! порядок поменялся !!!!)
         fibonacciNumbers.stream().map(addTwo.compose(multipleTen)).forEach(System.out::println);
         //output (12 12 22 32 52 82 132)
 
         /*сделаем свой вариант compose*/
-        /*берем функцию высшего порядка map и передаем в неё функцию, которая будет брать и композировать
-         * две других функции*/
+        /*берем функцию высшего порядка map и передаем в неё функцию,
+         * которая будет брать и композировать две других функции*/
         fibonacciNumbers.stream().map(compose(addTwo, multipleTen)).forEach(System.out::println);
         //output (30 30 40 50 70 100 150)
 

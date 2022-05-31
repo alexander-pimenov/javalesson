@@ -40,7 +40,7 @@ public class FunctionStreamMain {
         System.out.println(addTwo.apply(2));
 
         /*производитель*/
-        //возвращаем какой то случайный рандом булевого типа
+        //возвращаем какой-то случайный рандом булевого типа
         Supplier<Boolean> random = () -> ThreadLocalRandom.current().nextBoolean();
 
         //возьмем какую то последовательность чисел и применим функции заданные выше в коде
@@ -55,7 +55,8 @@ public class FunctionStreamMain {
         Function<String, Department> constructor2 = Department::new; //2 вариант
 
         //покажем использование функции constructor
-        Arrays.asList("Backend", "Frontend").stream().map(constructor2)
+        Arrays.asList("Backend", "Frontend").stream()
+                .map(constructor2)
                 .forEach(System.out::println);
 
         /*работа с BiFunction
@@ -70,7 +71,7 @@ public class FunctionStreamMain {
         };
 //        BiFunction<String, CharSequence, Boolean> contains = String::contains;
 
-        //проверим что какая то строка содержит в себе другую подстроку
+        //проверим что какая-то строка содержит в себе другую подстроку
         System.out.println(contains.apply("Russia big country", "Alaska"));
 
         /*Работа с BiFunction которая переходит в TriFunction*/
@@ -117,7 +118,8 @@ public class FunctionStreamMain {
         LongStream longStream = Arrays.stream(arrayOfArrays)
                 .flatMapToLong(innerArray -> Arrays.stream(innerArray)
                         .peek(e -> System.out.println("промежуточный вывод - " + e))
-                        .mapToLong(Long::new)).distinct();
+                        .mapToLong(Long::new))
+                .distinct();
 
 /*        // Step 3: Possible solution
         longStream = Arrays.stream(arrayOfArrays)

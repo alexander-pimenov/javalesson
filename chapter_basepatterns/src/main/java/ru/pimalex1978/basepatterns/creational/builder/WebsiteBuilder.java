@@ -2,7 +2,7 @@ package ru.pimalex1978.basepatterns.creational.builder;
 
 /**
  * Задача этого абстрактного класса -
- * создавать (конструировать) какие то сайты,
+ * создавать (конструировать) какие-то сайты,
  * которые нам необходимы.
  */
 public abstract class WebsiteBuilder {

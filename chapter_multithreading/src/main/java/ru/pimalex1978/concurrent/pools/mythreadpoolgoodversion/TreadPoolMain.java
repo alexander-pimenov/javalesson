@@ -4,7 +4,7 @@ public class TreadPoolMain {
     public static void main(String[] args) throws InterruptedException {
         System.out.println("The Main thread started!");
 
-        //для примера создаем разные пулы потоков6 по умолчанию и с параметрами
+        //для примера создаем разные пулы потоков по умолчанию и с параметрами
         ThreadPool threadPool = new ThreadPool();
         ThreadPool threadPool_3_8 = new ThreadPool(3,8);
 
@@ -32,7 +32,7 @@ public class TreadPoolMain {
         threadPool.waitUntilAllTasksFinished();
         threadPool_3_8.waitUntilAllTasksFinished();
 
-        //зыкрываем пулы потоков
+        //закрываем пулы потоков
         threadPool.shutdown();
         threadPool_3_8.shutdown();
 

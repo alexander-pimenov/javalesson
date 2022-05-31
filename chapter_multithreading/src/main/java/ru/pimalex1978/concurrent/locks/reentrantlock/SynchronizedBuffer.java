@@ -23,7 +23,7 @@ import static ru.pimalex1978.concurrent.ColorScheme.RED;
  *
  * <p>
  * Метод unlock() для монитора monitor лучше всегда ставить в блоке finally. Для того чтобы
- * даже если выбросит Exception мы попаали в блок finally и вызвали unlock(). Т.обр.
+ * даже если выбросит Exception мы попали в блок finally и вызвали unlock(). Т.обр.
  * гарантируем, что не будет дедлока!!!
  * <p>
  * В этом классе применяется класс Condition.
@@ -31,7 +31,7 @@ import static ru.pimalex1978.concurrent.ColorScheme.RED;
  * вам проверить выполнение определенного условия, прежде чем разрешить
  * выполнение вашего метода. Condition заменяет использование методов монитора объектов.
  * Conditions (Условия) (также известные, как очереди условий "condition queues" или переменные условий
- * "condition variables" ) предоставляют возможность одному потоку приостанавливать выполнение
+ * "condition variables") предоставляют возможность одному потоку приостанавливать выполнение
  * (to «wait») до тех пор, пока другой поток не получит уведомление о том, что какое-то условие состояния
  * теперь может быть истинным. Поскольку доступ к этой общей информации о состоянии происходит в разных
  * потоках, он должен быть защищен, поэтому с условием связана блокировка той или иной формы.
@@ -47,7 +47,7 @@ import static ru.pimalex1978.concurrent.ColorScheme.RED;
  */
 public class SynchronizedBuffer {
 
-    //объявим переменную лока, помогает установить взаимодействие
+    //Объявим переменную лока, помогает установить взаимодействие
     //между двумя потоками. Используется как wait() и notify().
     private static final Lock monitor = new ReentrantLock(true);
 
@@ -58,7 +58,7 @@ public class SynchronizedBuffer {
     private static final Condition canRead = monitor.newCondition();
     private static final Condition canWrite = monitor.newCondition();
 
-    // Поле в котором будет пересохраняться переменные значения для наших потоков.
+    // Поле в котором будут пересохраняться переменные значения для наших потоков.
     private static int buffer = 0;
 
     // Поле для проверки пустоты буфера. Изначально он пуст, т.е. true.
@@ -111,7 +111,7 @@ public class SynchronizedBuffer {
                     //Скажем Reader-у подождать.
                     canRead.await();
                 }
-                //вычитываем значение из буффера
+                //вычитываем значение из буфера
                 int readValue = buffer;
                 isEmpty = true;
                 System.out.println(BLUE + "Reader reads from buffer: " + readValue);
