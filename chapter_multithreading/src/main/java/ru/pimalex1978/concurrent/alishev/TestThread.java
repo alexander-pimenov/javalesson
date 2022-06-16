@@ -24,7 +24,6 @@ public class TestThread {
         Thread th1 = new SimpleThread();
         th1.start();
 
-
         SimpleThread th2 = new SimpleThread();
         th2.start();
 
@@ -34,7 +33,7 @@ public class TestThread {
         new Thread(() -> System.out.println(CYAN + "Hello from Lambda Runnable!"))
                 .start();
 
-        //поспим 1 секунду
+        //поспим 1,5 секунды
         try {
             Thread.sleep(1500);
         } catch (InterruptedException e) {
@@ -42,7 +41,7 @@ public class TestThread {
         }
 
         th2.interrupt(); //прервем 2-й поток
-        System.out.println(WHITE + "Main Thread has finished. Bye!");
+        System.out.println(RESET + "Main Thread has finished. Bye!");
 
     }
 
