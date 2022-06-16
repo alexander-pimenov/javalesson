@@ -164,7 +164,7 @@
                 </executions>
             </plugin>
             <plugin>
-                <!--Эти настройки указывают на версию плагина-->
+                <!--Эти настройки указывают на версию плагина  -->
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>0.8.2</version>
