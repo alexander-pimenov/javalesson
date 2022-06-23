@@ -1,15 +1,18 @@
-package annotation.exampleSimpleService;
+package annotation.exampleSimpleService_by_U_Tkach;
 
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
+/* Создание собственных аннотаций - Annotations
+ * https://www.youtube.com/watch?v=9BbxPd3GPeU
+ * https://www.youtube.com/watch?v=y8gkmqFvybs&t=154s*/
 public class AnnotationProcessor {
     static Map<String, Object> servicesMap = new HashMap<>();
 
     public static void main(String[] args) {
-//        inspectService(SimpleService.class);
-//        inspectService(LazyService.class);
+        inspectService(SimpleService.class);
+        inspectService(LazyService.class);
 //        inspectService(String.class);
 
         loadService(SimpleService.class.getName()); //"annotation.exampleSimpleService.SimpleService"

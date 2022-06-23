@@ -1,4 +1,4 @@
-package annotation.exampleSimpleService;
+package annotation.exampleSimpleService_by_U_Tkach;
 
 @Service(name = "SuperSimpleService")
 public class SimpleService {
