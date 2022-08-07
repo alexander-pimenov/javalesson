@@ -38,7 +38,10 @@
         <!-- Checks for Size Violations.                    -->
         <!-- See http://checkstyle.sf.net/config_sizes.html -->
         <!--<module name="LineLength"/>-->
-        <module name="MethodLength"/>
+        <!-- MethodLength - можно указать max количество строк в методе. По дефолту 150 -->
+        <module name="MethodLength">
+            <property name="max" value="1100"/>
+        </module>
         <module name="ParameterNumber"/>
 
         <!-- Checks for whitespace                               -->

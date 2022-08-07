@@ -14,7 +14,7 @@
         <module>chapter_exceptions</module>
         <module>chapter_lambda</module>
         <module>chapter_oop</module>
-        <module>chapter_stream</module>
+        <module>chapter_stream_lambda</module>
         <module>chapter_string</module>
         <module>chapter_files</module>
         <module>chapter_dropbox</module>
