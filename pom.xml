@@ -61,7 +61,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <log4j.version>2.13.0</log4j.version>
         <slf4j.version>1.7.30</slf4j.version>
-        <com.fasterxml.jackson.version>2.12.3</com.fasterxml.jackson.version>
+        <com.fasterxml.jackson.version>2.13.4.1</com.fasterxml.jackson.version>
         <commons.version>2.11.0</commons.version>
     </properties>
 
