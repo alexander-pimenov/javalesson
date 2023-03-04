@@ -18,22 +18,30 @@ public class CompletableFutureCallback {
         //Supplier<String> stringSupplier = () -> "Supply Async...";
         Supplier<String> stringSupplier = () -> {
             try {
-                Thread.sleep(2000L);
+                Thread.sleep(4000L);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
             return "Supply Async...";
         };
 
-        CompletableFuture<String> completableFuture
-                = CompletableFuture.supplyAsync(stringSupplier);
-
-        CompletableFuture<String> execution = completableFuture
-                .thenApply(s -> s + " Callback executed...");
+        CompletableFuture<String> execution = getStringCompletableFuture(stringSupplier);
 
         System.out.println(execution.get());
         System.out.println("***End of main method***");
 
+    }
+
+    private static CompletableFuture<String> getStringCompletableFuture(Supplier<String> stringSupplier) throws InterruptedException {
+        System.out.println("__Method starts. Action is being performed ....");
+        Thread.sleep(500L);
+        CompletableFuture<String> completableFuture
+                = CompletableFuture.supplyAsync(stringSupplier);
+        CompletableFuture<String> execution = completableFuture
+                .thenApply(s -> s + " Callback executed...");
+        Thread.sleep(500L);
+        System.out.println("__Method ended");
+        return execution;
     }
 
 }
