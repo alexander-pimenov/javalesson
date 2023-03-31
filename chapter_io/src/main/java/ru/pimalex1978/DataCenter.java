@@ -192,8 +192,7 @@ public class DataCenter {
         // инициализация мапы
         Map<String, DataCenterInfo> dataCenterInfoMap = cache;
         Comparator<DataCenterInfo> comparator = Comparator
-                .comparing(DataCenterInfo::getDataCenterNameLikeNumber)
-                .thenComparing(DataCenterInfo::getMultiplicationRandA, Comparator.reverseOrder())
+                .comparing(DataCenterInfo::getMultiplicationRandA, Comparator.reverseOrder())
                 .thenComparing(DataCenterInfo::getDataCenterNameLikeNumber);
 
         // сортировка мапы (1 вариант)
@@ -226,6 +225,7 @@ public class DataCenter {
                 int numberOfRestarts = dataCenterInfo.getNumberOfRestarts();
                 System.out.println(" увеличил количество перезапусков дата-центра № " + dataCenterInfo.getDataCenterNameLikeNumber());
                 dataCenterInfo.setNumberOfRestarts(++numberOfRestarts);
+                dataCenterInfo.setMultiplicationRandA(dataCenterInfo.getNumberOfWorkingServers() * dataCenterInfo.getNumberOfRestarts());
                 dataCenterInfo.setServersToOn();
             }
         }
@@ -296,7 +296,7 @@ class DataCenterInfo {
     private List<ServerInfo> serversList = new ArrayList<>();
 
     public int getMultiplicationRandA() {
-        return numberOfRestarts * numberOfWorkingServers;
+        return getNumberOfRestarts() * getNumberOfWorkingServers();
     }
 
     public int getNumberOfWorkingServers() {
