@@ -6,6 +6,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +17,40 @@ import java.util.Scanner;
 import java.util.Set;
 import java.util.StringJoiner;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+/**
+ * Рано или поздно все крупные IT-компании создают свои дата-центры. Коля только устроился в
+ * такую компанию и еще не успел во всем разобраться. В его компании есть N дата-цетров, в каждом
+ * дата-центре установлено M серверов.
+ * Из-за большой нагрузки серверы могут выключаться. Из-за спешки при постройке дата-центров
+ * включить только один сервер не получается, поэтому приходится перезагружать весь дата-центр.
+ * У каждого дата-центра есть два неотрицательных целочисленных параметра:
+ * Ri — число перезапусков i-го дата-центра и Ai — число рабочих (не выключенных) серверов на текущий
+ * момент в i-м дата-центре.
+ * Коля получил задачу по сбору некоторых метрик, которые в будущем позволят улучшить работу дата-центов.
+ * Для этого Коля собрал данные о Q событиях, произошедших за текущий день. Коля справился с этой задачей,
+ * но просит помочь и проверить свои результаты.
+ *
+ * Формат ввода
+ * В первой строке входных данных записано 3 положительных целых числа
+ * n, m, q (1≤q≤10*5, 1≤n⋅m≤10*6) — число дата-центров, число серверов в каждом из дата-центров и число событий соответственно.
+ * В последующих q строках записаны события, которые могут иметь один из следующих видов:
+ * RESET i — был перезагружен i-й дата-центр (1≤i≤n)
+ *
+ * DISABLE i j — в i-м дата-центре был выключен j-й сервер (1≤i≤n,1≤j≤m)
+ *
+ * GETMAX — получить номер дата-центра с наибольшим произведением Ri∗Ai
+ *
+ * GETMIN — получить номер дата-центра с наименьшим произведением
+ * R
+ * i
+ * ∗
+ * A
+ * i
+ * Формат вывода
+ * На каждый запрос вида GETMIN или GETMAX выведите единственное положительное целое число — номер дата-центра, подходящий под условие. В случае неоднозначности ответа выведите номер наименьшего из дата-центров.
+ */
 
 public class DataCenter {
     private static Scanner input = new Scanner(System.in);
@@ -101,7 +139,9 @@ public class DataCenter {
                 //GETMAX — получить номер дата-центра с наибольшим произведением
                 //Ri ∗ Ai
                 int result = greatestMultiplicationOfNumbers();
+                DataCenterInfo dataCenterInfo = findDataCenterInfoWithGreatestMultiplicationOfNumbers();
                 System.out.println(" название-номер дата-центра: " + result);
+                System.out.println(" объект дата-центра: " + dataCenterInfo);
             }
             if (message.get(0).equalsIgnoreCase(GETMIN)) {
                 //GETMIN — получить номер дата-центра с наименьшим произведением
@@ -145,6 +185,31 @@ public class DataCenter {
         System.out.println(" ключ в мапе: " + key);
         return stringDataCenterInfoEntry.getValue().getDataCenterNameLikeNumber();
     }
+
+    //этот метод не совсем верно сортирует, нужно разобраться, но принцип понятен
+    private static DataCenterInfo findDataCenterInfoWithGreatestMultiplicationOfNumbers() {
+        // инициализация мапы
+        Map<String, DataCenterInfo> dataCenterInfoMap = cache;
+        Comparator<DataCenterInfo> comparator = Comparator
+                .comparing(DataCenterInfo::getDataCenterNameLikeNumber)
+                .thenComparing(DataCenterInfo::getMultiplicationRandA, Comparator.reverseOrder())
+                .thenComparing(DataCenterInfo::getDataCenterNameLikeNumber);
+
+        // сортировка мапы (1 вариант)
+//        Collection<DataCenterInfo> values = dataCenterInfoMap.values();
+//        List<DataCenterInfo> collect = values.stream().sorted(comparator).collect(Collectors.toList());
+
+        // сортировка мапы (2 вариант): получаем список значений и сортируем
+        //List<Player> list = Collections.unmodifiableList(new ArrayList<>(dataCenterInfoMap.values()));
+        //получаем из неё список (неизменяемый помещаем в new ArrayList, чтобы был изменяемым)
+        List<DataCenterInfo> dataCenterInfos = new ArrayList<>(List.copyOf(dataCenterInfoMap.values()));
+        dataCenterInfos.sort(comparator);
+
+        // поиск объекта с максимальным multiplicationRandA и минимальным dataCenterNameLikeNumber
+        DataCenterInfo maxDataCenterInfo = Collections.max(dataCenterInfoMap.values(), comparator);
+        return maxDataCenterInfo;
+    }
+
 
     private static void updateDataCenter(List<String> message) {
         if (!message.isEmpty()) {
