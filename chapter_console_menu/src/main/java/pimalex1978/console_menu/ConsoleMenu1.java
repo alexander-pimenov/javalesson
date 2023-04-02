@@ -1,4 +1,4 @@
-package pimalex1978;
+package pimalex1978.console_menu;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

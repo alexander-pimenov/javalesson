@@ -1,4 +1,4 @@
-package pimalex1978;
+package pimalex1978.console_menu;
 
 public class ConsoleMenu3 {
     public static void main(String[] args) {
