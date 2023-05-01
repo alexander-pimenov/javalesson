@@ -53,8 +53,8 @@ import java.util.stream.Collectors;
  * выведите номер наименьшего из дата-центров.
  */
 
-public class DataCenter {
-    private static Scanner input = new Scanner(System.in);
+public class DataCenterYandex {
+    private static final Scanner input = new Scanner(System.in);
     private static final String LN = System.lineSeparator();
     private static final String RESET = "RESET";
     private static final String DISABLE = "DISABLE";
@@ -281,63 +281,6 @@ public class DataCenter {
             return false;
         }
     }
-}
-
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-class DataCenterInfo {
-    private int dataCenterNameLikeNumber;
-    private int numberOfServers;
-
-    private int numberOfRestarts; //число перезапусков - R
-    private int numberOfWorkingServers; //число работающих серверов - A
-    private int multiplicationRandA;
-    private List<ServerInfo> serversList = new ArrayList<>();
-
-    public int getMultiplicationRandA() {
-        return getNumberOfRestarts() * getNumberOfWorkingServers();
-    }
-
-    public int getNumberOfWorkingServers() {
-        int res = 0;
-        if (!serversList.isEmpty()) {
-            for (ServerInfo server : serversList) {
-                if (server.isEnabled()) {
-                    res++;
-                }
-            }
-        }
-        return res;
-    }
-
-    public DataCenterInfo(int dataCenterNameLikeNumber, int numberOfServers) {
-        this.dataCenterNameLikeNumber = dataCenterNameLikeNumber;
-        this.numberOfServers = numberOfServers;
-        this.serversList = createServersList(numberOfServers);
-    }
-
-    private List<ServerInfo> createServersList(int numberOfServers) {
-        List<ServerInfo> result = new ArrayList<>();
-        for (int i = 0; i < numberOfServers; i++) {
-            result.add(new ServerInfo(i + 1, true));
-        }
-        return result;
-    }
-
-    public void setServersToOn() {
-        for (ServerInfo server : getServersList()) {
-            server.setEnabled(true);
-        }
-    }
-}
-
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-class ServerInfo {
-    private int serverNameLikeNumber;
-    private boolean enabled;
 }
 
 //ввод:
