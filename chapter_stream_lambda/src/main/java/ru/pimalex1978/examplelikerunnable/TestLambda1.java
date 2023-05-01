@@ -15,12 +15,13 @@ package ru.pimalex1978.examplelikerunnable;
 public class TestLambda1 {
     public static void main(String[] args) {
 
+        //создали поток аналог Thread
         Runner1 runner = new Runner1();
 
-        //1
+        //1 - передаем класс, который уже имеет реализацию интерфейса
         runner.run(new ExecutableImpl1());
 
-        //2
+        //2 - реализуем интерфейс через анонимный класс
         runner.run(new Executable1() {
             @Override
             public void execute() {
@@ -29,7 +30,7 @@ public class TestLambda1 {
             }
         });
 
-        //3
+        //3 - передаем lambda, как реализацию интерфейса через анонимный класс
         runner.run(() -> {
             System.out.println("Hello from lambda");
             System.out.println("Goodbye from lambda");
@@ -43,20 +44,20 @@ interface Executable1 {
     void execute();
 }
 
+/*Реализуем отдельно интерфейс Executable*/
+class ExecutableImpl1 implements Executable1 {
+    @Override
+    public void execute() {
+        System.out.println("Hello from ExecutableImpl1");
+        System.out.println("Goodbye from ExecutableImpl1");
+    }
+}
+
 /*Этот класс как аналог Thread*/
 class Runner1 {
     public void run(Executable1 executable) {
         //!!!!! обязательно должен быть метод из интерфейса, как здесь, например execute()!!!!
         //Мы его должны вызвать, а его реализацию можно находу написать в main потоке!!!
         executable.execute();
-    }
-}
-
-/*Реализуем отдельно интерфейс Executable*/
-class ExecutableImpl1 implements Executable1 {
-    @Override
-    public void execute() {
-        System.out.println("Hello from ExecutableImpl");
-        System.out.println("Goodbye from ExecutableImpl");
     }
 }
