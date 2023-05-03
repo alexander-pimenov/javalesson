@@ -17,7 +17,6 @@ public class TestLambda2 {
 
         Runner2 runner = new Runner2();
 
-
         //2
         runner.run(new Executable2() {
             @Override

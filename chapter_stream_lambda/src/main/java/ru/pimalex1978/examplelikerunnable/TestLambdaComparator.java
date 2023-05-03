@@ -46,5 +46,17 @@ public class TestLambdaComparator {
         list.sort(stringComparator);
         System.out.println(list);
 
+        //сортировка в алфавитном порядке
+        Comparator<String> sortNaturalOrder = (String::compareTo);
+        list.sort(sortNaturalOrder);
+        System.out.println(list);
+
+        //сортировка НЕ в алфавитном порядке
+        Comparator<String> sortNonNaturalOrder = (o1, o2) -> {
+            int i = o1.compareTo(o2);
+            return -i;
+        };
+        list.sort(sortNonNaturalOrder);
+        System.out.println(list);
     }
 }

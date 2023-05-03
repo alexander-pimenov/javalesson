@@ -17,7 +17,7 @@ public class LambdaMain1 {
         arrays.add(array2);
         arrays.add(array3);
 
-        //1 вариант: в логике метода compare запишем сравнение по длинне массива
+        //1 вариант: в логике метода compare запишем сравнение по длине массива
         Comparator<String[]> sortByLength = new Comparator<String[]>() {
             @Override
             public int compare(String[] o1, String[] o2) {
@@ -26,7 +26,7 @@ public class LambdaMain1 {
         };
 
         //2 вариант: в логике метода compare запишем логику определения длин всех слов в массиве
-        //и потом сравнение массивов по общей длинне слов в нем
+        //и потом сравнение массивов по общей длине слов в нем
         Comparator<String[]> sortByWordsLength = new Comparator<String[]>() {
             @Override
             public int compare(String[] o1, String[] o2) {
