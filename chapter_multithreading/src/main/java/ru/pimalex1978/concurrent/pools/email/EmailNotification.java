@@ -47,7 +47,10 @@ public class EmailNotification {
     }
 
     public void send(String subject, String body, String email) {
-        System.out.println("Я в методе send()"); //как лог
+        System.out.println("Я в методе send(), как бы посылаю email"); //как лог
+        System.out.println("С такой темой: " + subject);
+        System.out.println("С таким телом: " + body);
+        System.out.println("Такому адресату: " + email);
     }
 
     public static void main(String[] args) {

@@ -53,6 +53,7 @@ public class CopyOnWriteArrayListExample {
                 }
             }
         }
+        System.out.println("-= " + list);
     }
 
     public static void main(String[] args) {
