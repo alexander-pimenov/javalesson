@@ -8,7 +8,7 @@ import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 
 /**
- * https://javadevblog.com/kak-skachat-fajl-v-java.html
+ * <a href="https://javadevblog.com/kak-skachat-fajl-v-java.html">kak-skachat-fajl-v-java</a>
  */
 
 
@@ -17,6 +17,8 @@ public class DownloadFileFromURL {
 
         // будем качать карту сайта моего сайта - в вашем случае замените ссылку на свою
         String url = "https://javadevblog.com/sitemap.xml";
+        //или файл pom.xml по указанному url
+        String urlFile = "https://raw.githubusercontent.com/peterarsentev/course_test/master/pom.xml";
         try {
 
             //качаем файл с помощью NIO
@@ -25,8 +27,11 @@ public class DownloadFileFromURL {
             //качаем файл с помощью Stream
             downloadUsingStream(url, "c:/test/sitemap_stream.xml");
 
-        } catch (IOException e) {
-            e.printStackTrace();
+            //качаем файл с помощью Stream
+            downloadUsingStream_2(urlFile, "pom_tmp02.xml");
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
     }
 
@@ -42,6 +47,21 @@ public class DownloadFileFromURL {
         }
         fos.close();
         bis.close();
+    }
+
+    public static void downloadUsingStream_2(String urlFile, String targetFilePath) throws Exception {
+        try (BufferedInputStream in = new BufferedInputStream(new URL(urlFile).openStream());
+             FileOutputStream fileOutputStream = new FileOutputStream(targetFilePath)) {
+            byte[] dataBuffer = new byte[1024];
+            int bytesRead;
+            while ((bytesRead = in.read(dataBuffer, 0, 1024)) != -1) {
+                fileOutputStream.write(dataBuffer, 0, bytesRead);
+                System.out.println(bytesRead);
+                Thread.sleep(1000);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     //метод для качания файла с помощью NIO (Java NIO Channels)
