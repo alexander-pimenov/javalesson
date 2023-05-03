@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>chapter_server</artifactId>
+    <artifactId>chapter_server_socket</artifactId>
 
 
 </project>

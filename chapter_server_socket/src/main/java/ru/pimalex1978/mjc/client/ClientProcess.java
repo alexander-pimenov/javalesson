@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class ClientProcess {
+    private static final String STOP_WORD = "stop";
     private Socket socket;
     private BufferedReader in;
     private BufferedWriter out;
@@ -38,7 +39,7 @@ public class ClientProcess {
     }
 
     private void pressNickname() {
-        System.out.print("Press your nick: ");
+        System.out.print("Press your nick (введите ваш ник): ");
         try {
             nickname = inputUser.readLine();
             out.write("Hello " + nickname + "\n");
@@ -67,7 +68,7 @@ public class ClientProcess {
             try {
                 while (true) {
                     str = in.readLine();
-                    if (str.equalsIgnoreCase("stop")) {
+                    if (str.equalsIgnoreCase(STOP_WORD)) {
                         ClientProcess.this.downService();
                         break;
                     }
@@ -91,7 +92,7 @@ public class ClientProcess {
 //                    dt1 = new SimpleDateFormat("yyyy:MMMM:dd HH:mm:ss");
                     dtime = dt1.format(time);
                     userWord = inputUser.readLine();
-                    if (userWord.equalsIgnoreCase("stop")) {
+                    if (userWord.equalsIgnoreCase(STOP_WORD)) {
                         out.write("stop" + "\n");
                         ClientProcess.this.downService();
                         break;

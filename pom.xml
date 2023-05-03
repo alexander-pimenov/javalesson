@@ -38,7 +38,7 @@
         <module>chapter_TicTacToe</module>
         <module>chapter_utils</module>
         <module>chapter_refactoring</module>
-        <module>chapter_server</module>
+        <module>chapter_server_socket</module>
         <module>chapter_read_write_data</module>
         <module>chapter_encoding</module>
         <module>chapter_core_java_jvm</module>
