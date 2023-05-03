@@ -12,7 +12,7 @@ import java.util.concurrent.Future;
 
 /**
  * Пример из
- * https://javadevblog.com/java-callable-kratkoe-opisanie-i-primer-ispol-zovaniya.html
+ * <a href="https://javadevblog.com/java-callable-kratkoe-opisanie-i-primer-ispol-zovaniya.html">Ссылка на источник</a>
  * <p>
  * Java предоставляет Callable интерфейс для определения задач, возвращающих
  * результат. A Callable похож на, Runnable за исключением того, что он может
@@ -31,7 +31,7 @@ import java.util.concurrent.Future;
  * Future - представляет собой результат вычислений, которые будут
  * выполнены позже в будущем.
  * Если мы не вызовем метод get(), то и объект Callable не даст свой результат,
- * находящийся в роператоре return.
+ * находящийся в операторе return.
  * <p>
  * Обратите внимание, что get() метод блокируется, и ждет задачи для завершения.
  * Future API также предоставляет isDone() метод, чтобы проверить, завершена ли
@@ -53,7 +53,7 @@ public class MyCallable implements Callable<String> {
     }
 
     public static void main(String[] args) {
-        //Получаем ExecutorService утилитного класса Executors с размером пула потоков равному 10
+        //Получаем ExecutorService утилитного класса Executors с размером пула потоков равному 8
         ExecutorService executor = Executors.newFixedThreadPool(8);
         //создаем список с Future, которые ассоциированы с Callable
         List<Future<String>> list = new ArrayList<Future<String>>();
@@ -71,7 +71,7 @@ public class MyCallable implements Callable<String> {
         /*Future - представляет собой результат вычислений, которые будут
          * выполнены позже в будущем.
          * Если мы не вызовем метод .get(), то и объект Callable не будет выполнен,
-         * в от личие от Runnable.*/
+         * в отличие от Runnable.*/
         for (Future<String> fut : list) {
             try {
                 // печатаем в консоль возвращенное значение Future

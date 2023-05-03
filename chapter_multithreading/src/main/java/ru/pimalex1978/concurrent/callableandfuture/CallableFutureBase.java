@@ -12,7 +12,7 @@ import java.util.concurrent.Future;
 
 /**
  * Пример из урока:
- * https://www.udemy.com/course/java-simple2advanced/learn/lecture/11252456#overview
+ * <a href="https://www.udemy.com/course/java-simple2advanced/learn/lecture/11252456#overview">Ссылка на источник</a>
  * У java.lang.Runnable есть брат и зовут его java.util.concurrent.Callable и
  * появился он на свет в Java 1.5. Мы видим, что в отличие от Runnable,
  * новый интерфейс объявляет метод call, который возвращает результат
@@ -20,13 +20,12 @@ import java.util.concurrent.Future;
  * Кроме того, по умолчанию он throws Exception. То есть избавляет нас
  * от необходимости на проверяемые исключения писать try-catch блоки.
  * Очевидно, что в дальнейшем мы рассчитываем получить результат действий,
- * которыев в будущем будут выполнены. Будущее по-английский — Future.
+ * которые в будущем будут выполнены. Будущее по-английский — Future.
  * И интерфейс есть с точно таким же именем: java.util.concurrent.Future
- * Интерфейс Фьючер это результат работы какой то задачи.
- * Имеет определенные методы, которые помгут получить результат работы:
- * get() или проверить не было ли наше задание Task отменено: isCanceled(),
+ * Интерфейс Фьючер - это результат работы какой-то задачи.
+ * Имеет определенные методы, которые помогут получить результат работы: get()
+ * или проверить не было ли наше задание Task отменено: isCanceled(),
  * или еще что-нибудь: isDone(), cancel(boolean mayInterruptIfRunning)
- *
  */
 public class CallableFutureBase {
     public static void main(String[] args) {
@@ -52,6 +51,8 @@ public class CallableFutureBase {
                 int rand = random.nextInt(5000);
                 //Можно так же выбрасывать исключения по условию.
                 //Это исключение будет отловлено в случае обработки возвращаемого результата.
+                System.out.printf("Внутри Callable. Рандомное число %d. Имя текущего потока: %s%n", rand, Thread.currentThread().getName());
+
                 if (rand > 4000) {
                     throw new RuntimeException("Thread is running to long. Terminating...");
                 }
@@ -61,7 +62,7 @@ public class CallableFutureBase {
                 //для вычисления прошедшего времени
                 timer.end = Instant.now();
 
-                //Благодаря Callable мы может возвращать что-то из метода call(),
+                //Благодаря Callable, мы можем возвращать что-то из метода call(),
                 //т.е. из отработавшего потока. В данном случае это затраченное время.
                 return timer.timeInSeconds();
             });
@@ -70,8 +71,13 @@ public class CallableFutureBase {
             futures.add(submit);
         }
 
+        //закрытие пула (шаг 4) Если его не закрыть, то программа будет работать вечно.
         executorService.shutdown();
 
+        /*Future - представляет собой результат вычислений, которые будут
+         * выполнены позже в будущем.
+         * Если мы не вызовем метод .get(), то и объект Callable не будет выполнен,
+         * в отличие от Runnable.*/
         //Пройдемся по листу фьючеров и у каждого фьючера вызовем метод get()
         //будем обрабатывать их параллельно в нескольких потоках
         futures.parallelStream()
@@ -83,7 +89,7 @@ public class CallableFutureBase {
                         e.printStackTrace();
                     } catch (ExecutionException e) {
                         //Выведем эксепшн в sout, что вызвало наш exception
-                        System.out.println(e.getCause());
+                        System.out.println("ExecutionException: " + e.getCause());
 //                        e.printStackTrace();
                     }
                     //если попали в блок exception, то потом выведем значение 0
