@@ -1,4 +1,4 @@
-package ru.pimalex1978.concurrent;
+package ru.pimalex1978;
 
 import lombok.Data;
 import ru.pimalex1978.utils.util.some.FormatterUtils;
