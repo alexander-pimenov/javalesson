@@ -5,8 +5,12 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 /*
  * Руководство по Java 8 Comparator.comparing ()
@@ -35,7 +39,7 @@ public class ComparatorsMethodsTest {
             new Employee("Keith", 35, 4000.0, 3924401)
     };
 
-
+    TreeMap<Integer, Employee> employeeTreeMap;
     Employee[] sortedEmployeesByName;
     Employee[] sortedEmployeesByNameDesc;
     Employee[] sortedEmployeesByAge;
@@ -100,6 +104,16 @@ public class ComparatorsMethodsTest {
                 new Employee("Jake", 25, 3000.0, 9922001),
                 new Employee("Keith", 35, 4000.0, 3924401)
         };
+
+        //TreeMap имеет сортированную структуру по КЛЮЧУ
+        employeeTreeMap = new TreeMap<>() {{
+            put(2, new Employee("Keith", 35, 4000.0, 3924401));
+            put(3, new Employee("Jake", 32, 2000.0, 5924001));
+            put(6, new Employee("Jake", 32, 5000.0, 5924001));
+            put(4, new Employee("John", 25, 3000.0, 9922001));
+            put(5, new Employee("Ace", 22, 3000.0, 6423001));
+            put(1, new Employee("Jake", 26, 3000.0, 9922001));
+        }};
     }
 
     /*
@@ -258,6 +272,55 @@ public class ComparatorsMethodsTest {
 
     //Точно так же есть функции thenComparingLong и thenComparingDouble для
     // использования длинных и двойных ключей сортировки.
+
+    @Test
+    public void compareTest() {
+        Comparator<Employee> comparatorEmployee = new Comparator<Employee>() {
+            @Override
+            public int compare(Employee obj1, Employee obj2) {
+                if (obj1 == null) {
+                    return -1;
+                }
+                if (obj2 == null) {
+                    return 1;
+                }
+                int compareName = obj1.getName().compareTo(obj2.getName());
+                if (compareName == 0) {
+                    if (obj1.getAge() == obj2.getAge()) {
+                        int compareSalary = Double.compare(obj1.getSalary(), obj2.getSalary());
+                        if (compareSalary == 0) {
+                            return Long.compare(obj1.getMobile(), obj2.getMobile());
+                        } else {
+                            return compareSalary;
+                        }
+                    } else {
+                        return obj1.getAge() - obj2.getAge();
+                    }
+                } else {
+                    return compareName;
+                }
+            }
+        };
+
+        for (Map.Entry<Integer, Employee> entry : employeeTreeMap.entrySet()) {
+            System.out.println(entry.getKey() + " " + entry.getValue());
+        }
+        System.out.println("-------------------");
+
+        List<Employee> employeeList = new ArrayList<>(employeeTreeMap.values());
+        employeeList.forEach(System.out::println);
+        System.out.println("-------------------");
+        employeeList.sort(comparatorEmployee);
+        employeeList.forEach(System.out::println);
+
+        //or - так можно передавать компаратор в TreeMap
+        TreeMap<Integer, String> treeMap = new TreeMap<>(new Comparator<Integer>() {
+            @Override
+            public int compare(Integer o1, Integer o2) {
+                return Integer.compare(o1, o2); //!!!!!! Хороший вариант
+            }
+        });
+    }
 
 
 }
