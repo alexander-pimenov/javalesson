@@ -8,10 +8,13 @@ package ru.pimalex1978.stream;
 
 import static java.util.stream.Collectors.toList;
 
+import org.apache.lucene.analysis.util.ClasspathResourceLoader;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -35,7 +38,7 @@ import java.util.stream.Stream;
 public class MainStream {
     public static void main(String[] args) throws IOException {
 
-        /*1. Способы создания стримов*/
+        /*-------------------1. Способы создания стримов-------------------*/
         //Создание стрима из коллекции: collection.stream()
         Collection<String> collection = Arrays.asList("a1", "a2", "a3");
         Stream<String> streamFromCollection = collection.stream();
@@ -56,7 +59,8 @@ public class MainStream {
         //Создание стрима из файла (каждая строка в файле будет отдельным элементом в стриме)
         //Files.lines(путь_к_файлу)
         //.lines() - выбрасывает exception IOException
-        Stream<String> streamFromFiles = Files.lines(Paths.get("text.info about lambda.txt"));
+        String fileName = "c:\\test\\source.txt";
+        Stream<String> streamFromFiles = Files.lines(Paths.get(fileName));
         /*Создадим файл и запишем туда что то*/
         File file = new File("1.tmp");
         file.deleteOnExit(); //Требует, чтобы файл или каталог, обозначенный этим абстрактным путем,
@@ -122,7 +126,7 @@ public class MainStream {
 
         System.out.println("==========");
 
-        /*2. Примеры работы с некоторыми методами стримов.*/
+        /*-------------------2. Примеры работы с некоторыми методами стримов.-------------------*/
         // filter - возвращает stream, в котором есть только элементы, соответствующие условию фильтра
         // count - возвращает количество элементов в стриме
         // collect - преобразует stream в коллекцию или другую структуру данных
@@ -277,7 +281,7 @@ public class MainStream {
                 .collect(toList());
         System.out.println(collect1); //[a1, a1]
 
-        /*3. Примеры использования distinct*/
+        /*---------3. Примеры использования distinct---------*/
         //Метод distinct возвращает stream без дубликатов, при этом для упорядоченного стрима
         // (например, коллекция на основе list) порядок стабилен, для неупорядоченного — порядок не гарантируется.
         Collection<String> ordered = Arrays.asList("a1", "a2", "a2", "a3", "a1", "a2", "a2");
@@ -297,11 +301,11 @@ public class MainStream {
         //distinctOrdered = [a1, a2, a3]
         System.out.println("distinctOrdered = " + distinctOrdered); //порядок гарантируется
 
-        /*4. Примеры использования Match функций (anyMatch, allMatch, noneMatch)
+        /*---------4. Примеры использования Match функций (anyMatch, allMatch, noneMatch)---------
          * anyMatch - любое совпадение, allMatch - все совпадения, noneMatch - ни одного совпадения*/
         // Метод anyMatch - возвращает true, если условие выполняется хотя бы для одного элемента
-        // Метод noneMatch - возвращает true, если условие не выполняется ни для одного элемента
         // Метод allMatch - возвращает true, если условие выполняется для всех элементов
+        // Метод noneMatch - возвращает true, если условие не выполняется ни для одного элемента
 
         //найти существуют ли хоть одно совпадение с шаблоном в коллекции
         boolean isAnyOneTrue = collectionSource.stream()
@@ -322,7 +326,7 @@ public class MainStream {
         System.out.println("isNotEquals = " + isNotEquals); //isNotEquals = true
         System.out.println("==========");
 
-        /*5. Примеры использования map функций (map, mapToInt, flatMap, flatMapToInt)*/
+        /*---------5. Примеры использования map функций (map, mapToInt, flatMap, flatMapToInt)---------*/
         // Метод Map изменяет выборку по определенному правилу, возвращает stream с новой выборкой.
         //map​(Function mapper)
         //Применяет функцию к каждому элементу и затем возвращает стрим,
@@ -513,7 +517,7 @@ public class MainStream {
 
 
 
-        /*6. Примеры использования Sorted функции*/
+        /*---------6. Примеры использования Sorted функции---------*/
         //// Метод Sorted позволяет сортировать значения либо в натуральном порядке, либо задавая Comparator
         System.out.println("***метод sorted()***");
         //исходная коллекция
@@ -538,7 +542,7 @@ public class MainStream {
         System.out.println("sortedDistinct = " + sortedDistinct); //sortedDistinct = [a1, a2, a3, a4, a5]
         System.out.println("===========");
 
-        /*7. Примеры использования Max и Min функций*/
+        /*---------7. Примеры использования Max и Min функций---------*/
         // Метод max вернет максимальный элемент, в качестве условия использует компаратор
         // Метод min вернет минимальный элемент, в качестве условия использует компаратор
         //Найти максимальное значение среди коллекции строк
@@ -555,7 +559,7 @@ public class MainStream {
         //Пример с объектами:
         //Найдем человека с минимальным возрастом	peoples.stream().min((p1, p2) -> p1.getAge().compareTo(p2.getAge())).get()
 
-        /*8. Примеры использования ForEach и Peek функций*/
+        /*---------8. Примеры использования ForEach и Peek функций---------*/
         //Обе ForEach и Peek по сути делают одно и тоже, меняют свойства объектов в стриме,
         //единственная разница между ними в том что ForEach терминальная и она заканчивает работу со стримом, в то время как
         //Peek конвейерная и работа со стримом продолжается.
@@ -596,7 +600,7 @@ public class MainStream {
                 .collect(toList());
         System.out.println("newListPeek = " + newListPeek); //newListPeek = [a1_new, a2_new, a3_new]
 
-        /*9. Примеры использования Reduce функции*/
+        /*---------9. Примеры использования Reduce функции---------*/
         /*Метод reduce позволяет выполнять агрегатные функции над всей коллекцией
         (такие как сумма, нахождение минимального или максимального значение и т.п.),
         он возвращает одно значение для стрима, функция получает два аргумента —
@@ -667,7 +671,7 @@ public class MainStream {
         System.out.println("younger = " + younger); // напечатает 23
         */
 
-        /*10. Примеры использования toArray и collect функции*/
+        /*---------10. Примеры использования toArray и collect функции---------*/
         /*Если с toArray все просто, можно либо вызвать toArray() получить Object[],
         либо toArray(T[]::new) — получив массив типа T,
         то collect позволяет много возможностей преобразовать значение в
@@ -787,7 +791,7 @@ public class MainStream {
                 ));
         System.out.println(map4); //{0=<50>, <55>, <20>, 2=<52>, 4=<69>, <19>}
 
-        /*11. Примеры*/
+        /*---------11. Примеры---------*/
         //Дан массив аргументов. Нужно получить Map, где каждому ключу будет соответствовать своё значение.
         String[] arguments = {"-i", "in.info about lambda.txt", "--limit", "40", "-d", "1", "-o", "out.info about lambda.txt"};
         Map<String, String> argsMap = new LinkedHashMap<>(arguments.length / 2);
@@ -807,7 +811,7 @@ public class MainStream {
         System.out.println(String.join(" ", argums));
         //-i in.info about lambda.txt --limit 40 -d 1 -o out.info about lambda.txt
 
-        /*Задачи:*/
+        /*---------Задачи:---------*/
         System.out.println("*****Разные задачи:*****");
         IntStream.range(5, 30)
                 .limit(12)
@@ -907,7 +911,7 @@ public class MainStream {
 
         System.out.println("==========");
 
-        /*Очень простой пример: разделить список полных имен, чтобы получить список имен, независимо от того, первый или последний*/
+        /*---------Очень простой пример: разделить список полных имен, чтобы получить список имен, независимо от того, первый или последний*/
         System.out.println("===Разделить список полных имен, чтобы получить список имен==");
 
         List<String> fullNames = Arrays.asList("Barry Allen", "Bruce Wayne", "Clark Kent", "Peter Jackson");
@@ -975,6 +979,21 @@ public class MainStream {
                         String.format("название: %s цена со скидкой: %d", p.getName(),
                                 p.getPrice() - (int) (p.getPrice() * 0.1))))
                 .forEach(System.out::println);
+
+        System.out.println("===== Преобразование списка списков в один список =====");
+        System.out.println("===== Пример с flatMap() 2 =====");
+
+        List<List<Integer>> numbers10 = Arrays.asList(
+                Arrays.asList(1, 2),
+                Arrays.asList(3, 4),
+                Arrays.asList(5, 6),
+                Arrays.asList(7, 8),
+                Arrays.asList(9, 10)
+        );
+        List<Integer> allNumbers = numbers10.stream()
+                .flatMap(l -> l.stream())
+                .collect(Collectors.toList());
+        System.out.println(allNumbers); // [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
         System.out.println("======= Пример с методом collect с его второй формой ==========");
         System.out.println("<R> R collect(Supplier<R> supplier, BiConsumer<R,? super T> accumulator, BiConsumer<R,R> combiner)");
