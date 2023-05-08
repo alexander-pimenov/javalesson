@@ -4,12 +4,12 @@ import java.util.ArrayList;
 
 /**
  * Простая реализация Стека на основе ArrayList
- * Здесь мы не добавляем, какой то новый функционал, а
+ * Здесь мы не добавляем, какой-то новый функционал, а
  * ограничиваем функционал ArrayList, чтобы он обслуживал FILO.
  * В прямом порядке в стек положили, а извлекли в обратнои
  * порядке.
  * Использовал для примера видео Sergey Arkhipov
- * https://www.youtube.com/watch?v=X07Y7pkHHJc&feature=youtu.be
+ * <a href="https://www.youtube.com/watch?v=X07Y7pkHHJc&feature=youtu.be">Ссылка на источник</a>
  *
  * @author Alexander Pimenov (pimalex1978@ya.ru)
  * @version v1.0

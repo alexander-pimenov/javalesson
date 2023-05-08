@@ -17,7 +17,7 @@ import java.awt.event.ActionListener;
  *  Below is the syntax highlighted version of GUI.java from §1.5 Input and Output.
  *  https://introcs.cs.princeton.edu/java/15inout/
  *
- *  Код из жтого урока:
+ *  Код из этого урока:
  *  https://www.youtube.com/watch?v=5o3fMLPY7qY
  *
  * Больше информации:
