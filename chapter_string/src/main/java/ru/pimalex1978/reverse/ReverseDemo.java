@@ -2,7 +2,7 @@ package ru.pimalex1978.reverse;
 
 public class ReverseDemo {
     public static void main(String[] args) {
-        String s = "I am a best Tester in EPAM";
+        String s = "My Java";
         reverse1(s);
         reverse2(s);
         System.out.println(reverse3(s));
@@ -27,6 +27,13 @@ public class ReverseDemo {
     }
 
     //3. Recursive method to reverse string
+    //1st Call —>   recursiveMethod(“My Java”)
+    //2nd Call —> recursiveMethod(“y Java”) + “M”
+    //3rd Call —>  (recursiveMethod(“ Java”) + “y”) + “M”
+    //4rd Call —>  ((recursiveMethod(“Java”) + “ ”) + “y”) + “M”
+    //5th call —>  (((recursiveMethod(“ava”) + “J”) + “ ”) +”y”) + “M”
+    //6th Call —>  ((((recursiveMethod(“va”) + “a”) + “J”) + “ ”) +”y”) + “M”
+    //7th Call —>  (((((recursiveMethod(“a”) + “v”) + “a”) + “J”) + “ ”) +”y”) + “M”
     private static String reverse3(String s) {
         //System.out.println(s); //здесь можно посмотреть ход
         if (s == null || s.length() <= 1) {
