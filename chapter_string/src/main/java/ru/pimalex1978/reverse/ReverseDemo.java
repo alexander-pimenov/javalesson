@@ -5,8 +5,10 @@ public class ReverseDemo {
         String s = "I am a best Tester in EPAM";
         reverse1(s);
         reverse2(s);
+        System.out.println(reverse3(s));
     }
 
+    //1. Using StringBuffer Class
     private static void reverse1(String s) {
         StringBuilder sb = new StringBuilder(s);
         sb.reverse();
@@ -14,12 +16,22 @@ public class ReverseDemo {
         System.out.println(reverseString);
     }
 
+    //2. Using iterative method
     private static void reverse2(String s) {
         StringBuilder sb = new StringBuilder();
-        for (int i = s.length()-1; i >= 0; i--) {
+        for (int i = s.length() - 1; i >= 0; i--) {
             sb.append(s.charAt(i));
         }
         String reverseString = sb.toString();
         System.out.println(reverseString);
+    }
+
+    //3. Recursive method to reverse string
+    private static String reverse3(String s) {
+        //System.out.println(s); //здесь можно посмотреть ход
+        if (s == null || s.length() <= 1) {
+            return s;
+        }
+        return reverse3(s.substring(1)) + s.charAt(0);
     }
 }
