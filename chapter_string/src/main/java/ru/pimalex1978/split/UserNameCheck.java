@@ -5,7 +5,7 @@ import java.util.regex.Pattern;
 
 /**
  * Пример из статьи:
- * http://www.quizful.net/post/Java-RegExp
+ * <a href="http://www.quizful.net/post/Java-RegExp">ссылка на источник</a>
  * <p>
  * В нашей программе есть два метода для проверки имени пользователя на
  * валидность. Первый метод checkWithRegExp(String userNameString) использует
@@ -63,7 +63,7 @@ public class UserNameCheck {
      * ^ - начало строки
      * [a-z0-9_-] - символ который может быть маленькой латинской
      * буквой или цифрой или символом подчеркивания.
-     * {3,15} - предыдущий объект(смотри выше) может повторяться от 3х до 15раз.*/
+     * {3,15} - предыдущий объект(смотри выше) может повторяться от 3-х до 15 раз.*/
     public static boolean checkWithRegExp(String userNameString) {
         Pattern p = Pattern.compile("^[a-z0-9_-]{3,15}$");
         Matcher m = p.matcher(userNameString);
@@ -91,10 +91,10 @@ public class UserNameCheck {
         return m.matches();
     }
 
-    /*метод проверки того что строка заканчивается на .com или .ru или .ua.
+    /*Метод проверки того, что строка заканчивается на .com или .ru или .ua.
      * Этакий очень примитивный валидатор ссылки.
      * + - означает, что сначала может идти любое количество любых символов (от одного)
-     * \\. - экранирование точки. Таким образом мы указываем, что идет именно точка
+     * \\. - экранирование точки. Таким образом мы указываем, что идет именно точка,
      *  а не любой символ. (com|ua|ru) - тут все просто: либо com, либо ua, либо ru.*/
     public static boolean testLink(String testString) {
         Pattern p = Pattern.compile(".+\\.(com|ua|ru)");
