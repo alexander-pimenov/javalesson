@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+    <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
+
+    <springProperty name="driverClassName" source="spring.datasource.driver-class-name"/>
+    <springProperty name="url" source="spring.datasource.url"/>
+    <springProperty name="username" source="spring.datasource.username"/>
+    <springProperty name="password" source="spring.datasource.password"/>
+    <springProperty name="maximumPoolSize" source="spring.datasource.hikari.maximum-pool-size"/>
+
+    <appender name="DB" class="ch.qos.logback.classic.db.DBAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>WARN</level>
+        </filter>
+        <connectionSource class="ch.qos.logback.core.db.DataSourceConnectionSource">
+            <dataSource class="com.zaxxer.hikari.HikariDataSource">
+                <driverClassName>${driverClassName}</driverClassName>
+                <jdbcUrl>${url}?currentSchema=fbintegrationlogging</jdbcUrl>
+                <username>${username}</username>
+                <password>${password}</password>
+                <maximumPoolSize>${maximumPoolSize}</maximumPoolSize>
+            </dataSource>
+        </connectionSource>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+    </root>
+
+    <springProfile name="!prod">
+        <logger name="com.epam.beamery" level="DEBUG" additivity="false">
+            <appender-ref ref="CONSOLE"/>
+            <appender-ref ref="DB"/>
+        </logger>
+    </springProfile>
+
+    <springProfile name="prod">
+        <logger name="com.epam.beamery" level="INFO" additivity="false">
+            <appender-ref ref="CONSOLE"/>
+            <appender-ref ref="DB"/>
+        </logger>
+    </springProfile>
+</configuration>
