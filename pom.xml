@@ -51,6 +51,7 @@
         <module>chapter_csv</module>
         <module>chapter_lombok</module>
         <module>chapter_yandex</module>
+        <module>chapter_cache</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -512,6 +513,19 @@
             <groupId>org.elasticsearch</groupId>
             <artifactId>elasticsearch</artifactId>
             <version>7.13.3</version>
+        </dependency>
+
+        <!-- CACHE -->
+        <dependency>
+            <groupId>org.ehcache</groupId>
+            <artifactId>ehcache</artifactId>
+            <version>3.10.6</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.ben-manes.caffeine</groupId>
+            <artifactId>caffeine</artifactId>
+            <version>3.1.5</version>
         </dependency>
 
 
