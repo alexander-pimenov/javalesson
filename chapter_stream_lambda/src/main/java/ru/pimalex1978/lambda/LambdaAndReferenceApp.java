@@ -12,7 +12,7 @@ package ru.pimalex1978.lambda;
  * передается ExpressionHelper::isPositive, то есть ссылка на статический метод isPositive() класса ExpressionHelper.
  * !!! При этом методы, на которые идет ссылка, должны совпадать по параметрам и результату с методом функционального интерфейса(!!!).
  */
-public class LambdaApp {
+public class LambdaAndReferenceApp {
     public static void main(String[] args) {
 
         int[] nums = {-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5};
@@ -24,7 +24,26 @@ public class LambdaApp {
         //проверка на положительное число + sum
         Expression isPositive = ExpressionHelper::isPositive;
         System.out.println("Результат: " + sum(nums, isPositive));
+        System.out.println("============");
+
+
+//pool.execute(new MyRunnable());
+
+//-> public void myMethod() {
+//        do {
+//            new Thread(new MyRunnable()).start();
+//        } while(true);
+//    }
+//
+//    public void myMethod() {
+//        pool.execute(new MyRunnable());
+//    }
+
+
+
+
     }
+
 
     private static int sum(int[] numbers, Expression func) {
         int result = 0;
@@ -36,6 +55,7 @@ public class LambdaApp {
         }
         return result;
     }
+
 }
 
 //Класс, в котором определены статические методы. Далее будем ссылаться на эти методы.
