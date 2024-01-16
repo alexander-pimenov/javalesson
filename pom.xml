@@ -52,6 +52,7 @@
         <module>chapter_lombok</module>
         <module>chapter_yandex</module>
         <module>chapter_cache</module>
+        <module>chapter_java8</module>
     </modules>
     <packaging>pom</packaging>
 
