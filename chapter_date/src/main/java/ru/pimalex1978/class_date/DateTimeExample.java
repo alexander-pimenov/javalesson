@@ -13,7 +13,8 @@ public class DateTimeExample {
             String format = "yyyy-MM-dd HH:mm:ss";
 
             SimpleDateFormat df = new SimpleDateFormat(format);
-// just create some random dates for this example...
+
+            // just create some random dates for this example...
 
             Date from = df.parse("2014-01-01 10:05:12");
             Date to = df.parse("2016-02-01 11:03:23");
