@@ -8,10 +8,13 @@ Java Date features
 
 Формат даты:
 - ISO 8601
-- YYYY-DD-MMTHH:MM:SS+-HH:MM:SS, Zulu - формат времени со сдвигом
-- YYYY-DD-MMTHH:MM:SSZ Zulu - формат времени с нулевым сдвигом (аналог записи выше, но без сдвига) - Instant
+- yyyy-DD-mmTHH:mm:ss+-HH:MM:SS, Zulu - формат времени со сдвигом
+- yyyy-DD-mmTHH:mm:ssZ Zulu - формат времени с нулевым сдвигом (аналог записи выше, но без сдвига) - Instant
 
-В Java пошли по пути приведению секунд по GMT. Т.е. `растягивают` секунды.
+В Java пошли по пути приведению секунд по GMT. Т.е. `растягивают` секунды. Секунды в Java не равны секундам по атомным часам.
+Старый формат GMT поддерживается таким же кодом как для UTC.
+Способ парсинга одинаковый.
+GMT формат Deprecated, но с программной точки зрения нет разницы с каким форматом мы работаем UTC или GMT.
 
 
 Moment in timeline:
@@ -22,16 +25,27 @@ Moment in timeline:
     По дефолту OffsetDateTime.now() имеет Clock.systemDefaultZone(). Т.е. сдвиг согласно системы.
     Он не хранит ни какие зоны (но их можно задавать), не знает информацию о световом дне и переводе часов.
     Т.е. это просто текущее по UTC + сдвиг.
+   `OffsetDateTime = time-of-day + offset from UTC`
 3) ZonedDateTime - это сложный тип, он хранит в себе UTC + зону + сдвиг.
    ZoneId (зона) дает нам набор всех исторических правил (перевод часов, какие-то сдвиги), но сохранять дату в этом формате 
    не стоит, особенно в будущем, потому что выйдут новые правила и дата станет не валидной. 
    _**Best practice** - в этом формате можно время только выводить пользователю, но получать его из другого времени, но не хранить в этом формате!!!_
-4) Хранить лучше время в Instant или OffsetDateTime.now(ZoneOffset.UTC)!!! Т.е. храним время с нулевым сдвигом, 
+   `ZonedDateTime = time-of-day + zonedId + offset from UTC`
+4) `Хранить лучше время в Instant или OffsetDateTime.now(ZoneOffset.UTC)!!!` Т.е. храним время с нулевым сдвигом, 
    любое событие, которое хотим записать, приводим к UTC и сохраняем в поле Timestamp в формате UTC.
    Потом, когда нужно время вывести пользователю, мы берем это время и форматируем под конкретного пользователя.
    А чтобы знать как выводить время пользователю, то в настройках пользователя привязать зону и локаль для работы.
    
-5) 
+5) ZoneId - отвечает за конкретные зоны и все и правила по переводу времени, историчность этих переводов (правила сдвига)
+   `ZoneId = ZoneOffset + date/time anomalies`  
+6) ZoneOffset - подкласс ZoneId, расширяет его.
+7) LocalDateTime - не принадлежит определенному идентификатору зоны, только date + time
+   Он не относится ни к какой TimeZone, не имеет сдвига. Он дает только дату и время.
+   `LocalDateTime = no belongs to specific ZoneId, just date + time`
+   Этот тип не предназначен для работы с моментом времени!!!! Т.е. он не знает точного машинного времени,
+   т.к. не знает сдвига.
+   Он используется, как промежуточный класс для конвертации, 
+8) 
     
 
 
@@ -86,4 +100,15 @@ HH:mm:ss.SSS |		23:59.59.999
 yyyy-MM-dd HH:mm:ss	| 2018-11-30 03:09:02
 yyyy-MM-dd HH:mm:ss.SSS	| 2016-03-01 01:20:47.999
 yyyy-MM-dd HH:mm:ss.SSS Z	| 2013-13-13 23:59:59.999 +0100
+
+
+Таблица старых и новых типов формата времени в Java:
+
+DateTime classes in Java | Legacy | Modern
+--- | --- | ---
+Moment in UTC | java.util.Date, java.sql.Timestamp | java.time.Instatnt
+Moment with offset from UTC | - | java.time.OffsetDateTime
+Moment with timezone | java.util.GregorianCalendar, javax.xml.datatype.XMLGregorianCalendar | java.time.ZoneDateTime
+Date + time-of-day (not a moment) | - | java.time.LocalDateTime
+
 

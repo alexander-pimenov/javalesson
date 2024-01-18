@@ -1,12 +1,15 @@
 package ru.pimalex1978.class_date;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
-import java.util.Arrays;
 
+/*Spring workshop #5 (Date Time)
+* https://youtu.be/MVybQL6q1qk
+* */
 public class DateTimeExampleFromWorkshop {
     public static void main(String[] args) {
 
@@ -38,7 +41,10 @@ public class DateTimeExampleFromWorkshop {
                 .withLaterOffsetAtOverlap();
         System.out.println("zonedDateTimeWithLater = " + zonedDateTimeWithLater); //2014-10-26T01:30+03:00[Europe/Moscow]
 
-        //https://youtu.be/MVybQL6q1qk?t=1622
+        LocalDateTime localDateTime = LocalDateTime.now();
+        System.out.println("localDateTime = " + localDateTime); //2024-01-17T20:44:18.827205100
+
+        //https://youtu.be/MVybQL6q1qk?t=2018
 
 
 
