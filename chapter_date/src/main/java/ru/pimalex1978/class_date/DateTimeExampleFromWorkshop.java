@@ -7,9 +7,9 @@ import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 
-/*Spring workshop #5 (Date Time)
-* https://youtu.be/MVybQL6q1qk
-* */
+/*Spring workshop #5 (Date Time) от Александра Белова.
+ * https://youtu.be/MVybQL6q1qk
+ * */
 public class DateTimeExampleFromWorkshop {
     public static void main(String[] args) {
 
@@ -45,8 +45,6 @@ public class DateTimeExampleFromWorkshop {
         System.out.println("localDateTime = " + localDateTime); //2024-01-17T20:44:18.827205100
 
         //https://youtu.be/MVybQL6q1qk?t=2018
-
-
 
 
 
