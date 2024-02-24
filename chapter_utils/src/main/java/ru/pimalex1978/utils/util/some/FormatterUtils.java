@@ -84,7 +84,6 @@ public class FormatterUtils {
     private static final long T = G * K;
 
 
-
     public static String formatBytes(final long value) {
         final long[] dividers = new long[]{T, G, M, K, 1};
         final String[] units = new String[]{"TB", "GB", "MB", "KB", "B"};
@@ -186,7 +185,7 @@ public class FormatterUtils {
             calendar.setTime(value);
             calendar.setTimeZone(TimeZone.getTimeZone("UTC"));
             XMLGregorianCalendar xmlGregorianCalendar = DatatypeFactory.newInstance()
-                                                                       .newXMLGregorianCalendar(calendar);
+                    .newXMLGregorianCalendar(calendar);
             //xmlGregorianCalendar.setTimezone(DatatypeConstants.FIELD_UNDEFINED); // without Z
             xmlGregorianCalendar.setMillisecond(DatatypeConstants.FIELD_UNDEFINED);
             return xmlGregorianCalendar;
@@ -201,7 +200,7 @@ public class FormatterUtils {
             calendar.setTime(value);
             calendar.setTimeZone(TimeZone.getTimeZone("UTC"));
             XMLGregorianCalendar xmlGregorianCalendar = DatatypeFactory.newInstance()
-                                                                       .newXMLGregorianCalendar(calendar);
+                    .newXMLGregorianCalendar(calendar);
             xmlGregorianCalendar.setTimezone(DatatypeConstants.FIELD_UNDEFINED); // without Z
             xmlGregorianCalendar.setMillisecond(DatatypeConstants.FIELD_UNDEFINED);
             return xmlGregorianCalendar;
@@ -354,46 +353,43 @@ public class FormatterUtils {
             return UUID.nameUUIDFromBytes(str.getBytes());
         }
     }
+
     public static String getMonthOrYearOrFullDateFromSource(Timestamp startDate, Integer accuracyFlag) {
         if (startDate != null) {
-            {
-                if (accuracyFlag != null) {
-                    switch (accuracyFlag) {
-                        case 0: // MONTH
-                            return new SimpleDateFormat("M").format(startDate);
-                        case 1: // MONTH + YEAR
-                            return new SimpleDateFormat("MM.yyyy").format(startDate);
-                        case 2: // DAY + MONTH + YEAR
-                            return new SimpleDateFormat("dd.MM.yyyy").format(startDate);
-                        case 3: // YEAR
-                            return new SimpleDateFormat("yyyy").format(startDate);
-                        case 4: // FULL DATE_TIME WITH SEC
-                            return new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(startDate);
-                        case 5: // FULL DATE_TIME WITHOUT SEC
-                            return new SimpleDateFormat("dd.MM.yyyy HH:mm").format(startDate);
-                        case 6: // MONTH in full name + YEAR
-                        {
-                            String strDate = "";
-                            //добавил массив месяцев, т.к. при прямом форматировании по патерну "MMMM yyyy" отдается не устраивающее нас
-                            //сообщение, например, не "ноябрь 2020", а "ноября 2020"
-                            DateFormatSymbols months = new DateFormatSymbols() {
-                                @Override
-                                public String[] getMonths() {
-                                    return new String[]{
-                                            "январь", "февраль", "март", "апрель", "май", "июнь",
-                                            "июль", "август", "сентябрь", "октябрь", "ноябрь", "декабрь"};
-                                }
-                            };
-                            SimpleDateFormat monthAndYearFormatter = new SimpleDateFormat("MMMM yyyy", months);
-                            strDate = monthAndYearFormatter.format(startDate);
-                            return strDate;
-                        }
-                        default:
-                            return new SimpleDateFormat("MM").format(startDate);
-                    }
-                } else {
-                    return new SimpleDateFormat("M").format(startDate);
+            if (accuracyFlag != null) {
+                switch (accuracyFlag) {
+                    case 0: // MONTH
+                        return new SimpleDateFormat("M").format(startDate);
+                    case 1: // MONTH + YEAR
+                        return new SimpleDateFormat("MM.yyyy").format(startDate);
+                    case 2: // DAY + MONTH + YEAR
+                        return new SimpleDateFormat("dd.MM.yyyy").format(startDate);
+                    case 3: // YEAR
+                        return new SimpleDateFormat("yyyy").format(startDate);
+                    case 4: // FULL DATE_TIME WITH SEC
+                        return new SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(startDate);
+                    case 5: // FULL DATE_TIME WITHOUT SEC
+                        return new SimpleDateFormat("dd.MM.yyyy HH:mm").format(startDate);
+                    case 6: // MONTH in full name + YEAR
+                        String strDate = "";
+                        //добавил массив месяцев, т.к. при прямом форматировании по патерну "MMMM yyyy" отдается не устраивающее нас
+                        //сообщение, например, не "ноябрь 2020", а "ноября 2020"
+                        DateFormatSymbols months = new DateFormatSymbols() {
+                            @Override
+                            public String[] getMonths() {
+                                return new String[]{
+                                        "январь", "февраль", "март", "апрель", "май", "июнь",
+                                        "июль", "август", "сентябрь", "октябрь", "ноябрь", "декабрь"};
+                            }
+                        };
+                        SimpleDateFormat monthAndYearFormatter = new SimpleDateFormat("MMMM yyyy", months);
+                        strDate = monthAndYearFormatter.format(startDate);
+                        return strDate;
+                    default:
+                        return new SimpleDateFormat("MM").format(startDate);
                 }
+            } else {
+                return new SimpleDateFormat("M").format(startDate);
             }
         } else {
             return "";

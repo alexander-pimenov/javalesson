@@ -15,13 +15,14 @@ public class DateUtils {
 
     private static final String MINIMAL_VALID_DATE = "1945-01-01 00:00:00";
     private static final String MAXIMAL_VALID_DATE = "2090-01-01 00:00:00";
+
     /**
      * Compare two dates with 2021-11-11T11:11:11.000Z and 2021-11-11T11:11:11Z formats
      */
     public static boolean isStringDatesEqual(String firstDate, String secondDate) {
-        return firstDate == null ?
-                secondDate == null :
-                secondDate != null && Instant.parse(firstDate).equals(Instant.parse(secondDate));
+        return firstDate == null
+                ? secondDate == null
+                : secondDate != null && Instant.parse(firstDate).equals(Instant.parse(secondDate));
     }
 
     public static Timestamp getEndOfYear() {
@@ -82,8 +83,8 @@ public class DateUtils {
         Timestamp ts = null;
         if (data instanceof Timestamp) {
             ts = (Timestamp) data;
-            if (((Timestamp) data).before(Timestamp.valueOf(MINIMAL_VALID_DATE)) ||
-                    ((Timestamp) data).after(Timestamp.valueOf(MAXIMAL_VALID_DATE))) {
+            if (((Timestamp) data).before(Timestamp.valueOf(MINIMAL_VALID_DATE))
+                    || ((Timestamp) data).after(Timestamp.valueOf(MAXIMAL_VALID_DATE))) {
                 return null;
             }
         }

@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class DirectoryStructureToJson {
 
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         try {
             String jsonInString = new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(
                     getNode(new File("E:/workspace/codegen-workspace/dir0"))
