@@ -1,6 +1,7 @@
 package ru.pimalex1978.class_date.work_shop_app;
 
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.any23.plugin.Author;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
@@ -42,6 +43,8 @@ public class TestEntityTest {
     //используем его что бы увидеть, что сохраняется в БД
     @Autowired
     JdbcTemplate jdbcTemplate;
+
+    ObjectMapper mapper = new ObjectMapper();
 
 
     @DisplayName("проверка отображения времени в БД")
@@ -93,5 +96,8 @@ public class TestEntityTest {
 
     }
 
+    @Test
+    void testJackson() {
 
+    }
 }
