@@ -1,8 +1,13 @@
 package ru.pimalex1978.stream.streamapi;
 
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 /**
  * Примеры работы методов Stream Api
@@ -98,5 +103,156 @@ public class CollectAndToArrayTests {
 
     public static void main(String[] args) throws Exception {
         testCollect();
+
+        //
+        List<Integer> numb = Arrays.asList(50, 10, 40, 30, 20, 100, 90, 80, 70);
+        System.out.println("max numb = " + getMaxOrMinNumber(MinMax.MAX, numb));
+        System.out.println("min numb = " + getMaxOrMinNumber(MinMax.MIN, numb));
+        System.out.println("2-nd max numb = " + getSecondLargestOrSmallestNumber(MinMax.MAX, numb));
+        System.out.println("2-nd min numb = " + getSecondLargestOrSmallestNumber(MinMax.MIN, numb));
+
+        //частота повторения символов в строке
+        var str = "javaisthebest";
+        System.out.println("map of chars = " + frequencyOfEachCharacterInString(str));
+
+        //разворот каждого отдельного слова в предложении
+        var strStr = "Hello World This Is Java";
+        System.out.println("reverse each word of string = " + reverseEachWordOfString(strStr));
+
+        //удалим дубликаты из списка чисел (можно обойтись без stream и положить список в множество (set)
+        List<Integer> listWithDuplicate = Arrays.asList(5, 1, 4, 3, 2, 10, 9, 8, 7, 1, 3, 5, 1, 3);
+        System.out.println("remove duplicate elements from list = " + removeDuplicateElementsFromList(listWithDuplicate));
+
+
+        //извлекаем последний элемент из строки
+        List<String> listOfString = Arrays.asList("One", "Two",
+                "Three", "Four", "Five", "Six");
+        System.out.println("retrieve last element of list of string = " + retrieveLastElementOfListOfString(listOfString));
+
+        //найти возраст человека, если задан его ДР
+        LocalDate birthDate = LocalDate.parse("1991-03-24");
+
+        LocalDate currentDate = LocalDate.now();
+
+        int years = Period.between(birthDate, currentDate).getYears();
+        System.out.println("years = " + years);
+
+        System.out.println("years = " + findAgeOfPersonInYear(new Person("Alex", LocalDate.parse("1978-01-15"))));
+
+        //только четные числа
+        System.out.println("even numbers = " + getListOfEvenNumbersFromNumbersList(listWithDuplicate));
+
+        //получим сумму всех чисел в числе
+        int number = 12345;
+        System.out.println("sum of all digits of number = " + getSumOfAllDigitsOfNumber(number));
+
+        //отсортируем в алфавитном порядке слова
+        System.out.println("sorted alphabetically = " + sortOfStringAlphabetically(Order.ASC,listOfString));
+        System.out.println("sorted alphabetically = " + sortOfStringAlphabetically(Order.DESC,listOfString));
+
+
+    }
+
+    public static int getMaxOrMinNumber(MinMax opt, List<Integer> numbers) {
+        if (opt == MinMax.MAX) {
+            return numbers.stream()
+                    .max(Comparator.naturalOrder())
+                    .get();
+        } else {
+            return numbers.stream()
+                    .min(Comparator.naturalOrder())
+                    .get();
+        }
+    }
+
+    public static int getSecondLargestOrSmallestNumber(MinMax opt, List<Integer> numbers) {
+        if (opt == MinMax.MAX) {
+            return numbers.stream()
+                    .sorted(Comparator.reverseOrder())
+                    .skip(1)
+                    .findFirst()
+                    .get();
+        } else {
+            return numbers.stream()
+                    .sorted(Comparator.naturalOrder())
+                    .skip(1)
+                    .findFirst()
+                    .get();
+        }
+    }
+
+    public static Map<Character, Long> frequencyOfEachCharacterInString(String str) {
+        IntStream intStream = str.chars(); //InputStream представляет ASCII значения для каждого символа
+        Stream<Character> characterStream = intStream.mapToObj(c -> (char) c); //mapToObj - конвертирует каждое ASCII значение обратно в символ
+
+        Map<Character, Long> collect = characterStream
+                .collect(
+                        Collectors.groupingBy(
+                                Function.identity(),
+                                TreeMap::new, //чтобы выстроить ключи по алфавиту
+                                Collectors.counting()
+                        ));
+        return collect;
+    }
+
+    public static String reverseEachWordOfString(String str) {
+        String[] strings = str.split(" ");
+        return Arrays.stream(strings)
+                .map((word) -> new StringBuilder(word).reverse().toString())
+                .collect(Collectors.joining(" "));
+    }
+
+    public static List<Integer> removeDuplicateElementsFromList(List<Integer> numbers) {
+        return numbers.stream()
+                .distinct()
+                .sorted(Comparator.naturalOrder())
+                .collect(Collectors.toList());
+
+    }
+
+    public static List<Integer> getListOfEvenNumbersFromNumbersList(List<Integer> numbers) {
+        return numbers.stream()
+                .filter(n -> n % 2 == 0)
+                .sorted(Comparator.naturalOrder())
+                .collect(Collectors.toList());
+    }
+
+    public static int getSumOfAllDigitsOfNumber(int number) {
+        IntStream intStream = String.valueOf(number).chars(); //InputStream представляет ASCII значения для каждого символа
+        return intStream.map(Character::getNumericValue).sum();
+    }
+
+    public static String retrieveLastElementOfListOfString(List<String> listStr) {
+        return listStr.stream()
+                .skip(listStr.size() - 1)
+                .findFirst()
+                .get();
+    }
+
+    public static int findAgeOfPersonInYear(Person person) {
+        LocalDate birthDate = person.getBirthDate();
+        LocalDate currentDate = LocalDate.now();
+        Period between = Period.between(birthDate, currentDate);
+        return between.getYears();
+    }
+
+    public static List<String> sortOfStringAlphabetically(Order order, List<String> listStr) {
+        if (order == Order.ASC) {
+            return listStr.stream()
+                    .sorted()
+                    .collect(Collectors.toList());
+        } else {
+            return listStr.stream()
+                    .sorted(Comparator.reverseOrder())
+                    .collect(Collectors.toList());
+        }
+    }
+
+    private enum MinMax {
+        MIN, MAX
+    }
+
+    private enum Order {
+        ASC, DESC
     }
 }

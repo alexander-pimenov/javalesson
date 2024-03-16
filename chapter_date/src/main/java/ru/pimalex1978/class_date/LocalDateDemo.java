@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.Month;
 import java.time.OffsetDateTime;
+import java.time.Period;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
@@ -219,6 +220,9 @@ public class LocalDateDemo {
         DateTimeFormatter dTF2 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         System.out.println(" formats as " + dTF2.format(utcDateTimeForCurrentDateTime));
 
+        //найдем возраст человека
+        System.out.println("years = " + findAgeOfPersonInYear(new Person("Bob", LocalDate.parse("1980-10-01"))));
+
     }
 
     public static String convertToLocalDateTimeAsString(LocalDate dateToConvert) {
@@ -290,5 +294,10 @@ public class LocalDateDemo {
         return result;
     }
 
-
+    public static int findAgeOfPersonInYear(Person person) {
+        LocalDate birthDate = person.getBirthDate();
+        LocalDate currentDate = LocalDate.now();
+        Period between = Period.between(birthDate, currentDate);
+        return between.getYears();
+    }
 }

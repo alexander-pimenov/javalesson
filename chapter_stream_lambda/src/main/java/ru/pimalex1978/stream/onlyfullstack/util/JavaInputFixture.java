@@ -8,7 +8,6 @@ import java.util.List;
 /**
  * Класс, инициализирующий студентов, и добавляющий их в список.
  */
-
 public class JavaInputFixture {
     public static List<Student> createList() {
 
