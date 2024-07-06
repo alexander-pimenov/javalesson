@@ -35,7 +35,7 @@ import java.time.ZoneId;
 @Transactional
 public class TestEntityTest {
 
-    //т.к. для простоты решили не создавать слой репозитория,
+    //для простоты решили не создавать слой репозитория,
     // а будем работать через EntityManager
     @PersistenceContext
     EntityManager entityManager;
@@ -61,7 +61,7 @@ public class TestEntityTest {
         entityManager.flush();
         entityManager.clear();
 
-        //достанем данные из БД, и посмотрим, что дежит во вотрой колонке в дате:
+        //достанем данные из БД, и посмотрим, что содержит во второй колонке в дате:
         jdbcTemplate.query("select * from test_entity", rs -> {
             String stringDateFromDB = rs.getString(2);
             System.out.println("stringDateFromDB = " + stringDateFromDB);
@@ -83,7 +83,7 @@ public class TestEntityTest {
         entityManager.flush();
         entityManager.clear();
 
-        //достанем данные из БД, и посмотрим, что дежит во вотрой колонке в дате:
+        //достанем данные из БД, и посмотрим, что содержит во второй колонке в дате:
         jdbcTemplate.query("select * from test_entity", rs -> {
             String stringDateFromDB = rs.getString(2);
             System.out.println("stringDateFromDB = " + stringDateFromDB);
