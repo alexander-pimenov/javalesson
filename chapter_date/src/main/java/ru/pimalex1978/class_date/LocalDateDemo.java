@@ -20,7 +20,10 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.temporal.ChronoField;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 /*
@@ -180,8 +183,16 @@ public class LocalDateDemo {
         // В parse() и format() методы доступны для всех дата/время, связанные с объектами (например, LocalDate
         // или ZonedDateTime)
 
-        DateTimeFormatter dTF = DateTimeFormatter.ofPattern("dd MMM uuuu");
         String anotherDate = "04 Aug 2015";
+        //DateTimeFormatter dTF = DateTimeFormatter.ofPattern("dd MMM uuuu"); - можно этот вариант
+        DateTimeFormatter dTF = new DateTimeFormatterBuilder() // можно вариант с билдером
+                // case insensitive to parse JAN and FEB
+                .parseCaseInsensitive()
+                // add pattern
+                .appendPattern("dd MMM yyyy")
+                // create formatter (use English Locale to parse month names)
+                .toFormatter(Locale.ENGLISH);
+
         LocalDate lds = LocalDate.parse(anotherDate, dTF);
         System.out.println("10 " + anotherDate + " parses to " + lds);
 
@@ -215,13 +226,16 @@ public class LocalDateDemo {
         System.out.println(" formats as " + dateTimeFormatter.format(localDateTime4));
 
         //GET UTC time for current date
-        Date now= new Date();
+        Date now = new Date();
         LocalDateTime utcDateTimeForCurrentDateTime = Instant.ofEpochMilli(now.getTime()).atZone(ZoneId.of("UTC")).toLocalDateTime();
         DateTimeFormatter dTF2 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         System.out.println(" formats as " + dTF2.format(utcDateTimeForCurrentDateTime));
 
         //найдем возраст человека
         System.out.println("years = " + findAgeOfPersonInYear(new Person("Bob", LocalDate.parse("1980-10-01"))));
+
+        System.out.println("========================================");
+        getRequiredTime(12, 30);
 
     }
 
@@ -299,5 +313,33 @@ public class LocalDateDemo {
         LocalDate currentDate = LocalDate.now();
         Period between = Period.between(birthDate, currentDate);
         return between.getYears();
+    }
+
+    /**
+     * Метод выводящий даты с задамым шагом дней.
+     *
+     * @param amountSteps количество шагов (если 12 шагов то это эквивалентно 12 месяцам)
+     * @param afterDays   через сколько дней
+     * @return список дат в строковом представлении
+     */
+    public static List<LocalDate> getRequiredTime(long amountSteps, long afterDays) {
+        //startDate → "24.06.2024"; - возможно стартовую дату можно также передавать в аргументе функции
+        LocalDate startDate = LocalDate.of(2024, Month.JUNE, 24);
+        System.out.println("Стартовая дата: " + startDate);
+        System.out.println("Будет выполнено " + amountSteps + " шагов");
+        LocalDate newDate;
+        ArrayList<LocalDate> localDates = new ArrayList<>();
+        long anchor = amountSteps;
+        while (amountSteps > 0) {
+            System.out.println("шаг: " + ((anchor + 1) - amountSteps));
+            newDate = startDate;
+            newDate = newDate.plus(afterDays, ChronoUnit.DAYS);
+            localDates.add(newDate);
+            System.out.println(newDate);
+            amountSteps = amountSteps - 1;
+            startDate = newDate;
+        }
+        System.out.println(localDates);
+        return localDates;
     }
 }
